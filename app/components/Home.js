@@ -17,13 +17,14 @@ export default class Home extends Component {
     };
   }
 
+  processFile() {
+    console.log({videoFile: this.state.videoFile, subtitlesFile: JSON.stringify(this.state.subtitlesFile)});
+  }
+
   setFile(file, type) {
-    console.log('setFile called')
     const newState = {};
     newState[type] = file;
-    this.setState(newState, ()=>{
-      console.log({videoFile: this.state.videoFile, newState, file, type})
-    });
+    this.setState(newState);
   }
 
   render() {
@@ -42,12 +43,10 @@ export default class Home extends Component {
             <FileDrop message='Drop your subtitle file here (if you have one)' setFile={this.setFile.bind(this)} type='subtitlesFile' />
           </div>
           <div className='col-sm-4'>
-            <i className="fa fa-arrow-right" aria-hidden="true"></i>
+            <i className="fa fa-arrow-right" aria-hidden="true" onClick={this.processFile.bind(this)}></i>
             <br />Go
           </div>
           <div className='col-xs-12'>
-            {this.state.videoFile.name}<br />
-            {this.state.videoFile.path}<br />
           </div>
         </div>
       </div>
