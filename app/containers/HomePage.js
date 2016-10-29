@@ -2,10 +2,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Home from '../components/Home';
-import { setFile } from '../actions/files';
+import { setFiles } from '../actions/files';
 
 const mapDispatchToProps = dispatch => ({
-  setFile: file => dispatch(setFile(file))
+  setFiles: files => {console.log('container');return dispatch(setFiles(files));}
 });
 
 const mapStateToProps = state => ({
