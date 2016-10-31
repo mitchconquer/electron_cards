@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import styles from './Home.css';
 import FileDrop from './FileDrop';
+import mediaFlashcards from 'videocards';
 
 export default class Home extends Component {
   static propTypes = {

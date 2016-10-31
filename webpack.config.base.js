@@ -35,5 +35,11 @@ export default validate({
 
   externals: [
     'bootstrap'
-  ]
+  ],
+
+  resolve: {
+    alias: {
+      'fluent-ffmpeg': 'fluent-ffmpeg/lib/fluent-ffmpeg.js'
+    }
+  }
 });
