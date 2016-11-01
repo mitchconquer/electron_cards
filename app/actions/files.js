@@ -1,4 +1,8 @@
+const mediaFlashcards = require('videocards');
+const Bromise = require('bluebird');
+
 export const SET_FILES = 'SET_FILES';
+export const PROCESSING = 'PROCESSING';
 
 // ACTION CREATORS
 
@@ -11,4 +15,42 @@ export function setFiles(files) {
     type: SET_FILES,
     files
   };
+}
+
+/**
+ * Creates an action to set the app processing state
+ * @param {boolean} value - True if the app should currently block user actions, false if it should allow user actions
+ */
+export function processing(value) {
+  return {
+    type: PROCESSING,
+    value
+  }
+}
+
+// ACTION CREATOR CREATORS
+
+export function processFiles(videoFile, subtitlesFile) {
+  return dispatch => {
+    return new Bromise((resolve, reject) => {
+      dispatch(processing(true));
+      dispatch(setFiles([videoFile, subtitlesFile]));
+
+      let subtitles;
+      mediaFlashcards.initializeSubs(subtitlesFile.path, videoFile.path)
+        .then(
+          subsFromInitialize => mediaFlashcards.transformSubs(subsFromInitialize)
+        )
+        .then(
+          subs => mediaFlashcards.generateAudio(videoFile.path, subs)
+        ).
+        then(
+          () => dispatch(processing(false))
+        );
+        // .then(
+        //   dir => console.log({dir})
+        // );
+      console.log({dir: mediaFlashcards.getAudioDir()})
+    });
+  }
 }

@@ -2,14 +2,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Home from '../components/Home';
-import { setFiles } from '../actions/files';
+import { setFiles, processFiles } from '../actions/files';
 
 const mapDispatchToProps = dispatch => ({
-  setFiles: files => {console.log('container');return dispatch(setFiles(files));}
+  setFiles: files => dispatch(setFiles(files)),
+  processFiles: (videoFile, subtitlesFile) => dispatch(processFiles(videoFile, subtitlesFile))
 });
 
 const mapStateToProps = state => ({
-  
+  processing: state.files.processing
 });
 
 const HomePageContainer = connect(

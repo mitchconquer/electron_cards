@@ -7,7 +7,9 @@ import mediaFlashcards from 'videocards';
 
 export default class Home extends Component {
   static propTypes = {
-    setFile: PropTypes.func.isRequired
+    setFiles: PropTypes.func.isRequired,
+    processFiles: PropTypes.func.isRequired,
+    processing: PropTypes.bool.isRequired
   };
 
   constructor() {
@@ -19,11 +21,8 @@ export default class Home extends Component {
   }
 
   processFile() {
-    // Put files into Redux store
-    // Process vids & display spinner
-    // On completion, redirect to clip editing page
-    // console.log({videoFile: this.state.videoFile, subtitlesFile: this.state.subtitlesFile});
-    this.props.setFiles([this.state.videoFile, this.state.subtitlesFile]);
+    const { videoFile, subtitlesFile } = this.state;
+    this.props.processFiles(videoFile, subtitlesFile);
   }
 
   setFile(file, type) {
@@ -54,6 +53,7 @@ export default class Home extends Component {
             </a>
           </div>
           <div className='col-xs-12'>
+            {this.props.processing && 'Processing...'}
           </div>
         </div>
       </div>
