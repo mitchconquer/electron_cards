@@ -1,6 +1,7 @@
 const mediaFlashcards = require('videocards');
 const Bromise = require('bluebird');
 import { resetMedia } from './media';
+import { push } from 'react-router-redux';
 
 export const SET_FILES = 'SET_FILES';
 export const PROCESSING = 'PROCESSING';
@@ -50,6 +51,9 @@ export function processFiles(videoFile, subtitlesFile) {
         )
         .then(
           () => dispatch(processing(false))
+        )
+        .then(
+          () => dispatch(push('/edit'))
         );
         // .then(
         //   dir => console.log({dir})
