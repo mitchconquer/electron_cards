@@ -33,6 +33,8 @@ export default class Home extends Component {
   }
 
   render() {
+    // Decent loading animation https://codepen.io/Haasbroek/pen/gbqYyj
+    
     const { videoFile, subtitlesFile } = this.state;
     return (
       <div className='container'>

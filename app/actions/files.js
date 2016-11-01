@@ -1,5 +1,6 @@
 const mediaFlashcards = require('videocards');
 const Bromise = require('bluebird');
+import { resetMedia } from './media';
 
 export const SET_FILES = 'SET_FILES';
 export const PROCESSING = 'PROCESSING';
@@ -43,8 +44,11 @@ export function processFiles(videoFile, subtitlesFile) {
         )
         .then(
           subs => mediaFlashcards.generateAudio(videoFile.path, subs)
-        ).
-        then(
+        )
+        .then(
+          subs => {console.log({subs}); return dispatch(resetMedia(subs));}
+        )
+        .then(
           () => dispatch(processing(false))
         );
         // .then(
