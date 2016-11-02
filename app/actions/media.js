@@ -1,3 +1,7 @@
+import { remote } from 'electron';
+const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards;
+import { processing } from './files';
+
 export const RESET_MEDIA = 'RESET_MEDIA';
 
 // ACTION CREATORS
@@ -10,5 +14,22 @@ export function resetMedia(media) {
   return {
     type: RESET_MEDIA,
     media
+  };
+}
+
+// ACTION CREATOR CREATORS
+
+export function createApkg() {
+  dispatch => {
+    const videoFile = this.state.files.videoFile.path;
+    dispatch(processing(true));
+    mediaFlashcards.createAnkiDb(videoFile, this.state.media)
+      // .then(
+      //   dbFile => apkgCreater(dbFile, mediaFlashcards.quickName(videoFile))
+      // )
+      .then(
+        () => dispatch(processing(false))
+      );
+
   };
 }

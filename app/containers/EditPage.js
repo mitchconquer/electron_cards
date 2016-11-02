@@ -2,6 +2,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Edit from '../components/Edit';
+import { createApkg } from '../actions/media';
 
 function mapStateToProps(state) {
   return {
@@ -11,6 +12,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    createApkg: () => createApkg()
   };
 }
 

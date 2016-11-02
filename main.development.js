@@ -3,6 +3,8 @@ import { app, BrowserWindow, Menu, shell } from 'electron';
 let menu;
 let template;
 let mainWindow = null;
+const mediaFlashcards = require('videocards');
+global.globalObj = {mediaFlashcards: mediaFlashcards};
 
 
 if (process.env.NODE_ENV === 'development') {

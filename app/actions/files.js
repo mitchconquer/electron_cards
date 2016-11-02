@@ -1,7 +1,8 @@
-const mediaFlashcards = require('videocards');
 const Bromise = require('bluebird');
 import { resetMedia } from './media';
 import { push } from 'react-router-redux';
+import { remote } from 'electron';
+const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards;
 
 export const SET_FILES = 'SET_FILES';
 export const PROCESSING = 'PROCESSING';
