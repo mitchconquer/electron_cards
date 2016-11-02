@@ -4,6 +4,8 @@
 
 # Development Plan
 
+May need to run `.node_modules/.bin/electron-rebuild --pre-gyp-fix` before initial run?
+
 V 0.1
 
 - [X] Accept video and subtitle files

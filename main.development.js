@@ -4,7 +4,7 @@ let menu;
 let template;
 let mainWindow = null;
 const mediaFlashcards = require('videocards');
-global.globalObj = {mediaFlashcards: mediaFlashcards};
+global.globalObj = {mediaFlashcards};
 
 
 if (process.env.NODE_ENV === 'development') {
