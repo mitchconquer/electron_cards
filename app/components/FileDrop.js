@@ -1,7 +1,6 @@
 // @flow
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import styles from './Home.css';
 import Dropzone from 'react-dropzone';
 
 

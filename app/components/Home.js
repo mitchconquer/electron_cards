@@ -1,8 +1,8 @@
 // @flow
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import styles from './Home.css';
 import FileDrop from './FileDrop';
+import Loader from './Loader';
 
 export default class Home extends Component {
   static propTypes = {
@@ -55,6 +55,9 @@ export default class Home extends Component {
           </div>
           <div className='col-xs-12'>
             {this.props.processing && 'Processing...'}
+          </div>
+          <div className='col-xs-12'>
+            <Loader active={this.props.processing}/>
           </div>
         </div>
       </div>
