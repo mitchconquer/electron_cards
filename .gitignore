@@ -37,3 +37,4 @@ main.js.map
 
 yarn.lock
 pkg/**
+*.apkg
