@@ -12,7 +12,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createApkg: () => {console.log('creating apkg'); createApkg()}
+    createApkg: () => {console.log('creating apkg'); dispatch(createApkg())}
   };
 }
 

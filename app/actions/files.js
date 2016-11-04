@@ -41,14 +41,17 @@ export function processFiles(videoFile, subtitlesFile) {
 
       let subtitles;
       mediaFlashcards.initializeSubs(subtitlesFile.path, videoFile.path)
+        // .then(
+        //   subsFromInitialize => mediaFlashcards.transformSubs(subsFromInitialize)
+        // )
+        // .then(
+        //   subs => mediaFlashcards.generateAudio(videoFile.path, subs)
+        // )
+        // .then(
+        //   subs => {console.log({subs}); return dispatch(resetMedia(subs));}
+        // )
         .then(
-          subsFromInitialize => mediaFlashcards.transformSubs(subsFromInitialize)
-        )
-        .then(
-          subs => mediaFlashcards.generateAudio(videoFile.path, subs)
-        )
-        .then(
-          subs => {console.log({subs}); return dispatch(resetMedia(subs));}
+          () => dispatch(resetMedia({}))
         )
         .then(
           () => dispatch(processing(false))

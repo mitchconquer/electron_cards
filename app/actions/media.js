@@ -20,13 +20,22 @@ export function resetMedia(media) {
 // ACTION CREATOR CREATORS
 
 export function createApkg() {
-  const videoFile = this.state.files.videoFile.path;
-  dispatch(processing(true));
-  mediaFlashcards.createAnkiDb(videoFile, this.state.media)
-    .then(
-      dbFile => {console.log({dbFile}); return mediaFlashcards.apkgCreater(dbFile, mediaFlashcards.quickName(videoFile))}
-    )
-    .then(
-      () => dispatch(processing(false))
-    );
+  return (dispatch, getState) => {
+    const { files, media } = getState();
+    console.log({path: files.videoFile.path})
+    const videoFile = files.videoFile.path;
+    console.log({videoFile, createApkg: 'processing'})
+    dispatch(processing(true));
+    mediaFlashcards.createAnkiDb(videoFile, mediaArray(media))
+      .then(
+        dbFile => {console.log({dbFile}); return mediaFlashcards.createApkg(dbFile, mediaFlashcards.quickName(videoFile))}
+      )
+      .then(
+        () => dispatch(processing(false))
+      );
+  };
+}
+
+function mediaArray(mediaObject) {
+  return Object.keys(mediaObject).map(key => mediaObject[key]);
 }
