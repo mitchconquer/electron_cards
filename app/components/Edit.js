@@ -1,5 +1,6 @@
 // @flow
 import React, { Component, PropTypes } from 'react';
+import MediaItem from './MediaItem';
 
 class Edit extends Component {
   static propTypes = {
@@ -9,25 +10,18 @@ class Edit extends Component {
     updateFilter: PropTypes.func.isRequired
   };
 
-  filterMedia() {
+  filteredMediaItems() {
     const { media, filter } = this.props;
-    return Object.keys(media).filter(key => {
-      return media[key].text.toLowerCase().includes(filter.toLowerCase());
-    });
+    return Object.keys(media).map(key => media[key]).filter(item => {
+      return item.text.toLowerCase().includes(filter.toLowerCase());
+    })
+      .map(item => <MediaItem key={item.index} mediaItem={item}>{item.text}</MediaItem>);
   }
 
   onFilterChange(event) {
     event.preventDefault();
     const value = event.target.value;
     this.props.updateFilter(value);
-  }
-
-  renderMediaItem(item) {
-    return (
-      <li key={item.index}>
-        {item.text}
-      </li>
-    );
   }
 
   render() {
@@ -45,7 +39,7 @@ class Edit extends Component {
         <br />
         <br />
         <ul>
-         {this.filterMedia().map(index => this.renderMediaItem(media[index]))}
+         {this.filteredMediaItems()}
         </ul>
       </div>
     );

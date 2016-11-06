@@ -1,6 +1,7 @@
 import { remote } from 'electron';
 const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards;
 import { processing } from './files';
+import { push } from 'react-router-redux';
 
 export const RESET_MEDIA = 'RESET_MEDIA';
 export const UPDATE_FILTER = "UPDATE_FILTER";
@@ -40,6 +41,9 @@ export function createApkg() {
       )
       .then(
         () => dispatch(processing(false))
+      )
+      .then(
+        () => dispatch(push('/'))
       );
   };
 }
