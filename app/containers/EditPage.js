@@ -2,17 +2,19 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Edit from '../components/Edit';
-import { createApkg } from '../actions/media';
+import { createApkg, updateFilter } from '../actions/media';
 
 function mapStateToProps(state) {
   return {
-    media: state.media
+    filter: state.media.filter,
+    media: state.media.allMedia
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    createApkg: () => {console.log('creating apkg'); dispatch(createApkg())}
+    createApkg: () => dispatch(createApkg()),
+    updateFilter: newFilter => dispatch(updateFilter(newFilter))
   };
 }
 

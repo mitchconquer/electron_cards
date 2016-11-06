@@ -41,17 +41,14 @@ export function processFiles(videoFile, subtitlesFile) {
 
       let subtitles;
       mediaFlashcards.initializeSubs(subtitlesFile.path, videoFile.path)
-        // .then(
-        //   subsFromInitialize => mediaFlashcards.transformSubs(subsFromInitialize)
-        // )
-        // .then(
-        //   subs => mediaFlashcards.generateAudio(videoFile.path, subs)
-        // )
-        // .then(
-        //   subs => {console.log({subs}); return dispatch(resetMedia(subs));}
-        // )
         .then(
-          () => dispatch(resetMedia({}))
+          subsFromInitialize => mediaFlashcards.transformSubs(subsFromInitialize)
+        )
+        .then(
+          subs => mediaFlashcards.generateAudio(videoFile.path, subs)
+        )
+        .then(
+          subs => {console.log({subs}); return dispatch(resetMedia(subs));}
         )
         .then(
           () => dispatch(processing(false))
@@ -59,9 +56,6 @@ export function processFiles(videoFile, subtitlesFile) {
         .then(
           () => dispatch(push('/edit'))
         );
-        // .then(
-        //   dir => console.log({dir})
-        // );
       console.log({dir: mediaFlashcards.getAudioDir()})
     });
   }

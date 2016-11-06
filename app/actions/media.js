@@ -3,6 +3,7 @@ const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards;
 import { processing } from './files';
 
 export const RESET_MEDIA = 'RESET_MEDIA';
+export const UPDATE_FILTER = "UPDATE_FILTER";
 
 // ACTION CREATORS
 
@@ -14,6 +15,14 @@ export function resetMedia(media) {
   return {
     type: RESET_MEDIA,
     media
+  };
+}
+
+export function updateFilter(newFilter) {
+  console.log('updating filter with ', newFilter)
+  return {
+    type: UPDATE_FILTER,
+    newFilter
   };
 }
 
