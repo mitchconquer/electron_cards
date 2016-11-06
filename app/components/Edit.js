@@ -32,7 +32,6 @@ class Edit extends Component {
 
   render() {
     const { filter, media } = this.props;
-    console.log({filter});
     return (
       <div>
        <h1>Edit Page</h1>

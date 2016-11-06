@@ -19,7 +19,6 @@ export function resetMedia(media) {
 }
 
 export function updateFilter(newFilter) {
-  console.log('updating filter with ', newFilter)
   return {
     type: UPDATE_FILTER,
     newFilter
