@@ -50,7 +50,7 @@ export function processFiles(videoFile, subtitlesFile) {
           subs => mediaFlashcards.generateAudio(videoFile.path, subs)
         )
         .then(
-          subs => {console.log({subs}); return dispatch(resetMedia(subs));}
+          subs => dispatch(resetMedia(subs))
         )
         .then(
           () => dispatch(processing(false))
