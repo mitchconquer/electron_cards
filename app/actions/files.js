@@ -39,6 +39,8 @@ export function processFiles(videoFile, subtitlesFile) {
       dispatch(processing(true));
       dispatch(setFiles([videoFile, subtitlesFile]));
 
+      mediaFlashcards.rmFiles('./pkg');
+
       let subtitles;
       mediaFlashcards.initializeSubs(subtitlesFile.path, videoFile.path)
         .then(
@@ -56,7 +58,6 @@ export function processFiles(videoFile, subtitlesFile) {
         .then(
           () => dispatch(push('/edit'))
         );
-      console.log({dir: mediaFlashcards.getAudioDir()})
     });
   }
 }

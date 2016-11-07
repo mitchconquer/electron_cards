@@ -1,5 +1,6 @@
 import { remote } from 'electron';
 const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards;
+const desktopDir = remote.getGlobal('globalObj').desktopDir;
 import { processing } from './files';
 import { push } from 'react-router-redux';
 
@@ -31,13 +32,15 @@ export function updateFilter(newFilter) {
 export function createApkg() {
   return (dispatch, getState) => {
     const { files, media } = getState();
-    console.log({path: files.videoFile.path})
     const videoFile = files.videoFile.path;
-    console.log({videoFile, createApkg: 'processing'})
     dispatch(processing(true));
-    mediaFlashcards.createAnkiDb(videoFile, mediaArray(media))
+
+    mediaFlashcards.createAnkiDb(videoFile, mediaToArray(media.allMedia))
       .then(
-        dbFile => {console.log({dbFile}); return mediaFlashcards.createApkg(dbFile, mediaFlashcards.quickName(videoFile))}
+        dbFile => mediaFlashcards.createApkg(dbFile, mediaFlashcards.quickName(videoFile), desktopDir)
+      )
+      .then(
+        () => mediaFlashcards.rmFiles('./pkg')
       )
       .then(
         () => dispatch(processing(false))
@@ -48,6 +51,6 @@ export function createApkg() {
   };
 }
 
-function mediaArray(mediaObject) {
+function mediaToArray(mediaObject) {
   return Object.keys(mediaObject).map(key => mediaObject[key]);
 }

@@ -10,8 +10,8 @@ V 0.1
 
 - [X] Accept video and subtitle files
 - [X] Display the processed subtitle files
-- [ ] Confirm and output `.apkg` file
-- [ ] Able to filter subtitles
+- [X] Confirm and output `.apkg` file
+- [X] Able to filter subtitles
 - [ ] Able to preview subtitle sound
 
 V 1.0

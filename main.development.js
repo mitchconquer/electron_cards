@@ -5,6 +5,7 @@ let template;
 let mainWindow = null;
 const mediaFlashcards = require('videocards');
 global.globalObj = {mediaFlashcards};
+global.globalObj.desktopDir = app.getPath('desktop');
 
 
 if (process.env.NODE_ENV === 'development') {
@@ -39,7 +40,7 @@ app.on('ready', async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
+    width: 1324,
     height: 728
   });
 
