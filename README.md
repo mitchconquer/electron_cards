@@ -12,7 +12,7 @@ V 0.1
 - [X] Display the processed subtitle files
 - [X] Confirm and output `.apkg` file
 - [X] Able to filter subtitles
-- [ ] Able to preview subtitle sound
+- [X] Able to preview subtitle sound
 
 V 1.0
 - [ ] Able to batch edit subtitles (add/remove time)
