@@ -21,12 +21,18 @@ export default class MediaItem extends Component {
   }
 
   render() {
-    const { index, text } = this.props.mediaItem;
+    const { index, media, text } = this.props.mediaItem;
     const { checked } = this.state;
+
     return (
       <li key={index}>
+        <input type='checkbox' checked={this.state.checked} onClick={this.toggleCheckbox.bind(this)} />
+        <br />
+        <audio src={`../pkg/${media}`} controls>
+          Your browser does not support the <code>audio</code> element.
+        </audio>
+        <br />
         <label>
-          <input type='checkbox' checked={this.state.checked} onClick={this.toggleCheckbox.bind(this)} />
           {text}
         </label>
       </li>
