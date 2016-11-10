@@ -111,7 +111,6 @@
     "bootstrap": "^3.3.7",
     "css-modules-require-hook": "^4.0.5",
     "electron-debug": "^1.0.1",
-    "electron-rebuild": "^1.3.0",
     "font-awesome": "^4.6.3",
     "postcss": "^5.2.4",
     "react": "^15.3.2",
