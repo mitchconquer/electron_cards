@@ -1,12 +1,14 @@
 import { app, BrowserWindow, Menu, shell } from 'electron';
+const mediaFlashcards = require('videocards');
 
 let menu;
 let template;
 let mainWindow = null;
-const mediaFlashcards = require('videocards');
-global.globalObj = {mediaFlashcards};
-global.globalObj.desktopDir = app.getPath('desktop');
 
+global.globalObj = {
+  mediaFlashcards,
+  desktopDir: app.getPath('desktop')
+};
 
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')(); // eslint-disable-line global-require
