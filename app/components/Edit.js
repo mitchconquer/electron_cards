@@ -38,9 +38,9 @@ class Edit extends Component {
         <input type='text' value={filter} onChange={this.onFilterChange.bind(this)} className='filter-input' />
         <br />
         <br />
-        <ul>
+        <div className='row'>
          {this.filteredMediaItems()}
-        </ul>
+        </div>
       </div>
     );
   }

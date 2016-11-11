@@ -19,7 +19,8 @@
     "package-all": "npm run package -- --all",
     "postinstall": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
     "dev": "concurrently --kill-others \"npm run hot-server\" \"npm run start-hot\"",
-    "cleanup": "mop -v"
+    "cleanup": "mop -v",
+    "recompile-packages": "./node_modules/.bin/electron-rebuild --pre-gyp-fix"
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"

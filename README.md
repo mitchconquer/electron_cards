@@ -15,7 +15,7 @@ V 0.1
 - [X] Able to preview subtitle sound
 
 V 1.0
+- [ ] Able to add/remove time for invidivdual subtitles
 - [ ] Able to batch edit subtitles (add/remove time)
 - [ ] Able to delete subtitles
-- [ ] Able to add/remove time for invidivdual subtitles
 - [ ] Able to combine subtitles

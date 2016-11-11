@@ -25,17 +25,23 @@ export default class MediaItem extends Component {
     const { checked } = this.state;
 
     return (
-      <li key={index}>
-        <input type='checkbox' checked={this.state.checked} onClick={this.toggleCheckbox.bind(this)} />
-        <br />
-        <audio src={`../pkg/${media}`} controls>
-          Your browser does not support the <code>audio</code> element.
-        </audio>
-        <br />
-        <label>
-          {text}
-        </label>
-      </li>
+      <div className='col-xs-12' key={index}>
+        <div className='col-sm-1'>
+          <label>
+            <input type='checkbox' checked={this.state.checked} onClick={this.toggleCheckbox.bind(this)} />
+          </label>
+        </div>
+        <div className='col-sm-11'>
+          <br />
+          <audio src={`../pkg/${media}`} controls>
+            Your browser does not support the <code>audio</code> element.
+          </audio>
+          <br />
+          <p className='text'>
+            {text}
+          </p>
+        </div>
+      </div>
     );
   }
 }
