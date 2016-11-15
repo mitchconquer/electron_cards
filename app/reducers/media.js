@@ -1,5 +1,5 @@
 // @flow
-import { RESET_MEDIA, UPDATE_FILTER } from '../actions/media';
+import { RESET_MEDIA, UPDATE_FILTER, UPDATE_MEDIA } from '../actions/media';
 import mediaLocal from './media_local';
 
 export const initialState = {
@@ -16,8 +16,19 @@ export default function media(state = initialState, action = {}) {
       action.media.forEach(item => {
         mediaState.allMedia[item.index] = item;
       });
-      // mediaState.allMedia = {...mediaLocal};
       return mediaState;
+    case UPDATE_MEDIA:
+      let newState = Object.assign({filter: '', allMedia: {}}, state.filter);
+      Object.keys(state.allMedia).forEach(key => {
+        if (state.allMedia[key].index !== action.updatedMedia.index) {
+          newState.allMedia[key] = {...state.allMedia[key]};
+        }
+      });
+      // Feel that because state is mutating, component's aren't updating correctly
+      // Though also the promise is not resolving correctly...
+      console.log({toUpdate: newState.allMedia[action.updatedMedia.index], updatedMedia: action.updatedMedia})
+      newState.allMedia[action.updatedMedia.index] = action.updatedMedia;
+      return newState;
     case UPDATE_FILTER:
       mediaState.filter = action.newFilter;
       return mediaState;

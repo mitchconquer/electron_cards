@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
+import { updateMediaTimes } from '../utils/media_utils';
 
 export default class MediaItem extends Component {
   static propTypes = {
-    mediaItem: PropTypes.object.isRequired
+    mediaItem: PropTypes.object.isRequired,
+    updateMedia: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -20,8 +22,18 @@ export default class MediaItem extends Component {
     });
   }
 
+  componentWillReceiveProps() {
+    console.log('Receiving Props')
+  }
+
+  addTimeEnd() {
+    const { mediaItem, updateMedia } = this.props;
+    const updatedMedia = updateMediaTimes(mediaItem, 'add', 'end', 200);
+    updateMedia(updatedMedia);
+  }
+
   render() {
-    const { index, media, text } = this.props.mediaItem;
+    const { duration, index, media, text } = this.props.mediaItem;
     const { checked } = this.state;
 
     return (
@@ -33,10 +45,14 @@ export default class MediaItem extends Component {
         </div>
         <div className='col-sm-11'>
           <br />
-          <audio src={`../pkg/${media}`} controls>
+          <audio src={`../pkg/${media}?duration=${duration}`} controls>
             Your browser does not support the <code>audio</code> element.
           </audio>
+          <a onClick={this.addTimeEnd.bind(this)}>+++</a>
           <br />
+          <p className='time'>
+            {duration}
+          </p>
           <p className='text'>
             {text}
           </p>

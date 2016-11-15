@@ -7,7 +7,8 @@ class Edit extends Component {
     createApkg: PropTypes.func.isRequired,
     filter: PropTypes.string,
     media: PropTypes.object.isRequired,
-    updateFilter: PropTypes.func.isRequired
+    updateFilter: PropTypes.func.isRequired,
+    updateMedia: PropTypes.func.isRequired
   };
 
   filteredMediaItems() {
@@ -15,7 +16,15 @@ class Edit extends Component {
     return Object.keys(media).map(key => media[key]).filter(item => {
       return item.text.toLowerCase().includes(filter.toLowerCase());
     })
-      .map(item => <MediaItem key={item.index} mediaItem={item}>{item.text}</MediaItem>);
+      .map(item => <MediaItem key={item.index} mediaItem={item} updateMedia={this.props.updateMedia} />);
+  }
+
+  componentWillUpdate() {
+    console.log('Edit component will update')
+  }
+
+  componentWillReceiveProps() {
+    console.log('Edit component will receive props')
   }
 
   onFilterChange(event) {
