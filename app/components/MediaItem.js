@@ -22,10 +22,6 @@ export default class MediaItem extends Component {
     });
   }
 
-  componentWillReceiveProps() {
-    console.log('Receiving Props')
-  }
-
   addTimeEnd() {
     const { mediaItem, updateMedia } = this.props;
     const updatedMedia = updateMediaTimes(mediaItem, 'add', 'end', 200);

@@ -18,14 +18,13 @@ export default function media(state = initialState, action = {}) {
       });
       return mediaState;
     case UPDATE_MEDIA:
-      let newState = Object.assign({filter: '', allMedia: {}}, state.filter);
+      let newState ={filter: '', allMedia: {}};
+      newState.filter = `${state.filter}`;
       Object.keys(state.allMedia).forEach(key => {
         if (state.allMedia[key].index !== action.updatedMedia.index) {
           newState.allMedia[key] = {...state.allMedia[key]};
         }
       });
-      // Feel that because state is mutating, component's aren't updating correctly
-      // Though also the promise is not resolving correctly...
       console.log({toUpdate: newState.allMedia[action.updatedMedia.index], updatedMedia: action.updatedMedia})
       newState.allMedia[action.updatedMedia.index] = action.updatedMedia;
       return newState;

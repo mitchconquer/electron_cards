@@ -29,7 +29,6 @@ export function updateFilter(newFilter) {
 }
 
 export function updateMedia(updatedMedia) {
-  console.log('action creater updateMedia()')
   return {
     type: UPDATE_MEDIA,
     updatedMedia
@@ -66,13 +65,11 @@ export function updateMediaTimes(newMedia) {
     const videoFile = files.videoFile.path;
     dispatch(processing(true));
 
-    console.log({newMedia})
     mediaFlashcards.updateAudio(videoFile, newMedia)
       .then(
         updatedMedia => {dispatch(updateMedia(updatedMedia)); return updatedMedia;}
       )
       .then(
-        updatedMedia => {console.log('this is the `then` after dispatching updateMedia()'); console.log(updatedMedia)}
       )
       .then(
         () => dispatch(processing(false))
