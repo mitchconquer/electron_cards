@@ -4,7 +4,7 @@
 
 # Development Plan
 
-May need to run `./node_modules/.bin/electron-rebuild --pre-gyp-fix` before initial run?
+May need to run `npm run recompile-packages` after any package management (adding, upgrading, etc) via NPM or Yarn.
 
 V 0.1
 

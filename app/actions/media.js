@@ -5,7 +5,8 @@ import { processing } from './files';
 import { push } from 'react-router-redux';
 
 export const RESET_MEDIA = 'RESET_MEDIA';
-export const UPDATE_FILTER = "UPDATE_FILTER";
+export const UPDATE_FILTER = 'UPDATE_FILTER';
+export const UPDATE_MEDIA = 'UPDATE_MEDIA';
 
 // ACTION CREATORS
 
@@ -24,6 +25,13 @@ export function updateFilter(newFilter) {
   return {
     type: UPDATE_FILTER,
     newFilter
+  };
+}
+
+export function updateMedia(updatedMedia) {
+  return {
+    type: UPDATE_MEDIA,
+    updatedMedia
   };
 }
 
@@ -47,6 +55,24 @@ export function createApkg() {
       )
       .then(
         () => dispatch(push('/'))
+      );
+  };
+}
+
+export function updateMediaTimes(newMedia) {
+  return (dispatch, getState) => {
+    const { files } = getState();
+    const videoFile = files.videoFile.path;
+    dispatch(processing(true));
+
+    mediaFlashcards.updateAudio(videoFile, newMedia)
+      .then(
+        updatedMedia => {dispatch(updateMedia(updatedMedia)); return updatedMedia;}
+      )
+      .then(
+      )
+      .then(
+        () => dispatch(processing(false))
       );
   };
 }
