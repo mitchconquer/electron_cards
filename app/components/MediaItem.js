@@ -19,9 +19,16 @@ function sourceCollect(connect, monitor) {
   }
 }
 
+
+// Limit so can only drag onto adjacent subtitles
+
 const subtitleTarget = {
   drop(props, monitor) {
-    logResult(props.mediaItem, monitor.getItem());
+    console.log({target: props.mediaItem.index, source: monitor.getItem().subtitleId});
+    // Emit an action from props
+    // The action should:
+    // - Add the text and times of the second subtitle to the first
+    // - Remove the second subtitle from the store and delete its file
   }
 }
 
