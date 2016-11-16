@@ -1,8 +1,29 @@
 import React, { Component, PropTypes } from 'react';
+import { ItemTypes } from '../utils/item_types';
+import { DragSource } from 'react-dnd';
 import { updateMediaTimes } from '../utils/media_utils';
 
+// React DnD Items
+const subtitleSource = {
+  beginDrag(props) {
+    return {
+      subtitleId: props.mediaItem.index
+    };
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  }
+}
+
+@DragSource(ItemTypes.SUBTITLE, subtitleSource, collect)
 export default class MediaItem extends Component {
   static propTypes = {
+    connectDragSource: PropTypes.func.isRequired,
+    isDragging: PropTypes.bool.isRequired,
     mediaItem: PropTypes.object.isRequired,
     updateMedia: PropTypes.func.isRequired
   };
@@ -30,10 +51,14 @@ export default class MediaItem extends Component {
 
   render() {
     const { duration, index, media, text } = this.props.mediaItem;
+    const { connectDragSource, isDragging } = this.props;
     const { checked } = this.state;
 
-    return (
-      <div className='col-xs-12' key={index}>
+    return connectDragSource(
+      <div className='col-xs-12' key={index} style={{
+            opacity: isDragging ? 0.5 : 1,
+            backgroundColor: isDragging ? 'white' : 'transparent'
+          }}>
         <div className='col-sm-1'>
           <label>
             <input type='checkbox' checked={this.state.checked} onClick={this.toggleCheckbox.bind(this)} />
@@ -46,10 +71,14 @@ export default class MediaItem extends Component {
           </audio>
           <a onClick={this.addTimeEnd.bind(this)}>+++</a>
           <br />
-          <p className='time'>
+          <p className='time' style={{
+            opacity: isDragging ? 0.5 : 1
+          }}>
             {duration}
           </p>
-          <p className='text'>
+          <p className='text' style={{
+            opacity: isDragging ? 0.5 : 1
+          }}>
             {text}
           </p>
         </div>
