@@ -1,12 +1,13 @@
 // @flow
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import Edit from '../components/Edit';
-import { combineSubtitles, createApkg, updateFilter, updateMediaTimes } from '../actions/media';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import Edit from '../components/Edit'
+import { combineSubtitles, createApkg, updateMediaTimes } from '../actions/media'
+import { updateFilter } from '../actions/filter'
 
 function mapStateToProps(state) {
   return {
-    filter: state.media.filter,
+    filter: state.filter,
     media: state.media.allMedia
   };
 }

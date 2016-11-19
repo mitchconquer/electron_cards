@@ -1,9 +1,8 @@
 // @flow
-import { REMOVE_MEDIA, RESET_MEDIA, UPDATE_FILTER, UPDATE_MEDIA } from '../actions/media';
+import { REMOVE_MEDIA, RESET_MEDIA, UPDATE_MEDIA } from '../actions/media';
 
 export const initialState = {
-  allMedia: {},
-  filter: ''
+  allMedia: {}
 };
 
 export default function media(state = initialState, action = {}) {
@@ -12,7 +11,6 @@ export default function media(state = initialState, action = {}) {
   switch (action.type) {
     case REMOVE_MEDIA:
       newState = {
-        filter: `${state.filter}`,
         allMedia: {}
       }
       Object.keys(state.allMedia).forEach(index => {
@@ -27,8 +25,7 @@ export default function media(state = initialState, action = {}) {
       });
       return mediaState;
     case UPDATE_MEDIA:
-      newState = {filter: '', allMedia: {}};
-      newState.filter = `${state.filter}`;
+      newState = {allMedia: {}};
       Object.keys(state.allMedia).forEach(key => {
         if (state.allMedia[key].index !== action.updatedMedia.index) {
           newState.allMedia[key] = {...state.allMedia[key]};
@@ -36,15 +33,7 @@ export default function media(state = initialState, action = {}) {
       });
       newState.allMedia[action.updatedMedia.index] = action.updatedMedia;
       return newState;
-    case UPDATE_FILTER:
-      mediaState.filter = action.newFilter;
-      return mediaState;
     default:
       return state;
   }
-}
-
-
-function _filterMedia(filter, allMedia) {
-  return allMedia;
 }
