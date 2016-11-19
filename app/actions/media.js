@@ -63,10 +63,6 @@ export function combineSubtitles(index1, index2) {
       source = media.allMedia[index1];
     }
 
-    console.log('inside combineSubtitles() action creater')
-    console.log({target, source})
-    console.log(source.media)
-
     const merged = mediaFlashcards.combineSubtitles(target, source);
     mediaFlashcards.rmFile(source.media);
 
@@ -77,9 +73,9 @@ export function combineSubtitles(index1, index2) {
       .then(
         updatedMedia => dispatch(updateMedia(updatedMedia))
       )
-      // .then(
-      //   () => dispatch(removeMedia(source.index))
-      // )
+      .then(
+        () => dispatch(removeMedia(source.index))
+      )
       .then(
         () => dispatch(processing(false))
       );

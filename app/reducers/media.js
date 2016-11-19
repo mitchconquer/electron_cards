@@ -15,10 +15,10 @@ export default function media(state = initialState, action = {}) {
         filter: `${state.filter}`,
         allMedia: {}
       }
-      Object.keys(state.allMedia)
-      .filter(index => index !== action.index)
-      .forEach(index => {
-        newState.allMedia[index] = {...state[index]}
+      Object.keys(state.allMedia).forEach(index => {
+        if (parseInt(index) !== action.index) {
+          newState.allMedia[index] = {...state.allMedia[index]}
+        }
       })
       return newState
     case RESET_MEDIA:
@@ -35,7 +35,6 @@ export default function media(state = initialState, action = {}) {
         }
       });
       newState.allMedia[action.updatedMedia.index] = action.updatedMedia;
-      console.log('Updated in UPDATE_MEDIA', newState.allMedia[action.updatedMedia.index])
       return newState;
     case UPDATE_FILTER:
       mediaState.filter = action.newFilter;

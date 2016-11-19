@@ -15,19 +15,9 @@ class Edit extends Component {
   filteredMediaItems() {
     const { combineSubtitles, filter, media } = this.props
     return Object.keys(media).map(key => media[key]).filter(item => {
-      console.log({item})
-      if (item.text) return item.text.toLowerCase().includes(filter.toLowerCase());
-      return {}
+      return item.text.toLowerCase().includes(filter.toLowerCase())
     })
       .map(item => <MediaItem combineSubtitles={combineSubtitles} key={item.index} mediaItem={item} updateMedia={this.props.updateMedia} />)
-  }
-
-  componentWillUpdate() {
-    console.log('Edit component will update')
-  }
-
-  componentWillReceiveProps() {
-    console.log('Edit component will receive props')
   }
 
   onFilterChange(event) {

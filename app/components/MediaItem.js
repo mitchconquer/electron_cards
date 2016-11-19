@@ -24,7 +24,7 @@ function sourceCollect(connect, monitor) {
 
 const subtitleTarget = {
   drop(props, monitor) {
-    console.log({target: props.mediaItem.index, source: monitor.getItem().subtitleIndex});
+    // console.log({target: props.mediaItem.index, source: monitor.getItem().subtitleIndex})
     // Emit an action from props
     // The action should:
     // - Add the text and times of the second subtitle to the first
