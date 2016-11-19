@@ -52,15 +52,15 @@ export function combineSubtitles(index1, index2) {
   }
 
   return (dispatch, getState) => {
-    const { files, media } = getState();
+    const { files, subtitles } = getState();
 
     let target, source;
     if (index1 < index2) {
-      target = media.allMedia[index1];
-      source = media.allMedia[index2];
+      target = subtitles[index1];
+      source = subtitles[index2];
     } else {
-      target = media.allMedia[index2];
-      source = media.allMedia[index1];
+      target = subtitles[index2];
+      source = subtitles[index1];
     }
 
     const merged = mediaFlashcards.combineSubtitles(target, source);
@@ -85,11 +85,11 @@ export function combineSubtitles(index1, index2) {
 
 export function createApkg() {
   return (dispatch, getState) => {
-    const { files, media } = getState();
+    const { files, subtitles } = getState();
     const videoFile = files.videoFile.path;
     dispatch(processing(true));
 
-    mediaFlashcards.createAnkiDb(videoFile, mediaToArray(media.allMedia))
+    mediaFlashcards.createAnkiDb(videoFile, mediaToArray(subtitles))
       .then(
         dbFile => mediaFlashcards.createApkg(dbFile, mediaFlashcards.quickName(videoFile), desktopDir)
       )
