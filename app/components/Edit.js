@@ -4,6 +4,7 @@ import MediaItem from './MediaItem';
 
 class Edit extends Component {
   static propTypes = {
+    combineSubtitles: PropTypes.func.isRequired,
     createApkg: PropTypes.func.isRequired,
     filter: PropTypes.string,
     media: PropTypes.object.isRequired,
@@ -12,11 +13,13 @@ class Edit extends Component {
   };
 
   filteredMediaItems() {
-    const { media, filter } = this.props;
+    const { combineSubtitles, filter, media } = this.props
     return Object.keys(media).map(key => media[key]).filter(item => {
-      return item.text.toLowerCase().includes(filter.toLowerCase());
+      console.log({item})
+      if (item.text) return item.text.toLowerCase().includes(filter.toLowerCase());
+      return {}
     })
-      .map(item => <MediaItem key={item.index} mediaItem={item} updateMedia={this.props.updateMedia} />);
+      .map(item => <MediaItem combineSubtitles={combineSubtitles} key={item.index} mediaItem={item} updateMedia={this.props.updateMedia} />)
   }
 
   componentWillUpdate() {

@@ -7,7 +7,7 @@ import { updateMediaTimes } from '../utils/media_utils';
 const subtitleSource = {
   beginDrag(props) {
     return {
-      subtitleId: props.mediaItem.index
+      subtitleIndex: props.mediaItem.index
     };
   }
 };
@@ -24,11 +24,12 @@ function sourceCollect(connect, monitor) {
 
 const subtitleTarget = {
   drop(props, monitor) {
-    console.log({target: props.mediaItem.index, source: monitor.getItem().subtitleId});
+    console.log({target: props.mediaItem.index, source: monitor.getItem().subtitleIndex});
     // Emit an action from props
     // The action should:
     // - Add the text and times of the second subtitle to the first
     // - Remove the second subtitle from the store and delete its file
+    props.combineSubtitles(props.mediaItem.index, monitor.getItem().subtitleIndex);
   }
 }
 
@@ -45,6 +46,7 @@ function targetCollect(connect, monitor) {
 @DropTarget(ItemTypes.SUBTITLE, subtitleTarget, targetCollect)
 export default class MediaItem extends Component {
   static propTypes = {
+    combineSubtitles: PropTypes.func.isRequired,
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
