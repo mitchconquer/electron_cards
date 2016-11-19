@@ -7,6 +7,7 @@ import { push } from 'react-router-redux';
 export const RESET_MEDIA = 'RESET_MEDIA';
 export const UPDATE_FILTER = 'UPDATE_FILTER';
 export const UPDATE_MEDIA = 'UPDATE_MEDIA';
+export const REMOVE_MEDIA = 'REMOVE_MEDIA';
 
 // ACTION CREATORS
 
@@ -14,6 +15,14 @@ export const UPDATE_MEDIA = 'UPDATE_MEDIA';
  * Creates action to set media in store
  * @param {array} media - An array of objects containing subtitle text, times, ids and media file names
  */
+
+export function removeMedia(index) {
+  return {
+    type: REMOVE_MEDIA,
+    index
+  }
+}
+
 export function resetMedia(media) {
   return {
     type: RESET_MEDIA,
@@ -36,6 +45,43 @@ export function updateMedia(updatedMedia) {
 }
 
 // ACTION CREATOR CREATORS
+
+export function combineSubtitles(index1, index2) {
+  if (index1 === index2) {
+    return;
+  }
+
+  return (dispatch, getState) => {
+    const { files, media } = getState();
+
+    let target, source;
+    if (index1 < index2) {
+      target = media.allMedia[index1];
+      source = media.allMedia[index2];
+    } else {
+      target = media.allMedia[index2];
+      source = media.allMedia[index1];
+    }
+
+    const merged = mediaFlashcards.combineSubtitles(target, source);
+    mediaFlashcards.rmFile(source.media);
+
+    const videoFile = files.videoFile.path;
+    dispatch(processing(true));
+
+    mediaFlashcards.updateAudio(videoFile, merged)
+      .then(
+        updatedMedia => dispatch(updateMedia(updatedMedia))
+      )
+      .then(
+        () => dispatch(removeMedia(source.index))
+      )
+      .then(
+        () => dispatch(processing(false))
+      );
+  };
+
+}
 
 export function createApkg() {
   return (dispatch, getState) => {
@@ -67,7 +113,7 @@ export function updateMediaTimes(newMedia) {
 
     mediaFlashcards.updateAudio(videoFile, newMedia)
       .then(
-        updatedMedia => {dispatch(updateMedia(updatedMedia)); return updatedMedia;}
+        updatedMedia => dispatch(updateMedia(updatedMedia))
       )
       .then(
       )
