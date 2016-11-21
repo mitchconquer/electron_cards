@@ -49,7 +49,7 @@ export function updateFilter(newFilter) {
 export function updateMedia(updatedMedia) {
   return {
     type: UPDATE_MEDIA,
-    updatedMedia
+    updatedMedia: {...updatedMedia}
   };
 }
 
@@ -120,6 +120,16 @@ export function updateMediaTimes(newMedia) {
       ...newMedia, 
       media: mediaFlashcards.updateFileVersionHash(newMedia.media)
     }
+
+    // Problems:
+    // 1. Redux devtools says the updateMedia() dispatch is happening in two steps
+    //    The duration and endtime are updated when we dispatch processing(true)
+    //    and then the media filename is updated when updateMedia() is dispatched
+    //    like expected.
+    // 2. When you click `undo`, the updated time (possibly the endtime as well?) 
+    //    are not being updated.
+    // 3. The app is insanely slow since adding redux-undo. State object is 8.4mb. 
+    //    Should see if can use Immutable.js to reduce size of state.
 
     dispatch(processing(true))
 

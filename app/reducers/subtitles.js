@@ -35,7 +35,9 @@ function subtitles(state = initialState, action = {}) {
           newState[key] = {...state[key]};
         }
       });
-      newState[action.updatedMedia.index] = action.updatedMedia;
+      newState[action.updatedMedia.index] = {
+        ...action.updatedMedia
+      };
       return newState;
     default:
       return state;
