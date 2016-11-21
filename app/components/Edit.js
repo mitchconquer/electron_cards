@@ -4,10 +4,14 @@ import MediaItem from './MediaItem';
 
 class Edit extends Component {
   static propTypes = {
+    canRedo: PropTypes.bool.isRequired,
+    canUndo: PropTypes.bool.isRequired,
     combineSubtitles: PropTypes.func.isRequired,
     createApkg: PropTypes.func.isRequired,
     filter: PropTypes.string,
     media: PropTypes.object.isRequired,
+    onRedo: PropTypes.func.isRequired,
+    onUndo: PropTypes.func.isRequired,
     updateFilter: PropTypes.func.isRequired,
     updateMedia: PropTypes.func.isRequired
   };
@@ -27,10 +31,14 @@ class Edit extends Component {
   }
 
   render() {
-    const { filter, media } = this.props;
+    const { canRedo, canUndo, filter, media, onRedo, onUndo } = this.props;
     return (
       <div>
        <h1>Edit Page</h1>
+       <div className='col-xs-6'>
+        {canUndo && <button onClick={onUndo} className='btn btn-default'>Undo</button>}
+        {canRedo && <button onClick={onRedo} className='btn btn-default'>Redo</button>}
+       </div>
         <a onClick={this.props.createApkg.bind(this)}>
           <i className="fa fa-arrow-right" aria-hidden="true" style={{fontSize:'50px'}}></i>
           <span className='h1'>Create Anki Deck</span>

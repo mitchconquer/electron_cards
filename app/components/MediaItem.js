@@ -116,6 +116,8 @@ export default class MediaItem extends Component {
             opacity: isDragging ? 0.5 : 1
           }}>
             {text}
+            <br />
+            {media}
           </p>
         </div>
       </div>
