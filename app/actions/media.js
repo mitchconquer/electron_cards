@@ -8,6 +8,7 @@ export const RESET_MEDIA = 'RESET_MEDIA';
 export const UPDATE_FILTER = 'UPDATE_FILTER';
 export const UPDATE_MEDIA = 'UPDATE_MEDIA';
 export const REMOVE_MEDIA = 'REMOVE_MEDIA';
+export const COMBINE_MEDIA = 'COMBINE_MEDIA';
 
 // ACTION CREATORS
 
@@ -15,6 +16,14 @@ export const REMOVE_MEDIA = 'REMOVE_MEDIA';
  * Creates action to set media in store
  * @param {array} media - An array of objects containing subtitle text, times, ids and media file names
  */
+
+export function combineMedia(updatedMedia, toRemove) {
+  return {
+    type: COMBINE_MEDIA,
+    updatedMedia,
+    toRemove
+  }
+}
 
 export function removeMedia(index) {
   return {
@@ -72,10 +81,7 @@ export function combineSubtitles(index1, index2) {
 
     mediaFlashcards.updateAudio(videoFile, merged)
       .then(
-        updatedMedia => dispatch(updateMedia(updatedMedia))
-      )
-      .then(
-        () => dispatch(removeMedia(source.index))
+        updatedMedia => dispatch(combineMedia(updatedMedia, source.index))
       )
       .then(
         () => dispatch(processing(false))
