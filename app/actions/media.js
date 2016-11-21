@@ -63,8 +63,9 @@ export function combineSubtitles(index1, index2) {
       source = subtitles[index1];
     }
 
-    const merged = mediaFlashcards.combineSubtitles(target, source);
-    mediaFlashcards.rmFile(source.media);
+    const merged = mediaFlashcards.combineSubtitles(target, source, {replaceMedia: false});
+    // mediaFlashcards.rmFile(source.media);
+    console.log('combined subtitles media file ', merged.media)
 
     const videoFile = files.videoFile.path;
     dispatch(processing(true));
@@ -107,22 +108,28 @@ export function createApkg() {
 
 export function updateMediaTimes(newMedia) {
   return (dispatch, getState) => {
-    const { files } = getState();
-    const videoFile = files.videoFile.path;
-    dispatch(processing(true));
+    const { files } = getState()
+    const videoFile = files.videoFile.path
+    const subtitleData = {
+      ...newMedia, 
+      media: mediaFlashcards.updateFileVersionHash(newMedia.media)
+    }
 
-    mediaFlashcards.updateAudio(videoFile, newMedia)
+    console.log('updateMediaTimes action creator')
+    console.log({subtitleData})
+
+    dispatch(processing(true))
+
+    mediaFlashcards.updateAudio(videoFile, subtitleData)
       .then(
         updatedMedia => dispatch(updateMedia(updatedMedia))
       )
       .then(
-      )
-      .then(
         () => dispatch(processing(false))
-      );
-  };
+      )
+  }
 }
 
 function mediaToArray(mediaObject) {
-  return Object.keys(mediaObject).map(key => mediaObject[key]);
+  return Object.keys(mediaObject).map(key => mediaObject[key])
 }
