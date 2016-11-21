@@ -8,7 +8,7 @@ import { updateFilter } from '../actions/filter'
 function mapStateToProps(state) {
   return {
     filter: state.filter,
-    media: state.subtitles
+    media: state.subtitles.present
   };
 }
 

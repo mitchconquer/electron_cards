@@ -1,9 +1,10 @@
 // @flow
-import { REMOVE_MEDIA, RESET_MEDIA, UPDATE_MEDIA } from '../actions/media';
+import { REMOVE_MEDIA, RESET_MEDIA, UPDATE_MEDIA } from '../actions/media'
+import undoable, { distinctState } from 'redux-undo'
 
 export const initialState = {};
 
-export default function subtitles(state = initialState, action = {}) {
+function subtitles(state = initialState, action = {}) {
   let newState = {};
   switch (action.type) {
     case REMOVE_MEDIA:
@@ -32,3 +33,9 @@ export default function subtitles(state = initialState, action = {}) {
       return state;
   }
 }
+
+const undoableSubtitles = undoable(subtitles, {
+  filter: distinctState()
+})
+
+export default undoableSubtitles
