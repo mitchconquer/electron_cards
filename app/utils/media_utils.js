@@ -1,5 +1,5 @@
 export function updateMediaTimes(media, action, position, msecs) {
-  const updatedMedia = media;
+  const updatedMedia = {...media};
 
   if (action === 'add') {
     updatedMedia.duration += (msecs / 1000);

@@ -8,11 +8,14 @@ export const initialState = {
 export default function files(state = initialState, action = {}) {
   switch (action.type) {
     case PROCESSING:
-      const nextState = Object.assign({}, state);
-      nextState.processing = action.value;
-      return nextState;
+      return {
+        ...state,
+        processing: action.value
+      }
     case SET_FILES:
-      const newState = Object.assign({}, state);
+      const newState = {
+        processing: !!state.processing
+      };
       action.files.forEach(fileData => {
         newState[fileData.basicType] = fileData;
       });
