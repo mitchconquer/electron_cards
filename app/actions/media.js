@@ -73,8 +73,6 @@ export function combineSubtitles(index1, index2) {
     }
 
     const merged = mediaFlashcards.combineSubtitles(target, source, {replaceMedia: false});
-    // mediaFlashcards.rmFile(source.media);
-    console.log('combined subtitles media file ', merged.media)
 
     const videoFile = files.videoFile.path;
     dispatch(processing(true));

@@ -25,20 +25,16 @@ function subtitles(state = initialState, action = {}) {
       })
       return newState
     case RESET_MEDIA:
-      action.media.forEach(item => {
-        newState[item.index] = item;
-      });
-      return newState;
+      return {
+        ...action.media
+      }
     case UPDATE_MEDIA:
-      Object.keys(state).forEach(key => {
-        if (state[key].index !== action.updatedMedia.index) {
-          newState[key] = {...state[key]};
+      return {
+        ...state,
+        [action.updatedMedia.index]: {
+          ...action.updatedMedia
         }
-      });
-      newState[action.updatedMedia.index] = {
-        ...action.updatedMedia
-      };
-      return newState;
+      }
     default:
       return state;
   }
