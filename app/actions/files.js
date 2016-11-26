@@ -5,6 +5,7 @@ import { remote } from 'electron';
 const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards;
 
 export const SET_FILES = 'SET_FILES';
+export const SET_EMBEDDED_SUBS = 'SET_EMBEDDED_SUBS';
 export const PROCESSING = 'PROCESSING';
 
 // ACTION CREATORS
@@ -31,6 +32,13 @@ export function processing(value) {
   }
 }
 
+export function setEmbeddedSubs(embeddedSubs) {
+  return {
+    type: SET_EMBEDDED_SUBS,
+    embeddedSubs
+  }
+}
+
 // ACTION CREATOR CREATORS
 
 export function processFiles(videoFile, subtitlesFile) {
@@ -38,8 +46,6 @@ export function processFiles(videoFile, subtitlesFile) {
     return new Bromise((resolve, reject) => {
       dispatch(processing(true));
       dispatch(setFiles([videoFile, subtitlesFile]));
-
-      mediaFlashcards.rmFiles('./pkg');
 
       let subtitles;
       mediaFlashcards.initializeSubs(subtitlesFile.path, videoFile.path)
@@ -59,5 +65,20 @@ export function processFiles(videoFile, subtitlesFile) {
           () => dispatch(push('/edit'))
         );
     });
+  }
+}
+
+export function listEmbeddedSubs(file) {
+  return dispatch => {
+    return new Bromise((resolve, reject) => {
+      // Get list of embeded files
+      mediaFlashcards.listEmbeddedSubs(file)
+        .then(
+          result => dispatch(setEmbeddedSubs(result))
+        )
+        .then(
+          resolve()
+        )
+    })
   }
 }

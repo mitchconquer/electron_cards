@@ -2,14 +2,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Home from '../components/Home';
-import { setFiles, processFiles } from '../actions/files';
+import { listEmbeddedSubs, setFiles, processEmbededSubs, processFiles, setSubsFile } from '../actions/files';
 
 const mapDispatchToProps = dispatch => ({
-  setFiles: files => dispatch(setFiles(files)),
-  processFiles: (videoFile, subtitlesFile) => dispatch(processFiles(videoFile, subtitlesFile))
+  listEmbeddedSubs: file => dispatch(listEmbeddedSubs(file)),
+  processFiles: (videoFile, subtitlesFile) => dispatch(processFiles(videoFile, subtitlesFile)),
+  setFiles: files => dispatch(setFiles(files))
 });
 
 const mapStateToProps = state => ({
+  embeddedSubs: state.files.embeddedSubs,
   processing: state.files.processing
 });
 
