@@ -34,7 +34,6 @@ export function updateMediaTimes(media, action, position, msecs) {
 
 export function extractSubsFile(index, videoFile) {
     return new Bromise((resolve, reject) => {
-      console.log({videoFile})
       mediaFlashcards.extractSubs(index, videoFile)
         .then(
           extractedSubs => {

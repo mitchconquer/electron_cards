@@ -1,14 +1,15 @@
-import { remote } from 'electron';
-const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards;
-const desktopDir = remote.getGlobal('globalObj').desktopDir;
-import { processing } from './files';
-import { push } from 'react-router-redux';
+import { remote } from 'electron'
+const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards
+const desktopDir = remote.getGlobal('globalObj').desktopDir
+import { processing } from './files'
+import { push } from 'react-router-redux'
 
-export const RESET_MEDIA = 'RESET_MEDIA';
-export const UPDATE_FILTER = 'UPDATE_FILTER';
-export const UPDATE_MEDIA = 'UPDATE_MEDIA';
-export const REMOVE_MEDIA = 'REMOVE_MEDIA';
-export const COMBINE_MEDIA = 'COMBINE_MEDIA';
+export const RESET_MEDIA = 'RESET_MEDIA'
+export const UPDATE_FILTER = 'UPDATE_FILTER'
+export const UPDATE_MEDIA = 'UPDATE_MEDIA'
+export const REMOVE_MEDIA = 'REMOVE_MEDIA'
+export const COMBINE_MEDIA = 'COMBINE_MEDIA'
+export const TOGGLE_CHECKBOX = 'TOGGLE_CHECKBOX'
 
 // ACTION CREATORS
 
@@ -36,46 +37,53 @@ export function resetMedia(media) {
   return {
     type: RESET_MEDIA,
     media
-  };
+  }
 }
 
 export function updateFilter(newFilter) {
   return {
     type: UPDATE_FILTER,
     newFilter
-  };
+  }
 }
 
 export function updateMedia(updatedMedia) {
   return {
     type: UPDATE_MEDIA,
     updatedMedia: {...updatedMedia}
-  };
+  }
+}
+
+export function toggleCheckbox(index) {
+  return {
+    type: TOGGLE_CHECKBOX,
+    index
+  }
 }
 
 // ACTION CREATOR CREATORS
 
 export function combineSubtitles(index1, index2) {
   if (index1 === index2) {
-    return;
+    return
   }
 
   return (dispatch, getState) => {
-    const { files, subtitles } = getState();
+    const { files, subtitles } = getState()
 
-    let target, source;
+    let target, source
     if (index1 < index2) {
-      target = subtitles.present[index1];
-      source = subtitles.present[index2];
+      target = subtitles.present[index1]
+      source = subtitles.present[index2]
     } else {
-      target = subtitles.present[index2];
-      source = subtitles.present[index1];
+      target = subtitles.present[index2]
+      source = subtitles.present[index1]
     }
 
-    const merged = mediaFlashcards.combineSubtitles(target, source, {replaceMedia: false});
+    const merged = mediaFlashcards.combineSubtitles(target, source, {replaceMedia: false})
 
-    const videoFile = files.videoFile.path;
-    dispatch(processing(true));
+    const videoFile = files.videoFile.path
+    dispatch(processing(true))
 
     mediaFlashcards.updateAudio(videoFile, merged)
       .then(
@@ -83,16 +91,16 @@ export function combineSubtitles(index1, index2) {
       )
       .then(
         () => dispatch(processing(false))
-      );
-  };
+      )
+  }
 
 }
 
 export function createApkg() {
   return (dispatch, getState) => {
-    const { files, subtitles } = getState();
-    const videoFile = files.videoFile.path;
-    dispatch(processing(true));
+    const { files, subtitles } = getState()
+    const videoFile = files.videoFile.path
+    dispatch(processing(true))
 
     mediaFlashcards.createAnkiDb(videoFile, mediaToArray(subtitles.present))
       .then(
@@ -106,8 +114,8 @@ export function createApkg() {
       )
       .then(
         () => dispatch(push('/'))
-      );
-  };
+      )
+  }
 }
 
 export function updateMediaTimes(newMedia) {

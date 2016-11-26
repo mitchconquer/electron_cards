@@ -1,5 +1,5 @@
 // @flow
-import { COMBINE_MEDIA, REMOVE_MEDIA, RESET_MEDIA, UPDATE_MEDIA } from '../actions/media'
+import { COMBINE_MEDIA, REMOVE_MEDIA, RESET_MEDIA, TOGGLE_CHECKBOX, UPDATE_MEDIA } from '../actions/media'
 import undoable, { includeAction } from 'redux-undo'
 
 export const initialState = {};
@@ -27,6 +27,14 @@ function subtitles(state = initialState, action = {}) {
     case RESET_MEDIA:
       return {
         ...action.media
+      }
+    case TOGGLE_CHECKBOX:
+      return {
+        ...state,
+        [action.index]: {
+          ...state[action.index],
+          selected: !state[action.index].selected
+        }
       }
     case UPDATE_MEDIA:
       return {

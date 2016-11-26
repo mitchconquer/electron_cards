@@ -12,16 +12,17 @@ class Edit extends Component {
     media: PropTypes.object.isRequired,
     onRedo: PropTypes.func.isRequired,
     onUndo: PropTypes.func.isRequired,
+    toggleCheckbox: PropTypes.func.isRequired,
     updateFilter: PropTypes.func.isRequired,
     updateMedia: PropTypes.func.isRequired
   };
 
   filteredMediaItems() {
-    const { combineSubtitles, filter, media } = this.props
+    const { combineSubtitles, filter, media, toggleCheckbox } = this.props
     return Object.keys(media).map(key => media[key]).filter(item => {
       return item.text.toLowerCase().includes(filter.toLowerCase())
     })
-      .map(item => <MediaItem combineSubtitles={combineSubtitles} key={item.index} mediaItem={item} updateMedia={this.props.updateMedia} />)
+      .map(item => <MediaItem combineSubtitles={combineSubtitles} key={item.index} mediaItem={item} updateMedia={this.props.updateMedia} toggleCheckbox={toggleCheckbox} />)
   }
 
   onFilterChange(event) {
@@ -46,6 +47,9 @@ class Edit extends Component {
         <br />
         <br />
         <input type='text' value={filter} onChange={this.onFilterChange.bind(this)} className='filter-input' />
+        <br />
+        <br />
+        {Object.keys(media).filter(key => media[key].selected).length}
         <br />
         <br />
         <div className='row'>

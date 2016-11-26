@@ -47,22 +47,13 @@ export default class MediaItem extends Component {
     isOver: PropTypes.bool.isRequired,
     isDragging: PropTypes.bool.isRequired,
     mediaItem: PropTypes.object.isRequired,
+    toggleCheckbox: PropTypes.func.isRequired,
     updateMedia: PropTypes.func.isRequired
   };
 
-  constructor(props) {
-    super();
-    this.state = {
-      checked: false
-    };
-  }
-
-  toggleCheckbox(event) {
-    // Can't call event.preventDefault() with a checkbox because prevents checkbox from being updated
-    // event.preventDefault();
-    this.setState({
-      checked: !this.state.checked
-    });
+  onToggleCheckbox() {
+    const { mediaItem, toggleCheckbox } = this.props
+    toggleCheckbox(mediaItem.index)
   }
 
   addTimeEnd() {
@@ -72,9 +63,8 @@ export default class MediaItem extends Component {
   }
 
   render() {
-    const { duration, index, media, text } = this.props.mediaItem;
+    const { selected, duration, index, media, text } = this.props.mediaItem;
     const { connectDragSource, isDragging, connectDropTarget, isOver } = this.props;
-    const { checked } = this.state;
 
     let backgroundColor;
     if (isDragging) {
@@ -92,7 +82,7 @@ export default class MediaItem extends Component {
           }}>
         <div className='col-sm-1'>
           <label>
-            <input type='checkbox' checked={this.state.checked} onClick={this.toggleCheckbox.bind(this)} />
+            <input type='checkbox' checked={selected} onClick={this.onToggleCheckbox.bind(this)} />
           </label>
         </div>
         <div className='col-sm-11'>

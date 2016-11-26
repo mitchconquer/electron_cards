@@ -24,7 +24,6 @@ export default function files(state = initialState, action = {}) {
       });
       return newState;
     case SET_EMBEDDED_SUBS:
-      console.log('SET_EMBEDDED_SUBS')
       return {
         ...state,
         embeddedSubs: action.embeddedSubs
