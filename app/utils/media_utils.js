@@ -28,6 +28,16 @@ export function updateMediaTimes(media, action, position, msecs) {
   return updatedMedia;
 }
 
+export function extractSubsFile(index, videoFile) {
+  console.log('extractSetSubsFile')
+    return new Bromise((resolve, reject) => {
+      mediaFlashcards.extract(index, videoFile)
+        .then(
+          extractedSubs => resolve(extractedSubs)
+        )
+    })
+}
+
 function getDurationInSeconds (startTime, endTime) {
   const end = timeInMSeconds(endTime);
   const start = timeInMSeconds(startTime);

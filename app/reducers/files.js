@@ -1,8 +1,11 @@
 // @flow
-import { SET_FILES, PROCESSING } from '../actions/files';
+import { SET_FILES, SET_FILE, PROCESSING, SET_EMBEDDED_SUBS, SET_SUBS_FILE } from '../actions/files';
 
 export const initialState = {
-  processing: false
+  processing: false,
+  embeddedSubs: [],
+  subtitlesFile: '',
+  videoFile: ''
 };
 
 export default function files(state = initialState, action = {}) {
@@ -12,6 +15,11 @@ export default function files(state = initialState, action = {}) {
         ...state,
         processing: action.value
       }
+    case SET_FILE:
+      return {
+        ...state,
+        [action.file.basicType]: action.file
+      }
     case SET_FILES:
       const newState = {
         processing: !!state.processing
@@ -20,6 +28,17 @@ export default function files(state = initialState, action = {}) {
         newState[fileData.basicType] = fileData;
       });
       return newState;
+    case SET_EMBEDDED_SUBS:
+      console.log('SET_EMBEDDED_SUBS')
+      return {
+        ...state,
+        embeddedSubs: action.embeddedSubs
+      }
+    case SET_SUBS_FILE:
+      return {
+        ...state,
+        subtitlesFile: action.subsFile
+      }
     default:
       return state;
   }

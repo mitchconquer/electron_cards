@@ -6,16 +6,17 @@ import Dropzone from 'react-dropzone';
 
 export default class FileDrop extends Component {
   static propTypes = {
+    selectedFile: PropTypes.string,
     message: PropTypes.string.isRequired,
+    listEmbeddedSubs: PropTypes.func.isRequired,
     setFile: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      file: {}
-    };
+  onListEmbeddedSubs(acceptedFile) {
+    if (this.props.type === 'videoFile') {
+      this.props.listEmbeddedSubs(acceptedFile)
+    }
   }
 
   onDrop(files) {
@@ -25,19 +26,25 @@ export default class FileDrop extends Component {
       newFile[key] = fileBlob[key];
     });
     newFile.basicType = this.props.type;
-    this.setState({file: newFile});
+
     this.props.setFile(newFile, this.props.type);
+    this.onListEmbeddedSubs(newFile.path)
   }
 
   render() {
+    const { selectedFile, message, type } = this.props
     return (
       <div>
-        <Dropzone onDropAccepted={this.onDrop.bind(this)} multiple={false} disablePreview={false}>
-          <div>{this.props.message}</div><br />
-          <div className='text-success'>{this.state.file.name}</div>
+        <Dropzone onDropAccepted={this.onDrop.bind(this)} 
+                  multiple={false} 
+                  disablePreview={false}
+                  // accept={_mimeTypes[type]}
+                  >
+          <div>{message}</div><br />
+          <div className='text-success'>{selectedFile}</div>
         </Dropzone>
       </div>
-    );
+    )
   }
 }
 
@@ -51,3 +58,8 @@ const _fileProperties = [
   'type',
   'webkitRelativePath'
 ];
+
+const _mimeTypes = {
+  'subtitlesFile': ['.srt'],
+  'videoFile': '.mkv'
+}

@@ -1,35 +1,53 @@
 // @flow
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
-import FileDrop from './FileDrop';
-import Loader from './Loader';
+import React, { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
+import FileDrop from './FileDrop'
+import Loader from './Loader'
+import extractSubsFile from '../utils/media_utils'
 
 export default class Home extends Component {
   static propTypes = {
+    listEmbeddedSubs: PropTypes.func.isRequired,
     setFiles: PropTypes.func.isRequired,
     processFiles: PropTypes.func.isRequired,
     processing: PropTypes.bool.isRequired
-  };
+  }
 
   constructor() {
-    super();
+    super()
     this.state = {
       videoFile: {},
       subtitlesFile: {}
-    };
+    }
+  }
+
+  onExtractSubsFile(index) {
+    const { subtitlesFile, videoFile } = this.props;
+    if (videoFile) {
+      extractSubsFile(index, videoFile)
+        .then(
+          extractedFile => this.setState({subtitlesFile: extractedFile})
+        )
+    }
   }
 
   processFile() {
-    const { videoFile, subtitlesFile } = this.state;
-    this.props.processFiles(videoFile, subtitlesFile);
+    const { videoFile, subtitlesFile } = this.state
+    if (videoFile && subtitlesFile) {
+      this.props.processFiles(videoFile, subtitlesFile)
+    }
   }
 
   setFile(file, type) {
-    const newState = {};
-    newState[type] = file;
-    this.setState(newState);
+    const newState = {}
+    newState[type] = file
+    this.setState(newState)
     // if type === videoFile, get the available subtitle files
   }
+
+  // afteryou set the embedded subs
+  // if you cilck one, extract the subtitle file and 
+  // set that to the state of the subtitleFile in Home component
 
   render() {
     // Decent loading animation https://codepen.io/Haasbroek/pen/gbqYyj
@@ -43,10 +61,10 @@ export default class Home extends Component {
             <h1>Upload Your Files</h1>
           </div>
           <div className='col-sm-4'>
-            <FileDrop message='Drop your video file here' setFile={this.setFile.bind(this)} type='videoFile' />
+            <FileDrop listEmbeddedSubs={this.props.listEmbeddedSubs} message='Drop your video file here' setFile={this.setFile.bind(this)} selectedFile={videoFile.name} type='videoFile' />
           </div>
           <div className='col-sm-4'>
-            <FileDrop message='Drop your subtitle file here (if you have one)' setFile={this.setFile.bind(this)} type='subtitlesFile' />
+            <FileDrop listEmbeddedSubs={this.props.listEmbeddedSubs} message='Drop your subtitle file here (if you have one)' setFile={this.setFile.bind(this)} selectedFile={subtitlesFile.name} type='subtitlesFile' />
           </div>
           <div className='col-sm-4'>
             <a onClick={this.processFile.bind(this)} ><i className="fa fa-arrow-right" aria-hidden="true" style={{fontSize:'50px'}}></i>
@@ -55,6 +73,17 @@ export default class Home extends Component {
           </div>
           <div className='col-xs-12'>
             {this.props.processing && 'Processing...'}
+          </div>
+          <div className='col-xs-12'>
+            <ul>
+              {this.props.embeddedSubs.map(sub => (
+                <li key={sub.index}>
+                  <a onClick={ () => this.onExtractSubsFile(sub.index) }>
+                    {sub.language}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
           <div className='col-xs-12'>
             <Loader active={this.props.processing}/>
