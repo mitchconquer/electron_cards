@@ -1,3 +1,7 @@
+import Bromise from 'bluebird'
+import { remote } from 'electron';
+const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards;
+
 export function updateMediaTimes(media, action, position, msecs) {
   const updatedMedia = {...media};
 
@@ -29,11 +33,17 @@ export function updateMediaTimes(media, action, position, msecs) {
 }
 
 export function extractSubsFile(index, videoFile) {
-  console.log('extractSetSubsFile')
     return new Bromise((resolve, reject) => {
-      mediaFlashcards.extract(index, videoFile)
+      console.log({videoFile})
+      mediaFlashcards.extractSubs(index, videoFile)
         .then(
-          extractedSubs => resolve(extractedSubs)
+          extractedSubs => {
+            const subsData = {
+              path: extractedSubs,
+              name: `${mediaFlashcards.quickName(extractedSubs)}.srt`
+            }
+            resolve(subsData)
+          }
         )
     })
 }
