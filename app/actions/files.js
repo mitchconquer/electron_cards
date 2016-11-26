@@ -47,8 +47,6 @@ export function processFiles(videoFile, subtitlesFile) {
       dispatch(processing(true));
       dispatch(setFiles([videoFile, subtitlesFile]));
 
-      mediaFlashcards.rmFiles('./pkg');
-
       let subtitles;
       mediaFlashcards.initializeSubs(subtitlesFile.path, videoFile.path)
         .then(
