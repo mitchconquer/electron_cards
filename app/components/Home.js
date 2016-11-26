@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import FileDrop from './FileDrop'
 import Loader from './Loader'
-import extractSubsFile from '../utils/media_utils'
+import { extractSubsFile } from '../utils/media_utils'
 
 export default class Home extends Component {
   static propTypes = {
@@ -21,12 +21,18 @@ export default class Home extends Component {
     }
   }
 
-  onExtractSubsFile(index) {
-    const { subtitlesFile, videoFile } = this.props;
+  onExtractSubsFile(index, language) {
+    const { subtitlesFile, videoFile } = this.state;
     if (videoFile) {
-      extractSubsFile(index, videoFile)
+      extractSubsFile(index, videoFile.path)
         .then(
-          extractedFile => this.setState({subtitlesFile: extractedFile})
+          extractedFile => {
+            const extractedSubs = {
+              ...extractedFile,
+              name: `${extractedFile.name} - ${language}`
+            }
+            this.setState({subtitlesFile: extractedSubs})
+          }
         )
     }
   }
@@ -78,7 +84,7 @@ export default class Home extends Component {
             <ul>
               {this.props.embeddedSubs.map(sub => (
                 <li key={sub.index}>
-                  <a onClick={ () => this.onExtractSubsFile(sub.index) }>
+                  <a onClick={ () => this.onExtractSubsFile(sub.index, sub.language) }>
                     {sub.language}
                   </a>
                 </li>

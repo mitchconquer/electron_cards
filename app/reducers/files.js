@@ -1,5 +1,5 @@
 // @flow
-import { SET_FILES, SET_FILE, PROCESSING, SET_EMBEDDED_SUBS, SET_SUBS_FILE } from '../actions/files';
+import { SET_FILES, PROCESSING, SET_EMBEDDED_SUBS, SET_SUBS_FILE } from '../actions/files';
 
 export const initialState = {
   processing: false,
@@ -15,14 +15,9 @@ export default function files(state = initialState, action = {}) {
         ...state,
         processing: action.value
       }
-    case SET_FILE:
-      return {
-        ...state,
-        [action.file.basicType]: action.file
-      }
     case SET_FILES:
       const newState = {
-        processing: !!state.processing
+        ...state
       };
       action.files.forEach(fileData => {
         newState[fileData.basicType] = fileData;
