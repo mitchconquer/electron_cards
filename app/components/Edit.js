@@ -1,6 +1,7 @@
 // @flow
 import React, { Component, PropTypes } from 'react';
 import MediaItem from './MediaItem';
+import BulkEditMenu from './BulkEditMenu';
 
 class Edit extends Component {
   static propTypes = {
@@ -12,6 +13,8 @@ class Edit extends Component {
     media: PropTypes.object.isRequired,
     onRedo: PropTypes.func.isRequired,
     onUndo: PropTypes.func.isRequired,
+    selectNone: PropTypes.func.isRequired,
+    selectAll: PropTypes.func.isRequired,
     toggleCheckbox: PropTypes.func.isRequired,
     updateFilter: PropTypes.func.isRequired,
     updateMedia: PropTypes.func.isRequired
@@ -32,7 +35,7 @@ class Edit extends Component {
   }
 
   render() {
-    const { canRedo, canUndo, filter, media, onRedo, onUndo } = this.props;
+    const { canRedo, canUndo, filter, media, onRedo, onUndo, selectAll, selectNone } = this.props;
     return (
       <div>
        <h1>Edit Page</h1>
@@ -49,7 +52,8 @@ class Edit extends Component {
         <input type='text' value={filter} onChange={this.onFilterChange.bind(this)} className='filter-input' />
         <br />
         <br />
-        {Object.keys(media).filter(key => media[key].selected).length}
+        <BulkEditMenu media={media} />
+        <a onClick={selectAll}>Select All</a> | <a onClick={selectNone}>Select None</a>
         <br />
         <br />
         <div className='row'>

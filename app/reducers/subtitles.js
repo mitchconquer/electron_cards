@@ -1,5 +1,5 @@
 // @flow
-import { COMBINE_MEDIA, REMOVE_MEDIA, RESET_MEDIA, TOGGLE_CHECKBOX, UPDATE_MEDIA } from '../actions/media'
+import { COMBINE_MEDIA, REMOVE_MEDIA, RESET_MEDIA, SELECT_ALL, SELECT_NONE, TOGGLE_CHECKBOX, UPDATE_MEDIA } from '../actions/media'
 import undoable, { includeAction } from 'redux-undo'
 
 export const initialState = {};
@@ -36,6 +36,24 @@ function subtitles(state = initialState, action = {}) {
           selected: !state[action.index].selected
         }
       }
+    case SELECT_ALL:
+      const allSelected = {}
+      Object.keys(state).forEach(key => {
+        allSelected[key] = {
+          ...state[key],
+          selected: true
+        }
+      })
+      return allSelected
+    case SELECT_NONE:
+      const noneSelected = {}
+      Object.keys(state).forEach(key => {
+        noneSelected[key] = {
+          ...state[key],
+          selected: false
+        }
+      })
+      return noneSelected
     case UPDATE_MEDIA:
       return {
         ...state,

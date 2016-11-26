@@ -2,7 +2,9 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Edit from '../components/Edit'
-import { combineSubtitles, createApkg, toggleCheckbox, updateMediaTimes } from '../actions/media'
+import { combineSubtitles, createApkg, toggleCheckbox, 
+         updateMediaTimes, selectAll, selectNone 
+       } from '../actions/media'
 import { updateFilter } from '../actions/filter'
 import { ActionCreators as UndoActionCreators } from 'redux-undo'
 
@@ -21,6 +23,8 @@ function mapDispatchToProps(dispatch) {
     createApkg: () => dispatch(createApkg()),
     onRedo: () => dispatch(UndoActionCreators.redo()),
     onUndo: () => dispatch(UndoActionCreators.undo()),
+    selectAll: () => dispatch(selectAll()),
+    selectNone: () => dispatch(selectNone()),
     toggleCheckbox: index => dispatch(toggleCheckbox(index)),
     updateFilter: newFilter => dispatch(updateFilter(newFilter)),
     updateMedia: newMedia => dispatch(updateMediaTimes(newMedia))

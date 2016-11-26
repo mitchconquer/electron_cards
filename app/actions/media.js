@@ -10,6 +10,8 @@ export const UPDATE_MEDIA = 'UPDATE_MEDIA'
 export const REMOVE_MEDIA = 'REMOVE_MEDIA'
 export const COMBINE_MEDIA = 'COMBINE_MEDIA'
 export const TOGGLE_CHECKBOX = 'TOGGLE_CHECKBOX'
+export const SELECT_ALL = 'SELECT_ALL'
+export const SELECT_NONE = 'SELECT_NONE'
 
 // ACTION CREATORS
 
@@ -58,6 +60,18 @@ export function toggleCheckbox(index) {
   return {
     type: TOGGLE_CHECKBOX,
     index
+  }
+}
+
+export function selectAll() {
+  return {
+    type: SELECT_ALL
+  }
+}
+
+export function selectNone() {
+  return {
+    type: SELECT_NONE
   }
 }
 
