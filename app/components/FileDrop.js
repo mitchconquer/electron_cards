@@ -35,8 +35,8 @@ export default class FileDrop extends Component {
     const { selectedFile, message, type } = this.props
     return (
       <div>
-        <Dropzone onDropAccepted={this.onDrop.bind(this)} 
-                  multiple={false} 
+        <Dropzone onDropAccepted={this.onDrop.bind(this)}
+                  multiple={false}
                   disablePreview={false}
                   // accept={_mimeTypes[type]}
                   >
