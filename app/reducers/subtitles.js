@@ -1,5 +1,8 @@
 // @flow
-import { COMBINE_MEDIA, REMOVE_MEDIA, RESET_MEDIA, UPDATE_MEDIA } from '../actions/media'
+import { COMBINE_MEDIA, REMOVE_MEDIA, RESET_MEDIA, 
+         SELECT_ALL, SELECT_NONE, TOGGLE_CHECKBOX, 
+         UPDATE_MEDIA, BULK_UPDATE_MEDIA
+       } from '../actions/media'
 import undoable, { includeAction } from 'redux-undo'
 
 export const initialState = {};
@@ -7,6 +10,14 @@ export const initialState = {};
 function subtitles(state = initialState, action = {}) {
   let newState = {};
   switch (action.type) {
+    case BULK_UPDATE_MEDIA:
+      const bulkUpdated = {
+        ...state
+      }
+      Object.keys(action.updatedMedia).forEach(key => {
+        bulkUpdated[key] = {...action.updatedMedia[key]}
+      })
+      return bulkUpdated
     case COMBINE_MEDIA:
       Object.keys(state).forEach(key => {
         const notNew = state[key].index !== action.updatedMedia.index;
@@ -28,6 +39,32 @@ function subtitles(state = initialState, action = {}) {
       return {
         ...action.media
       }
+    case TOGGLE_CHECKBOX:
+      return {
+        ...state,
+        [action.index]: {
+          ...state[action.index],
+          selected: !state[action.index].selected
+        }
+      }
+    case SELECT_ALL:
+      const allSelected = {}
+      Object.keys(state).forEach(key => {
+        allSelected[key] = {
+          ...state[key],
+          selected: true
+        }
+      })
+      return allSelected
+    case SELECT_NONE:
+      const noneSelected = {}
+      Object.keys(state).forEach(key => {
+        noneSelected[key] = {
+          ...state[key],
+          selected: false
+        }
+      })
+      return noneSelected
     case UPDATE_MEDIA:
       return {
         ...state,

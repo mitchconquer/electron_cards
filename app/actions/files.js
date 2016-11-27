@@ -44,16 +44,28 @@ export function setEmbeddedSubs(embeddedSubs) {
 export function processFiles(videoFile, subtitlesFile) {
   return dispatch => {
     return new Bromise((resolve, reject) => {
-      dispatch(processing(true));
-      dispatch(setFiles([videoFile, subtitlesFile]));
+      dispatch(processing(true))
+      dispatch(setFiles([videoFile, subtitlesFile]))
 
-      let subtitles;
+      let subtitles
       mediaFlashcards.initializeSubs(subtitlesFile.path, videoFile.path)
         .then(
           subsFromInitialize => mediaFlashcards.transformSubs(subsFromInitialize)
         )
         .then(
           subs => mediaFlashcards.generateAudio(videoFile.path, subs)
+        )
+        .then(
+          subs => {
+            const newSubs = {}
+            Object.keys(subs).forEach(key => {
+              newSubs[key] = {
+                ...subs[key],
+                selected: false
+              }
+            })
+            return newSubs
+          }
         )
         .then(
           subs => dispatch(resetMedia(subs))
