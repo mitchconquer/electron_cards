@@ -7,6 +7,7 @@ import { push } from 'react-router-redux'
 export const RESET_MEDIA = 'RESET_MEDIA'
 export const UPDATE_FILTER = 'UPDATE_FILTER'
 export const UPDATE_MEDIA = 'UPDATE_MEDIA'
+export const BULK_UPDATE_MEDIA = 'BULK_UPDATE_MEDIA'
 export const REMOVE_MEDIA = 'REMOVE_MEDIA'
 export const COMBINE_MEDIA = 'COMBINE_MEDIA'
 export const TOGGLE_CHECKBOX = 'TOGGLE_CHECKBOX'
@@ -52,7 +53,15 @@ export function updateFilter(newFilter) {
 export function updateMedia(updatedMedia) {
   return {
     type: UPDATE_MEDIA,
-    updatedMedia: {...updatedMedia}
+    updatedMedia
+  }
+}
+
+
+export function bulkUpdateMedia(updatedMedia) {
+  return {
+    type: BULK_UPDATE_MEDIA,
+    updatedMedia
   }
 }
 
@@ -141,16 +150,6 @@ export function updateMediaTimes(newMedia) {
       media: mediaFlashcards.updateFileVersionHash(newMedia.media)
     }
 
-    // Problems:
-    // 1. Redux devtools says the updateMedia() dispatch is happening in two steps
-    //    The duration and endtime are updated when we dispatch processing(true)
-    //    and then the media filename is updated when updateMedia() is dispatched
-    //    like expected.
-    // 2. When you click `undo`, the updated time (possibly the endtime as well?) 
-    //    are not being updated.
-    // 3. The app is insanely slow since adding redux-undo. State object is 8.4mb. 
-    //    Should see if can use Immutable.js to reduce size of state.
-
     dispatch(processing(true))
 
     mediaFlashcards.updateAudio(videoFile, subtitleData)
@@ -159,6 +158,17 @@ export function updateMediaTimes(newMedia) {
       )
       .then(
         () => dispatch(processing(false))
+      )
+  }
+}
+
+export function bulkEditMedia(updatedMedia, videoPath) {
+  const mediaMap = Object.keys(updatedMedia).map(key => updatedMedia[key])
+  return (dispatch, getState) => {
+    const videoFilePath = getState().files.videoFile.path
+    mediaFlashcards.generateAudio(videoFilePath, mediaMap)
+      .then(
+        () => dispatch(bulkUpdateMedia(updatedMedia))
       )
   }
 }

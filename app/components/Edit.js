@@ -5,6 +5,7 @@ import BulkEditMenu from './BulkEditMenu';
 
 class Edit extends Component {
   static propTypes = {
+    bulkEditMedia: PropTypes.func.isRequired,
     canRedo: PropTypes.bool.isRequired,
     canUndo: PropTypes.bool.isRequired,
     combineSubtitles: PropTypes.func.isRequired,
@@ -35,7 +36,7 @@ class Edit extends Component {
   }
 
   render() {
-    const { canRedo, canUndo, filter, media, onRedo, onUndo, selectAll, selectNone } = this.props;
+    const { bulkEditMedia, canRedo, canUndo, filter, media, onRedo, onUndo, selectAll, selectNone } = this.props;
     return (
       <div>
        <h1>Edit Page</h1>
@@ -52,7 +53,7 @@ class Edit extends Component {
         <input type='text' value={filter} onChange={this.onFilterChange.bind(this)} className='filter-input' />
         <br />
         <br />
-        <BulkEditMenu media={media} />
+        <BulkEditMenu media={media} bulkEditMedia={bulkEditMedia} />
         <a onClick={selectAll}>Select All</a> | <a onClick={selectNone}>Select None</a>
         <br />
         <br />

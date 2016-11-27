@@ -2,8 +2,14 @@ import Bromise from 'bluebird'
 import { remote } from 'electron';
 const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards;
 
-export function updateMediaTimes(media, action, position, msecs) {
-  const updatedMedia = {...media};
+export function updateMediaTimes(media, action, position, msecs, useVersionHash) {
+  const updatedMedia = {
+    ...media
+  };
+
+  if (useVersionHash) {
+    updatedMedia.media = mediaFlashcards.updateFileVersionHash(updatedMedia.media)
+  }
 
   if (action === 'add') {
     updatedMedia.duration += (msecs / 1000);

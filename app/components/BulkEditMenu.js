@@ -1,9 +1,24 @@
 // @flow
 import React, { Component, PropTypes } from 'react'
+import { updateMediaTimes } from '../utils/media_utils'
 
 class BulkEditMenu extends Component {
   static propTypes = {
+    bulkEditMedia: PropTypes.func.isRequired,
     media: PropTypes.object.isRequired
+  }
+
+  bulkEdit(action, position, msecs) {
+    const { bulkEditMedia, media } = this.props
+    const updatedMedia = {}
+    Object.keys(media)
+      .filter(key => media[key].selected)
+      .forEach(key => {
+        updatedMedia[key] = {
+          ...updateMediaTimes(media[key], action, position, msecs, true)
+        }
+      })
+    bulkEditMedia(updatedMedia)
   }
 
   multipleSelected() {
@@ -20,7 +35,7 @@ class BulkEditMenu extends Component {
 
     return (
       <div>
-        Bulk Edit Menu
+        <a onClick={ ()=>{this.bulkEdit('add', 'end', 200)} }>Add 200mS to End</a>
       </div>
     )
   }
