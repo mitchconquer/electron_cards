@@ -1,7 +1,7 @@
 // @flow
 import { COMBINE_MEDIA, REMOVE_MEDIA, RESET_MEDIA, 
          SELECT_ALL, SELECT_NONE, TOGGLE_CHECKBOX, 
-         UPDATE_MEDIA, BULK_UPDATE_MEDIA
+         UPDATE_MEDIA, BULK_UPDATE_MEDIA, UPDATE_TEXT
        } from '../actions/media'
 import undoable, { includeAction } from 'redux-undo'
 
@@ -72,13 +72,21 @@ function subtitles(state = initialState, action = {}) {
           ...action.updatedMedia
         }
       }
+    case UPDATE_TEXT:
+      return {
+        ...state,
+        [action.index]: {
+          ...state[action.index],
+          text: `${action.text}`
+        }
+      }
     default:
       return state;
   }
 }
 
 const undoableSubtitles = undoable(subtitles, {
-  filter: includeAction([BULK_UPDATE_MEDIA, COMBINE_MEDIA, UPDATE_MEDIA, REMOVE_MEDIA])
+  filter: includeAction([BULK_UPDATE_MEDIA, COMBINE_MEDIA, UPDATE_MEDIA, REMOVE_MEDIA, UPDATE_TEXT])
 })
 
 export default undoableSubtitles

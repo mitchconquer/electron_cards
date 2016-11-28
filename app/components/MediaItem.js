@@ -48,18 +48,51 @@ export default class MediaItem extends Component {
     isDragging: PropTypes.bool.isRequired,
     mediaItem: PropTypes.object.isRequired,
     toggleCheckbox: PropTypes.func.isRequired,
-    updateMedia: PropTypes.func.isRequired
+    updateMedia: PropTypes.func.isRequired,
+    updateText: PropTypes.func.isRequired
   };
 
-  onToggleCheckbox() {
-    const { mediaItem, toggleCheckbox } = this.props
-    toggleCheckbox(mediaItem.index)
+  constructor(props) {
+    super(props)
+    this.state = {
+      editingText: false
+    }
   }
 
   addTimeEnd() {
     const { mediaItem, updateMedia } = this.props;
     const updatedMedia = updateMediaTimes(mediaItem, 'add', 'end', 200);
     updateMedia(updatedMedia);
+  }
+
+  onToggleCheckbox() {
+    const { mediaItem, toggleCheckbox } = this.props
+    toggleCheckbox(mediaItem.index)
+  }
+
+  onUpdateText(event) {
+    const { updateText, mediaItem } = this.props
+    updateText(event.target.value, mediaItem.index)
+  }
+
+  renderText() {
+    if (this.state.editingText) {
+      return (
+        <input type='text' 
+               value={this.props.mediaItem.text} 
+               onBlur={this.toggleEditText.bind(this)}
+               ref={input => input && input.focus()}
+               onChange={this.onUpdateText.bind(this)}
+               />
+      )
+    }
+    return (<div onClick={this.toggleEditText.bind(this)}>{this.props.mediaItem.text}</div>)
+  }
+
+  toggleEditText() {
+    this.setState({
+      editingText: !this.state.editingText
+    })
   }
 
   render() {
@@ -97,13 +130,13 @@ export default class MediaItem extends Component {
           }}>
             {duration}
           </p>
-          <p className='text' style={{
+          <div className='text' style={{
             opacity: isDragging ? 0.5 : 1
           }}>
-            {text}
+            {this.renderText()}
             <br />
             {media}
-          </p>
+          </div>
         </div>
       </div>
     ));
