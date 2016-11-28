@@ -130,13 +130,13 @@ export default class MediaItem extends Component {
           }}>
             {duration}
           </p>
-          <p className='text' style={{
+          <div className='text' style={{
             opacity: isDragging ? 0.5 : 1
           }}>
             {this.renderText()}
             <br />
             {media}
-          </p>
+          </div>
         </div>
       </div>
     ));
