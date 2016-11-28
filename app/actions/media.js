@@ -4,15 +4,16 @@ const desktopDir = remote.getGlobal('globalObj').desktopDir
 import { processing } from './files'
 import { push } from 'react-router-redux'
 
-export const RESET_MEDIA = 'RESET_MEDIA'
-export const UPDATE_FILTER = 'UPDATE_FILTER'
-export const UPDATE_MEDIA = 'UPDATE_MEDIA'
 export const BULK_UPDATE_MEDIA = 'BULK_UPDATE_MEDIA'
-export const REMOVE_MEDIA = 'REMOVE_MEDIA'
 export const COMBINE_MEDIA = 'COMBINE_MEDIA'
-export const TOGGLE_CHECKBOX = 'TOGGLE_CHECKBOX'
+export const REMOVE_MEDIA = 'REMOVE_MEDIA'
+export const RESET_MEDIA = 'RESET_MEDIA'
 export const SELECT_ALL = 'SELECT_ALL'
 export const SELECT_NONE = 'SELECT_NONE'
+export const TOGGLE_CHECKBOX = 'TOGGLE_CHECKBOX'
+export const UPDATE_FILTER = 'UPDATE_FILTER'
+export const UPDATE_MEDIA = 'UPDATE_MEDIA'
+export const UPDATE_TEXT = 'UPDATE_TEXT'
 
 // ACTION CREATORS
 
@@ -81,6 +82,14 @@ export function selectAll() {
 export function selectNone() {
   return {
     type: SELECT_NONE
+  }
+}
+
+export function updateText(text, index) {
+  return {
+    type: UPDATE_TEXT,
+    index,
+    text
   }
 }
 

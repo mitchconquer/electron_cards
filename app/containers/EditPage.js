@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Edit from '../components/Edit'
 import { combineSubtitles, createApkg, toggleCheckbox, 
          updateMediaTimes, selectAll, selectNone,
-         bulkEditMedia
+         bulkEditMedia, updateText
        } from '../actions/media'
 import { updateFilter } from '../actions/filter'
 import { ActionCreators as UndoActionCreators } from 'redux-undo'
@@ -13,7 +13,7 @@ function mapStateToProps(state) {
   return {
     filter: state.filter,
     media: state.subtitles.present,
-    canUndo: state.subtitles.past.length > 1,
+    canUndo: state.subtitles.past.length > 0,
     canRedo: state.subtitles.future.length > 0
   };
 }
@@ -29,7 +29,8 @@ function mapDispatchToProps(dispatch) {
     selectNone: () => dispatch(selectNone()),
     toggleCheckbox: index => dispatch(toggleCheckbox(index)),
     updateFilter: newFilter => dispatch(updateFilter(newFilter)),
-    updateMedia: newMedia => dispatch(updateMediaTimes(newMedia))
+    updateMedia: newMedia => dispatch(updateMediaTimes(newMedia)),
+    updateText: (text, index) => dispatch(updateText(text, index))
   };
 }
 
