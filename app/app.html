@@ -12,9 +12,12 @@
         link.href = '../dist/style.css';
         document.write(link.outerHTML);
       }
+      window.preventDndLoad = function(event) {
+        event.preventDefault();
+      };
     </script>
   </head>
-  <body>
+  <body onDrop="return window.preventDndLoad(event)" onDragOver="return window.preventDndLoad(event)">
     <div id="root"></div>
     <script>
       {
