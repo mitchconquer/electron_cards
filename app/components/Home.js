@@ -60,7 +60,7 @@ export default class Home extends Component {
     
     const { videoFile, subtitlesFile } = this.state;
     return (
-      <div className='container'>
+      <div className='container' onDragOver={event=>event.preventDefault()} onDrop={event=>event.preventDefault()}>
 
         <div className='row' >
           <div className='col-xs-12'>
