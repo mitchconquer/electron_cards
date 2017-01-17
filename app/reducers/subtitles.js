@@ -48,14 +48,25 @@ function subtitles(state = initialState, action = {}) {
         }
       }
     case SELECT_ALL:
-      const allSelected = {}
-      Object.keys(state).forEach(key => {
-        allSelected[key] = {
-          ...state[key],
-          selected: true
-        }
-      })
-      return allSelected
+      // Only select subtitle items that match the fitler
+      return Object.values(state)
+        .reduce((newState, subtitle) => {
+          const filter = action.filter.trim()
+          console.log({filter, subtitle})
+          const matches = filter ? subtitle.text.toLowerCase().includes(action.filter.toLowerCase()) : true
+          if (matches) {
+            return {
+              ...newState,
+              [subtitle.id]: {
+                ...subtitle,
+                selected: true
+              }
+            }
+          }
+          return {
+            ...newState
+          }
+        }, {})
     case SELECT_NONE:
       const noneSelected = {}
       Object.keys(state).forEach(key => {

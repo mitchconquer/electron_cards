@@ -73,9 +73,10 @@ export function toggleCheckbox(index) {
   }
 }
 
-export function selectAll() {
+export function _selectAll(filter) {
   return {
-    type: SELECT_ALL
+    type: SELECT_ALL,
+    filter
   }
 }
 
@@ -184,4 +185,10 @@ export function bulkEditMedia(updatedMedia, videoPath) {
 
 function mediaToArray(mediaObject) {
   return Object.keys(mediaObject).map(key => mediaObject[key])
+}
+
+export function selectAll() {
+  return (dispatch, getState) => {
+    dispatch(_selectAll(getState().filter))
+  }
 }
