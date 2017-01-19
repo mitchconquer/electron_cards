@@ -29,12 +29,18 @@ function subtitles(state = initialState, action = {}) {
       newState[action.updatedMedia.index] = action.updatedMedia;
       return newState
     case REMOVE_MEDIA:
-      Object.keys(state).forEach(index => {
-        if (parseInt(index) !== action.index) {
-          newState[index] = {...state[index]}
-        }
-      })
-      return newState
+      return Object.keys(state)
+        .reduce((remainingMedia, index) => {
+          if (parseInt(index) !== action.index) {
+            return {
+              ...remainingMedia,
+              [index]: {
+                ...state[index]
+              }
+            }
+          }
+          return remainingMedia
+        }, {})
     case RESET_MEDIA:
       return {
         ...action.media

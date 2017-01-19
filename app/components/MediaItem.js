@@ -49,7 +49,8 @@ export default class MediaItem extends Component {
     mediaItem: PropTypes.object.isRequired,
     toggleCheckbox: PropTypes.func.isRequired,
     updateMedia: PropTypes.func.isRequired,
-    updateText: PropTypes.func.isRequired
+    updateText: PropTypes.func.isRequired,
+    removeMedia: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -97,7 +98,7 @@ export default class MediaItem extends Component {
 
   render() {
     const { selected, duration, index, media, text } = this.props.mediaItem;
-    const { connectDragSource, isDragging, connectDropTarget, isOver } = this.props;
+    const { connectDragSource, isDragging, connectDropTarget, isOver, removeMedia } = this.props;
 
     let backgroundColor;
     if (isDragging) {
@@ -136,6 +137,7 @@ export default class MediaItem extends Component {
             {this.renderText()}
             <br />
             {media}
+            <a onClick={removeMedia}>Delete</a>
           </div>
         </div>
       </div>

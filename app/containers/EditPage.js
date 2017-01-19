@@ -25,6 +25,7 @@ function mapDispatchToProps(dispatch) {
     createApkg: () => dispatch(createApkg()),
     onRedo: () => dispatch(UndoActionCreators.redo()),
     onUndo: () => dispatch(UndoActionCreators.undo()),
+    removeMedia: index => dispatch(removeMedia(index)),
     selectAll: () => dispatch(selectAll()),
     selectNone: () => dispatch(selectNone()),
     toggleCheckbox: index => dispatch(toggleCheckbox(index)),
