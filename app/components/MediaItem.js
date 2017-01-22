@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { ItemTypes } from '../utils/item_types';
 import { DragSource, DropTarget } from 'react-dnd';
 import { updateMediaTimes } from '../utils/media_utils';
+import Toolbar from './Toolbar'
 
 // React DnD Items
 const subtitleSource = {
@@ -124,20 +125,15 @@ export default class MediaItem extends Component {
           <audio src={`../pkg/${media}?duration=${duration}`} controls>
             Your browser does not support the <code>audio</code> element.
           </audio>
-          <a onClick={this.addTimeEnd.bind(this)}>+++</a>
+          &nbsp;<a onClick={removeMedia.bind(this, index)}>X</a>
           <br />
-          <p className='time' style={{
-            opacity: isDragging ? 0.5 : 1
-          }}>
-            {duration}
-          </p>
+          <Toolbar />
+          
           <div className='text' style={{
             opacity: isDragging ? 0.5 : 1
           }}>
             {this.renderText()}
             <br />
-            {media}
-            <a onClick={removeMedia.bind(this, index)}>Delete</a>
           </div>
         </div>
       </div>
