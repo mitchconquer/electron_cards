@@ -28,7 +28,15 @@ class Edit extends Component {
     return Object.keys(media).map(key => media[key]).filter(item => {
       return item.text.toLowerCase().includes(filter.toLowerCase())
     })
-      .map(item => <MediaItem combineSubtitles={combineSubtitles} key={item.index} mediaItem={item} updateMedia={this.props.updateMedia} toggleCheckbox={toggleCheckbox} updateText={updateText} removeMedia={()=>removeMedia(item.index)}/>)
+      .map(item => <MediaItem
+                     combineSubtitles={combineSubtitles}
+                     key={item.index}
+                     mediaItem={item}
+                     updateMedia={this.props.updateMedia}
+                     toggleCheckbox={toggleCheckbox}
+                     updateText={updateText}
+                     removeMedia={removeMedia}
+                   />)
   }
 
   onFilterChange(event) {
@@ -39,6 +47,7 @@ class Edit extends Component {
 
   render() {
     const { bulkEditMedia, canRedo, canUndo, filter, media, onRedo, onUndo, selectAll, selectNone } = this.props;
+
     return (
       <div>
        <h1>Edit Page</h1>
