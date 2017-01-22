@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Edit from '../components/Edit'
 import { combineSubtitles, createApkg, toggleCheckbox, 
          updateMediaTimes, selectAll, selectNone,
-         bulkEditMedia, updateText
+         bulkEditMedia, updateText, removeMedia
        } from '../actions/media'
 import { updateFilter } from '../actions/filter'
 import { ActionCreators as UndoActionCreators } from 'redux-undo'

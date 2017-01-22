@@ -137,7 +137,7 @@ export default class MediaItem extends Component {
             {this.renderText()}
             <br />
             {media}
-            <a onClick={removeMedia}>Delete</a>
+            <a onClick={removeMedia.bind(this, index)}>Delete</a>
           </div>
         </div>
       </div>
