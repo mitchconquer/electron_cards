@@ -99,7 +99,7 @@ export default class MediaItem extends Component {
 
   render() {
     const { selected, duration, index, media, text } = this.props.mediaItem;
-    const { connectDragSource, isDragging, connectDropTarget, isOver, removeMedia } = this.props;
+    const { connectDragSource, isDragging, connectDropTarget, isOver, removeMedia, updateMedia, mediaItem } = this.props;
 
     let backgroundColor;
     if (isDragging) {
@@ -127,16 +127,21 @@ export default class MediaItem extends Component {
           </audio>
           &nbsp;<a onClick={removeMedia.bind(this, index)}>X</a>
           <br />
-          <Toolbar />
+          <Toolbar
+            updateMedia={updateMedia}
+            mediaItem={mediaItem}
+          />
           
           <div className='text' style={{
             opacity: isDragging ? 0.5 : 1
           }}>
             {this.renderText()}
             <br />
+            {mediaItem.startTime}<br />
+            {mediaItem.endTime}
           </div>
         </div>
       </div>
     ));
-}
+  }
 }
