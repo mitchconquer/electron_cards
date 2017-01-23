@@ -27,16 +27,33 @@ class BulkEditMenu extends Component {
   }
 
   render() {
-    const {  } = this.props
-
     if (!this.multipleSelected()) {
       return false
     }
 
     return (
-      <div>
-        <a onClick={ ()=>{this.bulkEdit('add', 'end', 200)} }>Add 200mS to End</a>
-      </div>
+      <ul className='subtitle-tools'>
+        <li>
+          Start Time<br />
+          <a onClick={ ()=>{this.bulkEdit('add', 'start', 200)} }>+</a>
+          &nbsp;
+          <a onClick={ ()=>{this.bulkEdit('subtract', 'start', 200)} }>-</a>
+        </li>
+        <li>
+          Shift Backward<br />
+          <a>⇐</a>
+        </li>
+        <li>
+          Shift Forward<br />
+          <a>⇒</a>
+        </li>
+        <li>
+          End Time<br />
+          <a onClick={ ()=>{this.bulkEdit('add', 'end', 200)} }>+</a>
+          &nbsp;
+          <a onClick={ ()=>{this.bulkEdit('subtract', 'end', 200)} }>-</a>
+        </li>
+      </ul>
     )
   }
 }
