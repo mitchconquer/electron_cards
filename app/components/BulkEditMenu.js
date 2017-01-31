@@ -3,6 +3,12 @@ import React, { Component, PropTypes } from 'react'
 import { updateMediaTimes } from '../utils/media_utils'
 
 class BulkEditMenu extends Component {
+  constructor() {
+    super()
+    this.shiftForward = this.shiftForward.bind(this)
+    this.shiftBackward = this.shiftBackward.bind(this)
+  }
+
   static propTypes = {
     bulkEditMedia: PropTypes.func.isRequired,
     media: PropTypes.object.isRequired
@@ -21,6 +27,30 @@ class BulkEditMenu extends Component {
     bulkEditMedia(updatedMedia)
   }
 
+  shiftForward() {
+    const { media, bulkEditMedia } = this.props
+    const shiftedMedia = Object.values(media)
+      .filter(mediaItem => mediaItem.selected)
+      .map(mediaItem => updateMediaTimes(mediaItem, 'add', 'end', 200))
+      .reduce((mediaItems, mediaItem) => ({
+        ...mediaItems,
+        [mediaItem.index]: updateMediaTimes(mediaItem, 'subtract', 'start', 200)
+      }), {})
+    bulkEditMedia(shiftedMedia)
+  }
+
+  shiftBackward() {
+    const { media, bulkEditMedia } = this.props
+    const shiftedMedia = Object.values(media)
+      .filter(mediaItem => mediaItem.selected)
+      .map(mediaItem => updateMediaTimes(mediaItem, 'subtract', 'end', 200))
+      .reduce((mediaItems, mediaItem) => ({
+        ...mediaItems,
+        [mediaItem.index]: updateMediaTimes(mediaItem, 'add', 'start', 200)
+      }), {})
+    bulkEditMedia(shiftedMedia)
+  }
+
   multipleSelected() {
     const { media } = this.props
     return Object.keys(media).filter(key => media[key].selected).length > 1
@@ -35,23 +65,23 @@ class BulkEditMenu extends Component {
       <ul className='subtitle-tools'>
         <li>
           Start Time<br />
-          <a onClick={ ()=>{this.bulkEdit('add', 'start', 200)} }>+</a>
+          <a onClick={this.bulkEdit.bind(this, 'add', 'start', 200)}>+</a>
           &nbsp;
-          <a onClick={ ()=>{this.bulkEdit('subtract', 'start', 200)} }>-</a>
+          <a onClick={this.bulkEdit.bind(this, 'subtract', 'start', 200)}>-</a>
         </li>
         <li>
           Shift Backward<br />
-          <a>⇐</a>
+          <a onClick={this.shiftBackward}>⇐</a>
         </li>
         <li>
           Shift Forward<br />
-          <a>⇒</a>
+          <a onClick={this.shiftForward}>⇒</a>
         </li>
         <li>
           End Time<br />
-          <a onClick={ ()=>{this.bulkEdit('add', 'end', 200)} }>+</a>
+          <a onClick={this.bulkEdit.bind(this, 'add', 'end', 200)}>+</a>
           &nbsp;
-          <a onClick={ ()=>{this.bulkEdit('subtract', 'end', 200)} }>-</a>
+          <a onClick={this.bulkEdit.bind(this, 'subtract', 'end', 200)}>-</a>
         </li>
       </ul>
     )
