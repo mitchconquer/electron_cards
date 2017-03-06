@@ -5,6 +5,8 @@ import FileDrop from './FileDrop'
 import Loader from './Loader'
 import { extractSubsFile } from '../utils/media_utils'
 
+require('../styles/home.scss')
+
 export default class Home extends Component {
   static propTypes = {
     listEmbeddedSubs: PropTypes.func.isRequired,

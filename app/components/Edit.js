@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import MediaItem from './MediaItem';
 import BulkEditMenu from './BulkEditMenu';
+require('../styles/edit.scss')
 
 class Edit extends Component {
   static propTypes = {
