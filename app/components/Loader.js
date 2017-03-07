@@ -1,7 +1,6 @@
 // @flow
 import React, { Component, PropTypes } from 'react';
-// Not working...
-// import styles from './Loader.css';
+
 require('../styles/loader.scss')
 
 class Edit extends Component {
