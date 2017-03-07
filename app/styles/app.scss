@@ -6,6 +6,19 @@ body {
   font-family: Arial, Helvetica, Helvetica Neue, serif;
 }
 
+
+// Typography
+
+p {
+  font-size: 14px;
+}
+
+.text-success {
+  color: #01c369;
+}
+
+// Headings
+
 h2 {
 }
 
@@ -16,13 +29,13 @@ h1 {
   letter-spacing: -.025em;
 }
 
-p {
-  font-size: 14px;
-}
+// lists
 
 li {
   list-style: none;
 }
+
+// Links
 
 a {
   color: #484848;
