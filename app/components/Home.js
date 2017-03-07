@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import FileDrop from './FileDrop'
 import Loader from './Loader'
 import { extractSubsFile } from '../utils/media_utils'
+import classnames from 'classnames'
 
 require('../styles/home.scss')
 
@@ -53,6 +54,12 @@ export default class Home extends Component {
     // if type === videoFile, get the available subtitle files
   }
 
+  readyToGo() {
+    const haveVideo = Object.keys(this.state.videoFile).length > 0
+    const haveSubs = Object.keys(this.state.subtitlesFile).length > 0
+    return haveVideo && haveSubs
+  }
+
   // afteryou set the embedded subs
   // if you cilck one, extract the subtitle file and 
   // set that to the state of the subtitleFile in Home component
@@ -66,7 +73,10 @@ export default class Home extends Component {
 
         <div className='row' >
           <div className='col-xs-12'>
-            <h1>Upload Your Files</h1>
+            <h1>App Name Placeholder</h1>
+          </div>
+          <div className='col-xs-12'>
+            <h2>Upload Your Files</h2>
           </div>
           <div className='col-sm-4'>
             <FileDrop listEmbeddedSubs={this.props.listEmbeddedSubs} message='Drop your video file here' setFile={this.setFile.bind(this)} selectedFile={videoFile.name} type='videoFile' />
@@ -75,9 +85,6 @@ export default class Home extends Component {
             <FileDrop listEmbeddedSubs={this.props.listEmbeddedSubs} message='Drop your subtitle file here (if you have one)' setFile={this.setFile.bind(this)} selectedFile={subtitlesFile.name} type='subtitlesFile' />
           </div>
           <div className='col-sm-4'>
-            <a onClick={this.processFile.bind(this)} ><i className="fa fa-arrow-right" aria-hidden="true" style={{fontSize:'50px'}}></i>
-            <br /><span className='h1'>Go</span>
-            </a>
           </div>
           <div className='col-xs-12'>
             {this.props.processing && 'Processing...'}
@@ -97,6 +104,14 @@ export default class Home extends Component {
             <Loader active={this.props.processing}/>
           </div>
         </div>
+        <nav className={classnames('navbar navbar-default navbar-fixed-bottom go-bar', {'go-bar-valid': this.readyToGo()})}>
+          <div className='container'>
+            <div className='col-sm-12 go-button'>
+              <a onClick={this.processFile.bind(this)} ><span className='h1'>Go</span>&nbsp;<i className="fa fa-arrow-right" aria-hidden="true" style={{fontSize:'50px'}}></i>
+              </a>
+            </div>
+          </div>
+        </nav>
       </div>
     );
   }

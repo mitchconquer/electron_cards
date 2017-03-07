@@ -1,14 +1,24 @@
-.container {
-  position: absolute;
-  top: 30%;
-  left: 10px;
-  text-align: center;
-}
+.go-bar {
+  background-color: #b2b2b2;
+  border-color: none;
+  border: none;
+  color: #fff;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
 
-.container h2 {
-  font-size: 5rem;
-}
+  .go-button a {
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s;
+  }
 
-.container a {
-  font-size: 1.4rem;
+  .go-button a:hover {
+    color: #fff;
+  }
+
+  &.go-bar-valid {
+    background-color: #01c369;
+    .go-button a {
+      color: #fff;
+    }
+  }
 }
