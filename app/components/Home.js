@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import FileDrop from './FileDrop'
 import Loader from './Loader'
+import GoMenu from './go-menu'
 import EmbeddedSubs from './embedded-subs'
 import { extractSubsFile } from '../utils/media_utils'
 import classnames from 'classnames'
@@ -26,6 +27,7 @@ export default class Home extends Component {
     }
 
     this.onExtractSubsFile = this.onExtractSubsFile.bind(this)
+    this.processFile = this.processFile.bind(this)
   }
 
   onExtractSubsFile(index, language) {
@@ -96,17 +98,10 @@ export default class Home extends Component {
             <EmbeddedSubs subs={this.props.embeddedSubs} extractSubs={this.onExtractSubsFile}/>
           </div>
           <div className='col-xs-12'>
-            <Loader active={this.props.processing}/>
+            <Loader active={this.props.processing} />
           </div>
         </div>
-        <nav className={classnames('navbar navbar-default navbar-fixed-bottom go-bar', {'go-bar-valid': this.readyToGo()})}>
-          <div className='container'>
-            <div className='col-sm-4 col-sm-offset-2 go-button'>
-              <a onClick={this.processFile.bind(this)} ><span className='h1'>3. Go</span>&nbsp;<i className="fa fa-arrow-right" aria-hidden="true" style={{fontSize:'50px'}}></i>
-              </a>
-            </div>
-          </div>
-        </nav>
+        <GoMenu readyToGo={this.readyToGo()} processFile={this.processFile} />
       </div>
     );
   }
