@@ -1,5 +1,6 @@
 import { updateMediaTimes } from '../utils/media_utils';
 import React, { Component, PropTypes } from 'react'
+require('../styles/toolbar.scss');
 
 class Toolbar extends Component {
 

@@ -1,0 +1,13 @@
+ul.subtitle-tools {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  padding-left: 0;
+
+  li {
+    margin-right: 25px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

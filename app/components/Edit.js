@@ -27,17 +27,17 @@ class Edit extends Component {
   filteredMediaItems() {
     const { combineSubtitles, filter, media, toggleCheckbox, updateText, removeMedia } = this.props
     return Object.keys(media).map(key => media[key]).filter(item => {
-      return item.text.toLowerCase().includes(filter.toLowerCase())
+      return item.text.toLowerCase().includes(filter.toLowerCase());
     })
       .map(item => <MediaItem
-                     combineSubtitles={combineSubtitles}
-                     key={item.index}
-                     mediaItem={item}
-                     updateMedia={this.props.updateMedia}
-                     toggleCheckbox={toggleCheckbox}
-                     updateText={updateText}
-                     removeMedia={removeMedia}
-                   />)
+        combineSubtitles={combineSubtitles}
+        key={item.index}
+        mediaItem={item}
+        updateMedia={this.props.updateMedia}
+        toggleCheckbox={toggleCheckbox}
+        updateText={updateText}
+        removeMedia={removeMedia}
+      />);
   }
 
   onFilterChange(event) {

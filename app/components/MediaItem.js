@@ -4,6 +4,8 @@ import { DragSource, DropTarget } from 'react-dnd';
 import { updateMediaTimes } from '../utils/media_utils';
 import Toolbar from './Toolbar'
 
+require('../styles/media-item.scss');
+
 // React DnD Items
 const subtitleSource = {
   beginDrag(props) {
@@ -111,14 +113,15 @@ export default class MediaItem extends Component {
     }
 
     return connectDropTarget(connectDragSource(
-      <div className='col-xs-12' key={index} style={{
+      <div className='col-xs-12 media-item' key={index} style={{
             opacity: isDragging ? 0.5 : 1,
             backgroundColor
           }}>
         <div className='col-sm-1'>
-          <label>
-            <input type='checkbox' checked={selected} onClick={this.onToggleCheckbox.bind(this)} />
-          </label>
+          <div className='media-item-checkbox'>
+            <input type='checkbox' checked={selected} id={`checkbox-${mediaItem.id}`} onClick={this.onToggleCheckbox.bind(this)} />
+            <label htmlFor={`checkbox-${mediaItem.id}`}></label>
+          </div>
         </div>
         <div className='col-sm-11'>
           <br />
@@ -135,10 +138,10 @@ export default class MediaItem extends Component {
           <div className='text' style={{
             opacity: isDragging ? 0.5 : 1
           }}>
-            {this.renderText()}
+            <div className='media-item-text'>{this.renderText()}</div>
             <br />
-            {mediaItem.startTime}<br />
-            {mediaItem.endTime}
+            <div className='media-item-time media-item-start-time'>{mediaItem.startTime}</div>
+            <div className='media-item-time media-item-end-time'>{mediaItem.endTime}</div>
           </div>
         </div>
       </div>
