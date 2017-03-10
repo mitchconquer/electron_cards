@@ -35,23 +35,23 @@ class Toolbar extends Component {
       <ul className='subtitle-tools'>
         <li>
           Start Time<br />
-          <a onClick={this.adjustTime.bind(this, 'add', 'start')}>+</a>
+          <a onClick={this.adjustTime.bind(this, 'add', 'start')}><i className="fa fa-plus" aria-hidden="true"></i></a>
           &nbsp;
-          <a onClick={this.adjustTime.bind(this, 'subtract', 'start')}>-</a>
+          <a onClick={this.adjustTime.bind(this, 'subtract', 'start')}><i className="fa fa-minus" aria-hidden="true"></i></a>
         </li>
         <li>
           Shift Backward<br />
-          <a onClick={this.shiftBackward.bind(this)}>⇐</a>
+          <a onClick={this.shiftBackward.bind(this)}><i className="fa fa-backward fa-lg" aria-hidden="true"></i></a>
         </li>
         <li>
           Shift Forward<br />
-          <a onClick={this.shiftForward.bind(this)}>⇒</a>
+          <a onClick={this.shiftForward.bind(this)}><i className="fa fa-forward fa-lg" aria-hidden="true"></i></a>
         </li>
         <li>
           End Time<br />
-          <a onClick={this.adjustTime.bind(this, 'add', 'end')}>+</a>
+          <a onClick={this.adjustTime.bind(this, 'add', 'end')}><i className="fa fa-plus" aria-hidden="true"></i></a>
           &nbsp;
-          <a onClick={this.adjustTime.bind(this, 'subtract', 'end')}>-</a>
+          <a onClick={this.adjustTime.bind(this, 'subtract', 'end')}><i className="fa fa-minus" aria-hidden="true"></i></a>
         </li>
       </ul>
     )

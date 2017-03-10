@@ -56,13 +56,6 @@ export default class MediaItem extends Component {
     removeMedia: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      editingText: false
-    }
-  }
-
   addTimeEnd() {
     const { mediaItem, updateMedia } = this.props;
     const updatedMedia = updateMediaTimes(mediaItem, 'add', 'end', 200);
@@ -80,27 +73,18 @@ export default class MediaItem extends Component {
   }
 
   renderText() {
-    if (this.state.editingText) {
-      return (
-        <input type='text' 
-               value={this.props.mediaItem.text} 
-               onBlur={this.toggleEditText.bind(this)}
-               ref={input => input && input.focus()}
-               onChange={this.onUpdateText.bind(this)}
-               />
-      )
-    }
-    return (<div onClick={this.toggleEditText.bind(this)}>{this.props.mediaItem.text}</div>)
-  }
-
-  toggleEditText() {
-    this.setState({
-      editingText: !this.state.editingText
-    })
+    return (
+      <input
+        type='text'
+        value={this.props.mediaItem.text}
+        ref={input => input && input.focus()}
+        onChange={this.onUpdateText.bind(this)}
+      />
+    );
   }
 
   render() {
-    const { selected, duration, index, media, text } = this.props.mediaItem;
+    const { selected, duration, index, media } = this.props.mediaItem;
     const { connectDragSource, isDragging, connectDropTarget, isOver, removeMedia, updateMedia, mediaItem } = this.props;
 
     let backgroundColor;
@@ -124,12 +108,12 @@ export default class MediaItem extends Component {
               <label htmlFor={`checkbox-${mediaItem.id}`}></label>
             </div>
           </div>
-          <div className='col-sm-11'>
+          <div className='col-sm-11 media-item-body'>
+            <a onClick={removeMedia.bind(this, index)} className='media-item-delete'><i className="fa fa-times fa-lg" aria-hidden="true"></i></a>
             <br />
             <audio src={`../pkg/${media}?duration=${duration}`} controls>
               Your browser does not support the <code>audio</code> element.
             </audio>
-            &nbsp;<a onClick={removeMedia.bind(this, index)}>X</a>
             <br />
             <Toolbar
               updateMedia={updateMedia}

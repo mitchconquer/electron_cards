@@ -12,6 +12,22 @@
   }
 }
 
+.media-item-body {
+  position: relative;
+
+  .media-item-delete {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 20px;
+    color: #b2b2b2;
+
+    &:hover {
+      color: #fe2f51;
+    }
+  }
+}
+
 .media-item-checkbox {
   width: 30px;
   display: inline-block;
@@ -57,6 +73,29 @@
     opacity: 0.5;
   }
 
+}
+
+.media-item-text {
+  font-size: larger;
+  font-weight: 900;
+  background: #eee;
+  padding: 5px;
+
+  input[type="text"] {
+    background: transparent;
+    border: none;
+    width: 100%;
+    padding: 5px;
+    transition: border-color 0.2s;
+    border: 1px solid transparent;
+
+    &:focus {
+      outline: none;
+      bord-width: 1px;
+      border: 1px solid #848cec;
+      border-radius: 2px;
+    }
+  }
 }
 
 .media-item-time {
