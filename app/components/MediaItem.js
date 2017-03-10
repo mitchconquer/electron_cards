@@ -43,6 +43,12 @@ function targetCollect(connect, monitor) {
 @DragSource(ItemTypes.SUBTITLE, subtitleSource, sourceCollect)
 @DropTarget(ItemTypes.SUBTITLE, subtitleTarget, targetCollect)
 export default class MediaItem extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      editedText: this.props.mediaItem.text
+    }
+  }
   static propTypes = {
     combineSubtitles: PropTypes.func.isRequired,
     connectDragSource: PropTypes.func.isRequired,
@@ -67,18 +73,24 @@ export default class MediaItem extends Component {
     toggleCheckbox(mediaItem.index)
   }
 
-  onUpdateText(event) {
+  onUpdateText() {
     const { updateText, mediaItem } = this.props
-    updateText(event.target.value, mediaItem.index)
+    updateText(this.state.editedText, mediaItem.index)
+  }
+
+  onEditText(event) {
+    this.setState({
+      editedText: event.target.value
+    })
   }
 
   renderText() {
     return (
       <input
         type='text'
-        value={this.props.mediaItem.text}
-        ref={input => input && input.focus()}
-        onChange={this.onUpdateText.bind(this)}
+        value={this.state.editedText}
+        onBlur={this.onUpdateText.bind(this)}
+        onChange={this.onEditText.bind(this)}
       />
     );
   }
@@ -89,9 +101,9 @@ export default class MediaItem extends Component {
 
     let backgroundColor;
     if (isDragging) {
-      backgroundColor = 'navy';
+      backgroundColor = '#b2b2b2';
     } else if (isOver) {
-      backgroundColor = 'gray';
+      backgroundColor = '#6710fd';
     } else {
       backgroundColor = 'transparent';
     }

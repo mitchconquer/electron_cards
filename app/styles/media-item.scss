@@ -53,7 +53,9 @@
       background: transparent;
       top: 6px;
       left: 7px;
-      border: 3px solid #333;
+      border: 3px solid #6710fd;
+      // border: 3px solid #8635fa;
+      // border: 3px solid #6712fe;
       border-top: none;
       border-right: none;
 
@@ -92,7 +94,7 @@
     &:focus {
       outline: none;
       bord-width: 1px;
-      border: 1px solid #848cec;
+      border: 1px solid #6710fd;
       border-radius: 2px;
     }
   }
