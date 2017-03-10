@@ -113,35 +113,37 @@ export default class MediaItem extends Component {
     }
 
     return connectDropTarget(connectDragSource(
-      <div className='col-xs-12 media-item' key={index} style={{
+      <div className='col-xs-12' key={index}>
+        <div className='media-item' style={{
             opacity: isDragging ? 0.5 : 1,
             backgroundColor
           }}>
-        <div className='col-sm-1'>
-          <div className='media-item-checkbox'>
-            <input type='checkbox' checked={selected} id={`checkbox-${mediaItem.id}`} onClick={this.onToggleCheckbox.bind(this)} />
-            <label htmlFor={`checkbox-${mediaItem.id}`}></label>
+          <div className='col-sm-1'>
+            <div className='media-item-checkbox'>
+              <input type='checkbox' checked={selected} id={`checkbox-${mediaItem.id}`} onClick={this.onToggleCheckbox.bind(this)} />
+              <label htmlFor={`checkbox-${mediaItem.id}`}></label>
+            </div>
           </div>
-        </div>
-        <div className='col-sm-11'>
-          <br />
-          <audio src={`../pkg/${media}?duration=${duration}`} controls>
-            Your browser does not support the <code>audio</code> element.
-          </audio>
-          &nbsp;<a onClick={removeMedia.bind(this, index)}>X</a>
-          <br />
-          <Toolbar
-            updateMedia={updateMedia}
-            mediaItem={mediaItem}
-          />
-          
-          <div className='text' style={{
-            opacity: isDragging ? 0.5 : 1
-          }}>
-            <div className='media-item-text'>{this.renderText()}</div>
+          <div className='col-sm-11'>
             <br />
-            <div className='media-item-time media-item-start-time'>{mediaItem.startTime}</div>
-            <div className='media-item-time media-item-end-time'>{mediaItem.endTime}</div>
+            <audio src={`../pkg/${media}?duration=${duration}`} controls>
+              Your browser does not support the <code>audio</code> element.
+            </audio>
+            &nbsp;<a onClick={removeMedia.bind(this, index)}>X</a>
+            <br />
+            <Toolbar
+              updateMedia={updateMedia}
+              mediaItem={mediaItem}
+            />
+            
+            <div className='text' style={{
+              opacity: isDragging ? 0.5 : 1
+            }}>
+              <div className='media-item-text'>{this.renderText()}</div>
+              <br />
+              <div className='media-item-time media-item-start-time'>{mediaItem.startTime}</div>
+              <div className='media-item-time media-item-end-time'>{mediaItem.endTime}</div>
+            </div>
           </div>
         </div>
       </div>
