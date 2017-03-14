@@ -1,19 +1,19 @@
-import React, { Component, PropTypes } from 'react';
-import { ItemTypes } from '../utils/item_types';
-import { DragSource, DropTarget } from 'react-dnd';
-import { updateMediaTimes } from '../utils/media_utils';
+import React, { Component, PropTypes } from 'react'
+import { DragSource, DropTarget } from 'react-dnd'
+import { ItemTypes } from '../utils/item_types'
+import { updateMediaTimes } from '../utils/media_utils'
 import Toolbar from './Toolbar'
 
-require('../styles/media-item.scss');
+require('../styles/media-item.scss')
 
 // React DnD Items
 const subtitleSource = {
   beginDrag(props) {
     return {
       subtitleIndex: props.mediaItem.index
-    };
+    }
   }
-};
+}
 
 function sourceCollect(connect, monitor) {
   return {
@@ -50,7 +50,7 @@ export default class MediaItem extends Component {
     }
   }
   static propTypes = {
-    combineSubtitles: PropTypes.func.isRequired,
+    combineSubtitles: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
@@ -61,6 +61,14 @@ export default class MediaItem extends Component {
     updateText: PropTypes.func.isRequired,
     removeMedia: PropTypes.func.isRequired,
   };
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.mediaItem.text !== this.state.editedText) {
+      this.setState({
+        editedText: newProps.mediaItem.text
+      })
+    }
+  }
 
   addTimeEnd() {
     const { mediaItem, updateMedia } = this.props;
@@ -86,12 +94,14 @@ export default class MediaItem extends Component {
 
   renderText() {
     return (
-      <input
+      <textarea
         type='text'
         value={this.state.editedText}
         onBlur={this.onUpdateText.bind(this)}
         onChange={this.onEditText.bind(this)}
-      />
+        className='media-text-input'
+      >
+      </textarea>
     );
   }
 
