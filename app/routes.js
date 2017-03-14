@@ -1,9 +1,9 @@
 // @flow
-import React from 'react';
-import { Route, IndexRoute } from 'react-router';
-import App from './containers/App';
-import HomePage from './containers/HomePage';
-import EditPage from './containers/EditPage';
+import React from 'react'
+import { Route, IndexRoute } from 'react-router'
+import App from './containers/App'
+import HomePage from './containers/HomePage'
+import EditPage from './containers/EditPage'
 
 
 export default (
@@ -11,4 +11,4 @@ export default (
     <IndexRoute component={HomePage} />
     <Route path="/edit" component={EditPage} />
   </Route>
-);
+)

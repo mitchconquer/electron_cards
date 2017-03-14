@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react'
 
 require('../styles/embedded-subs.scss')
 
@@ -15,20 +15,20 @@ class EmbeddedSubs extends Component {
     }
 
     return (
-      <div className='extracted-subs'>
-        <h4 className='extracted-subs-title'>Pssst. This file has subtitles embedded in it. You can use one of them by clicking it below</h4>
+      <div className="extracted-subs">
+        <h4 className="extracted-subs-title">Pssst. This file has subtitles embedded in it. You can use one of them by clicking it below</h4>
         <ul>
           {subs.map(sub => (
             <li key={sub.index}>
-              <a onClick={ () => extractSubs(sub.index, sub.language) }>
+              <a onClick={() => extractSubs(sub.index, sub.language)}>
                 {sub.language}
               </a>
             </li>
           ))}
         </ul>
       </div>
-    );
+    )
   }
 }
 
-export default EmbeddedSubs;
+export default EmbeddedSubs

@@ -1,32 +1,32 @@
 // @flow
-import { COMBINE_MEDIA, REMOVE_MEDIA, RESET_MEDIA, 
-         SELECT_ALL, SELECT_NONE, TOGGLE_CHECKBOX, 
+import { COMBINE_MEDIA, REMOVE_MEDIA, RESET_MEDIA,
+         SELECT_ALL, SELECT_NONE, TOGGLE_CHECKBOX,
          UPDATE_MEDIA, BULK_UPDATE_MEDIA, UPDATE_TEXT
        } from '../actions/media'
 import undoable, { includeAction } from 'redux-undo'
 
-export const initialState = {};
+export const initialState = {}
 
 function subtitles(state = initialState, action = {}) {
-  let newState = {};
+  const newState = {}
   switch (action.type) {
     case BULK_UPDATE_MEDIA:
       const bulkUpdated = {
         ...state
       }
       Object.keys(action.updatedMedia).forEach(key => {
-        bulkUpdated[key] = {...action.updatedMedia[key]}
+        bulkUpdated[key] = { ...action.updatedMedia[key] }
       })
       return bulkUpdated
     case COMBINE_MEDIA:
       Object.keys(state).forEach(key => {
-        const notNew = state[key].index !== action.updatedMedia.index;
-        const notToRemove = state[key].index !== action.toRemove;
+        const notNew = state[key].index !== action.updatedMedia.index
+        const notToRemove = state[key].index !== action.toRemove
         if (notNew && notToRemove) {
-          newState[key] = {...state[key]};
+          newState[key] = { ...state[key] }
         }
-      });
-      newState[action.updatedMedia.index] = action.updatedMedia;
+      })
+      newState[action.updatedMedia.index] = action.updatedMedia
       return newState
     case REMOVE_MEDIA:
       return Object.keys(state)
@@ -58,7 +58,7 @@ function subtitles(state = initialState, action = {}) {
       return Object.values(state)
         .reduce((newState, subtitle) => {
           const filter = action.filter.trim()
-          console.log({filter, subtitle})
+          console.log({ filter, subtitle })
           const matches = filter ? subtitle.text.toLowerCase().includes(action.filter.toLowerCase()) : true
           if (matches) {
             return {
@@ -98,7 +98,7 @@ function subtitles(state = initialState, action = {}) {
         }
       }
     default:
-      return state;
+      return state
   }
 }
 

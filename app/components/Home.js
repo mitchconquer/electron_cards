@@ -31,7 +31,7 @@ export default class Home extends Component {
   }
 
   onExtractSubsFile(index, language) {
-    const { subtitlesFile, videoFile } = this.state;
+    const { subtitlesFile, videoFile } = this.state
     if (videoFile) {
       extractSubsFile(index, videoFile.path)
         .then(
@@ -40,7 +40,7 @@ export default class Home extends Component {
               ...extractedFile,
               name: `${extractedFile.name} - ${language}`
             }
-            this.setState({subtitlesFile: extractedSubs})
+            this.setState({ subtitlesFile: extractedSubs })
           }
         )
     }
@@ -67,42 +67,41 @@ export default class Home extends Component {
   }
 
   // afteryou set the embedded subs
-  // if you cilck one, extract the subtitle file and 
+  // if you cilck one, extract the subtitle file and
   // set that to the state of the subtitleFile in Home component
 
   render() {
     // Decent loading animation https://codepen.io/Haasbroek/pen/gbqYyj
-    
-    const { videoFile, subtitlesFile } = this.state;
-    return (
-      <div className='container' onDragOver={event=>event.preventDefault()} onDrop={event=>event.preventDefault()}>
 
-        <div className='row' >
-          <div className='col-xs-12'>
+    const { videoFile, subtitlesFile } = this.state
+    return (
+      <div className="container" onDragOver={event => event.preventDefault()} onDrop={event => event.preventDefault()}>
+
+        <div className="row" >
+          <div className="col-xs-12">
             <h1>App Name Placeholder</h1>
           </div>
-          <div className='col-xs-12'>
-          </div>
-          <div className='col-sm-5'>
+          <div className="col-xs-12" />
+          <div className="col-sm-5">
             <h3>1. Choose a video file</h3>
-            <FileDrop listEmbeddedSubs={this.props.listEmbeddedSubs} message='Drop your video file here' setFile={this.setFile.bind(this)} selectedFile={videoFile.name} type='videoFile' />
+            <FileDrop listEmbeddedSubs={this.props.listEmbeddedSubs} message="Drop your video file here" setFile={this.setFile.bind(this)} selectedFile={videoFile.name} type="videoFile" />
           </div>
-          <div className='col-sm-5'>
+          <div className="col-sm-5">
             <h3>2. Choose a subtitles file</h3>
-            <FileDrop listEmbeddedSubs={this.props.listEmbeddedSubs} message='Drop your subtitle file here (if you have one)' setFile={this.setFile.bind(this)} selectedFile={subtitlesFile.name} type='subtitlesFile' />
+            <FileDrop listEmbeddedSubs={this.props.listEmbeddedSubs} message="Drop your subtitle file here (if you have one)" setFile={this.setFile.bind(this)} selectedFile={subtitlesFile.name} type="subtitlesFile" />
           </div>
-          <div className='col-xs-12'>
+          <div className="col-xs-12">
             {this.props.processing && 'Processing...'}
           </div>
-          <div className='col-xs-5'>
-            <EmbeddedSubs subs={this.props.embeddedSubs} extractSubs={this.onExtractSubsFile}/>
+          <div className="col-xs-5">
+            <EmbeddedSubs subs={this.props.embeddedSubs} extractSubs={this.onExtractSubsFile} />
           </div>
-          <div className='col-xs-12'>
+          <div className="col-xs-12">
             <Loader active={this.props.processing} />
           </div>
         </div>
         <GoMenu readyToGo={this.readyToGo()} processFile={this.processFile} />
       </div>
-    );
+    )
   }
 }

@@ -27,7 +27,7 @@ function sourceCollect(connect, monitor) {
 
 const subtitleTarget = {
   drop(props, monitor) {
-    props.combineSubtitles(props.mediaItem.index, monitor.getItem().subtitleIndex);
+    props.combineSubtitles(props.mediaItem.index, monitor.getItem().subtitleIndex)
   }
 }
 
@@ -71,9 +71,9 @@ export default class MediaItem extends Component {
   }
 
   addTimeEnd() {
-    const { mediaItem, updateMedia } = this.props;
-    const updatedMedia = updateMediaTimes(mediaItem, 'add', 'end', 200);
-    updateMedia(updatedMedia);
+    const { mediaItem, updateMedia } = this.props
+    const updatedMedia = updateMediaTimes(mediaItem, 'add', 'end', 200)
+    updateMedia(updatedMedia)
   }
 
   onToggleCheckbox() {
@@ -95,43 +95,44 @@ export default class MediaItem extends Component {
   renderText() {
     return (
       <textarea
-        type='text'
+        type="text"
         value={this.state.editedText}
         onBlur={this.onUpdateText.bind(this)}
         onChange={this.onEditText.bind(this)}
-        className='media-text-input'
-      >
-      </textarea>
-    );
+        className="media-text-input"
+      />
+    )
   }
 
   render() {
-    const { selected, duration, index, media } = this.props.mediaItem;
-    const { connectDragSource, isDragging, connectDropTarget, isOver, removeMedia, updateMedia, mediaItem } = this.props;
+    const { selected, duration, index, media } = this.props.mediaItem
+    const { connectDragSource, isDragging, connectDropTarget, isOver, removeMedia, updateMedia, mediaItem } = this.props
 
-    let backgroundColor;
+    let backgroundColor
     if (isDragging) {
-      backgroundColor = '#b2b2b2';
+      backgroundColor = '#b2b2b2'
     } else if (isOver) {
-      backgroundColor = '#6710fd';
+      backgroundColor = '#6710fd'
     } else {
-      backgroundColor = 'transparent';
+      backgroundColor = 'transparent'
     }
 
     return connectDropTarget(connectDragSource(
-      <div className='col-xs-12' key={index}>
-        <div className='media-item' style={{
+      <div className="col-xs-12" key={index}>
+        <div
+          className="media-item" style={{
             opacity: isDragging ? 0.5 : 1,
             backgroundColor
-          }}>
-          <div className='col-sm-1'>
-            <div className='media-item-checkbox'>
-              <input type='checkbox' checked={selected} id={`checkbox-${mediaItem.id}`} onClick={this.onToggleCheckbox.bind(this)} />
-              <label htmlFor={`checkbox-${mediaItem.id}`}></label>
+          }}
+        >
+          <div className="col-sm-1">
+            <div className="media-item-checkbox">
+              <input type="checkbox" checked={selected} id={`checkbox-${mediaItem.id}`} onClick={this.onToggleCheckbox.bind(this)} />
+              <label htmlFor={`checkbox-${mediaItem.id}`} />
             </div>
           </div>
-          <div className='col-sm-11 media-item-body'>
-            <a onClick={removeMedia.bind(this, index)} className='media-item-delete'><i className="fa fa-times fa-lg" aria-hidden="true"></i></a>
+          <div className="col-sm-11 media-item-body">
+            <a onClick={removeMedia.bind(this, index)} className="media-item-delete"><i className="fa fa-times fa-lg" aria-hidden="true" /></a>
             <br />
             <audio src={`../pkg/${media}?duration=${duration}`} controls>
               Your browser does not support the <code>audio</code> element.
@@ -141,18 +142,20 @@ export default class MediaItem extends Component {
               updateMedia={updateMedia}
               mediaItem={mediaItem}
             />
-            
-            <div className='text' style={{
-              opacity: isDragging ? 0.5 : 1
-            }}>
-              <div className='media-item-text'>{this.renderText()}</div>
+
+            <div
+              className="text" style={{
+                opacity: isDragging ? 0.5 : 1
+              }}
+            >
+              <div className="media-item-text">{this.renderText()}</div>
               <br />
-              <div className='media-item-time media-item-start-time'>{mediaItem.startTime}</div>
-              <div className='media-item-time media-item-end-time'>{mediaItem.endTime}</div>
+              <div className="media-item-time media-item-start-time">{mediaItem.startTime}</div>
+              <div className="media-item-time media-item-end-time">{mediaItem.endTime}</div>
             </div>
           </div>
         </div>
       </div>
-    ));
+    ))
   }
 }

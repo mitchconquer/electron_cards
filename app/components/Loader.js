@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react'
 
 require('../styles/loader.scss')
 
@@ -9,21 +9,21 @@ class Edit extends Component {
   };
 
   render() {
-    const { active } = this.props;
-    
+    const { active } = this.props
+
     if (!active) {
-      return false;
+      return false
     }
 
     return (
-      <div className='loader-container'>
-       <div className='spinner'>
-         <div className='dot1'></div>
-         <div className='dot2'></div>
-       </div>
+      <div className="loader-container">
+        <div className="spinner">
+          <div className="dot1" />
+          <div className="dot2" />
+        </div>
       </div>
-    );
+    )
   }
 }
 
-export default Edit;
+export default Edit

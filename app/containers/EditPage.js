@@ -2,7 +2,7 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Edit from '../components/Edit'
-import { combineSubtitles, createApkg, toggleCheckbox, 
+import { combineSubtitles, createApkg, toggleCheckbox,
          updateMediaTimes, selectAll, selectNone,
          bulkEditMedia, updateText, removeMedia
        } from '../actions/media'
@@ -15,7 +15,7 @@ function mapStateToProps(state) {
     media: state.subtitles.present,
     canUndo: state.subtitles.past.length > 0,
     canRedo: state.subtitles.future.length > 0
-  };
+  }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -32,7 +32,7 @@ function mapDispatchToProps(dispatch) {
     updateFilter: newFilter => dispatch(updateFilter(newFilter)),
     updateMedia: newMedia => dispatch(updateMediaTimes(newMedia)),
     updateText: (text, index) => dispatch(updateText(text, index))
-  };
+  }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Edit);
+export default connect(mapStateToProps, mapDispatchToProps)(Edit)

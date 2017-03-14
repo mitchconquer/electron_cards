@@ -1,10 +1,10 @@
 // @flow
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
-import Dropzone from 'react-dropzone';
-import classnames from 'classnames';
+import React, { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
+import Dropzone from 'react-dropzone'
+import classnames from 'classnames'
 
-require('../styles/file-drop.scss');
+require('../styles/file-drop.scss')
 
 
 export default class FileDrop extends Component {
@@ -41,14 +41,14 @@ export default class FileDrop extends Component {
   }
 
   onDrop(files) {
-    const fileBlob = files[0];
-    const newFile = {};
+    const fileBlob = files[0]
+    const newFile = {}
     _fileProperties.forEach(key => {
-      newFile[key] = fileBlob[key];
-    });
-    newFile.basicType = this.props.type;
+      newFile[key] = fileBlob[key]
+    })
+    newFile.basicType = this.props.type
 
-    this.props.setFile(newFile, this.props.type);
+    this.props.setFile(newFile, this.props.type)
     this.onListEmbeddedSubs(newFile.path)
   }
 
@@ -56,14 +56,14 @@ export default class FileDrop extends Component {
     const { selectedFile, message, type } = this.props
     return (
       <div>
-        <Dropzone onDropAccepted={this.onDrop.bind(this)}
-                  multiple={false}
-                  className={classnames('file-dropzone', {'files-valid': this.state.hasValidFiles})}
-                  disablePreview={false}
-                  // accept={_mimeTypes[type]}
-                  >
+        <Dropzone
+          onDropAccepted={this.onDrop.bind(this)}
+          multiple={false}
+          className={classnames('file-dropzone', { 'files-valid': this.state.hasValidFiles })}
+          disablePreview={false}
+        >
           <div>{message}</div><br />
-          <div className='text-success'>{selectedFile}</div>
+          <div className="text-success">{selectedFile}</div>
         </Dropzone>
       </div>
     )
@@ -79,9 +79,9 @@ const _fileProperties = [
   'size',
   'type',
   'webkitRelativePath'
-];
+]
 
 const _mimeTypes = {
-  'subtitlesFile': ['.srt'],
-  'videoFile': '.mkv'
+  subtitlesFile: ['.srt'],
+  videoFile: '.mkv'
 }
