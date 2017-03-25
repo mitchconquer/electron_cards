@@ -62,6 +62,7 @@ class BulkEditMenu extends Component {
   render() {
     return (
       <ul className={classnames('subtitle-tools', { 'disabled': !this.multipleSelected() })}>
+        <li className='navbar-text'>Bulk Editing Tools:</li>
         <li>
           Start Time<br />
           <a onClick={this.bulkEdit.bind(this, 'add', 'start', 200)}>+</a>

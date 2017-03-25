@@ -58,7 +58,6 @@ function subtitles(state = initialState, action = {}) {
       return Object.values(state)
         .reduce((newState, subtitle) => {
           const filter = action.filter.trim()
-          console.log({ filter, subtitle })
           const matches = filter ? subtitle.text.toLowerCase().includes(action.filter.toLowerCase()) : true
           if (matches) {
             return {
