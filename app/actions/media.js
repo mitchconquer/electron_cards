@@ -104,7 +104,8 @@ export function combineSubtitles(index1, index2) {
   return (dispatch, getState) => {
     const { files, subtitles } = getState()
 
-    let target, source
+    let target,
+      source
     if (index1 < index2) {
       target = subtitles.present[index1]
       source = subtitles.present[index2]
@@ -113,7 +114,7 @@ export function combineSubtitles(index1, index2) {
       source = subtitles.present[index1]
     }
 
-    const merged = mediaFlashcards.combineSubtitles(target, source, {replaceMedia: false})
+    const merged = mediaFlashcards.combineSubtitles(target, source, { replaceMedia: false })
 
     const videoFile = files.videoFile.path
     dispatch(processing(true))
@@ -126,10 +127,10 @@ export function combineSubtitles(index1, index2) {
         () => dispatch(processing(false))
       )
   }
-
 }
 
 export function createApkg() {
+  console.log('createapkg')
   return (dispatch, getState) => {
     const { files, subtitles } = getState()
     const videoFile = files.videoFile.path
@@ -156,7 +157,7 @@ export function updateMediaTimes(newMedia) {
     const { files } = getState()
     const videoFile = files.videoFile.path
     const subtitleData = {
-      ...newMedia, 
+      ...newMedia,
       media: mediaFlashcards.updateFileVersionHash(newMedia.media)
     }
 
@@ -187,8 +188,13 @@ function mediaToArray(mediaObject) {
   return Object.keys(mediaObject).map(key => mediaObject[key])
 }
 
-export function selectAll() {
+export function selectMedia(target = 'NONE') {
   return (dispatch, getState) => {
-    dispatch(_selectAll(getState().filter))
+    if (target === 'ALL') {
+      dispatch(_selectAll(getState().filter))
+    }
+    if (target === 'NONE') {
+      dispatch(selectNone())
+    }
   }
 }

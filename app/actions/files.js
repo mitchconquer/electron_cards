@@ -1,12 +1,12 @@
-const Bromise = require('bluebird');
-import { resetMedia } from './media';
-import { push } from 'react-router-redux';
-import { remote } from 'electron';
-const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards;
+const Bromise = require('bluebird')
+import { resetMedia } from './media'
+import { push } from 'react-router-redux'
+import { remote } from 'electron'
+const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards
 
-export const SET_FILES = 'SET_FILES';
-export const SET_EMBEDDED_SUBS = 'SET_EMBEDDED_SUBS';
-export const PROCESSING = 'PROCESSING';
+export const SET_FILES = 'SET_FILES'
+export const SET_EMBEDDED_SUBS = 'SET_EMBEDDED_SUBS'
+export const PROCESSING = 'PROCESSING'
 
 // ACTION CREATORS
 
@@ -18,7 +18,7 @@ export function setFiles(files) {
   return {
     type: SET_FILES,
     files
-  };
+  }
 }
 
 /**
@@ -42,13 +42,12 @@ export function setEmbeddedSubs(embeddedSubs) {
 // ACTION CREATOR CREATORS
 
 export function processFiles(videoFile, subtitlesFile) {
-  return dispatch => {
-    return new Bromise((resolve, reject) => {
-      dispatch(processing(true))
-      dispatch(setFiles([videoFile, subtitlesFile]))
+  return dispatch => new Bromise((resolve, reject) => {
+    dispatch(processing(true))
+    dispatch(setFiles([videoFile, subtitlesFile]))
 
-      let subtitles
-      mediaFlashcards.initializeSubs(subtitlesFile.path, videoFile.path)
+    let subtitles
+    mediaFlashcards.initializeSubs(subtitlesFile.path, videoFile.path)
         .then(
           subsFromInitialize => mediaFlashcards.transformSubs(subsFromInitialize)
         )
@@ -75,22 +74,19 @@ export function processFiles(videoFile, subtitlesFile) {
         )
         .then(
           () => dispatch(push('/edit'))
-        );
-    });
-  }
+        )
+  })
 }
 
 export function listEmbeddedSubs(file) {
-  return dispatch => {
-    return new Bromise((resolve, reject) => {
+  return dispatch => new Bromise((resolve, reject) => {
       // Get list of embeded files
-      mediaFlashcards.listEmbeddedSubs(file)
+    mediaFlashcards.listEmbeddedSubs(file)
         .then(
           result => dispatch(setEmbeddedSubs(result))
         )
         .then(
           resolve()
         )
-    })
-  }
+  })
 }

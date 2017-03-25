@@ -1,17 +1,19 @@
-import React, { Component, PropTypes } from 'react';
-import { ItemTypes } from '../utils/item_types';
-import { DragSource, DropTarget } from 'react-dnd';
-import { updateMediaTimes } from '../utils/media_utils';
+import React, { Component, PropTypes } from 'react'
+import { DragSource, DropTarget } from 'react-dnd'
+import { ItemTypes } from '../utils/item_types'
+import { updateMediaTimes } from '../utils/media_utils'
 import Toolbar from './Toolbar'
+
+require('../styles/media-item.scss')
 
 // React DnD Items
 const subtitleSource = {
   beginDrag(props) {
     return {
       subtitleIndex: props.mediaItem.index
-    };
+    }
   }
-};
+}
 
 function sourceCollect(connect, monitor) {
   return {
@@ -25,7 +27,7 @@ function sourceCollect(connect, monitor) {
 
 const subtitleTarget = {
   drop(props, monitor) {
-    props.combineSubtitles(props.mediaItem.index, monitor.getItem().subtitleIndex);
+    props.combineSubtitles(props.mediaItem.index, monitor.getItem().subtitleIndex)
   }
 }
 
@@ -41,8 +43,14 @@ function targetCollect(connect, monitor) {
 @DragSource(ItemTypes.SUBTITLE, subtitleSource, sourceCollect)
 @DropTarget(ItemTypes.SUBTITLE, subtitleTarget, targetCollect)
 export default class MediaItem extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      editedText: this.props.mediaItem.text
+    }
+  }
   static propTypes = {
-    combineSubtitles: PropTypes.func.isRequired,
+    combineSubtitles: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
@@ -54,17 +62,18 @@ export default class MediaItem extends Component {
     removeMedia: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      editingText: false
+  componentWillReceiveProps(newProps) {
+    if (newProps.mediaItem.text !== this.state.editedText) {
+      this.setState({
+        editedText: newProps.mediaItem.text
+      })
     }
   }
 
   addTimeEnd() {
-    const { mediaItem, updateMedia } = this.props;
-    const updatedMedia = updateMediaTimes(mediaItem, 'add', 'end', 200);
-    updateMedia(updatedMedia);
+    const { mediaItem, updateMedia } = this.props
+    const updatedMedia = updateMediaTimes(mediaItem, 'add', 'end', 200)
+    updateMedia(updatedMedia)
   }
 
   onToggleCheckbox() {
@@ -72,76 +81,81 @@ export default class MediaItem extends Component {
     toggleCheckbox(mediaItem.index)
   }
 
-  onUpdateText(event) {
+  onUpdateText() {
     const { updateText, mediaItem } = this.props
-    updateText(event.target.value, mediaItem.index)
+    updateText(this.state.editedText, mediaItem.index)
   }
 
-  renderText() {
-    if (this.state.editingText) {
-      return (
-        <input type='text' 
-               value={this.props.mediaItem.text} 
-               onBlur={this.toggleEditText.bind(this)}
-               ref={input => input && input.focus()}
-               onChange={this.onUpdateText.bind(this)}
-               />
-      )
-    }
-    return (<div onClick={this.toggleEditText.bind(this)}>{this.props.mediaItem.text}</div>)
-  }
-
-  toggleEditText() {
+  onEditText(event) {
     this.setState({
-      editingText: !this.state.editingText
+      editedText: event.target.value
     })
   }
 
-  render() {
-    const { selected, duration, index, media, text } = this.props.mediaItem;
-    const { connectDragSource, isDragging, connectDropTarget, isOver, removeMedia, updateMedia, mediaItem } = this.props;
+  renderText() {
+    return (
+      <textarea
+        type="text"
+        value={this.state.editedText}
+        onBlur={this.onUpdateText.bind(this)}
+        onChange={this.onEditText.bind(this)}
+        className="media-text-input"
+      />
+    )
+  }
 
-    let backgroundColor;
+  render() {
+    const { selected, duration, index, media } = this.props.mediaItem
+    const { connectDragSource, isDragging, connectDropTarget, isOver, removeMedia, updateMedia, mediaItem } = this.props
+
+    let backgroundColor
     if (isDragging) {
-      backgroundColor = 'navy';
+      backgroundColor = '#b2b2b2'
     } else if (isOver) {
-      backgroundColor = 'gray';
+      backgroundColor = '#6710fd'
     } else {
-      backgroundColor = 'transparent';
+      backgroundColor = 'transparent'
     }
 
     return connectDropTarget(connectDragSource(
-      <div className='col-xs-12' key={index} style={{
+      <div className="col-xs-12" key={index}>
+        <div
+          className="media-item" style={{
             opacity: isDragging ? 0.5 : 1,
             backgroundColor
-          }}>
-        <div className='col-sm-1'>
-          <label>
-            <input type='checkbox' checked={selected} onClick={this.onToggleCheckbox.bind(this)} />
-          </label>
-        </div>
-        <div className='col-sm-11'>
-          <br />
-          <audio src={`../pkg/${media}?duration=${duration}`} controls>
-            Your browser does not support the <code>audio</code> element.
-          </audio>
-          &nbsp;<a onClick={removeMedia.bind(this, index)}>X</a>
-          <br />
-          <Toolbar
-            updateMedia={updateMedia}
-            mediaItem={mediaItem}
-          />
-          
-          <div className='text' style={{
-            opacity: isDragging ? 0.5 : 1
-          }}>
-            {this.renderText()}
+          }}
+        >
+          <div className="col-sm-1">
+            <div className="media-item-checkbox">
+              <input type="checkbox" checked={selected} id={`checkbox-${mediaItem.id}`} onClick={this.onToggleCheckbox.bind(this)} />
+              <label htmlFor={`checkbox-${mediaItem.id}`} />
+            </div>
+          </div>
+          <div className="col-sm-11 media-item-body">
+            <a onClick={removeMedia.bind(this, index)} className="media-item-delete"><i className="fa fa-times fa-lg" aria-hidden="true" /></a>
             <br />
-            {mediaItem.startTime}<br />
-            {mediaItem.endTime}
+            <audio src={`../pkg/${media}?duration=${duration}`} controls>
+              Your browser does not support the <code>audio</code> element.
+            </audio>
+            <br />
+            <Toolbar
+              updateMedia={updateMedia}
+              mediaItem={mediaItem}
+            />
+
+            <div
+              className="text" style={{
+                opacity: isDragging ? 0.5 : 1
+              }}
+            >
+              <div className="media-item-text">{this.renderText()}</div>
+              <br />
+              <div className="media-item-time media-item-start-time">{mediaItem.startTime}</div>
+              <div className="media-item-time media-item-end-time">{mediaItem.endTime}</div>
+            </div>
           </div>
         </div>
       </div>
-    ));
+    ))
   }
 }

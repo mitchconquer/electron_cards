@@ -1,8 +1,8 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
+  "name": "electron_cards",
+  "productName": "electron_cards",
   "version": "0.11.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "description": "An Electron app to create flashcards from video files and subtitles",
   "main": "main.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 mocha --compilers js:babel-register --recursive --require ./test/setup.js test/**/*.spec.js",
@@ -27,27 +27,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chentsulin/electron-react-boilerplate.git"
+    "url": "git+https://github.com/mitchconquer/electron_cards.git"
   },
   "author": {
-    "name": "C. T. Lin",
-    "email": "chentsulin@gmail.com",
-    "url": "https://github.com/chentsulin"
+    "name": "Mitch Conquer",
+    "email": "mitchconquer@gmail.com",
+    "url": "https://github.com/mitchconquer"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chentsulin/electron-react-boilerplate/issues"
+    "url": "https://github.com/chentsulin/electron_cards/issues"
   },
   "keywords": [
     "electron",
-    "boilerplate",
-    "react",
-    "react-router",
-    "flux",
-    "webpack",
-    "react-hot"
+    "SRS",
+    "Anki",
+    "flashcards",
+    "language",
+    "learning"
   ],
-  "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/chentsulin/electron_cards#readme",
   "devDependencies": {
     "asar": "^0.12.3",
     "babel-core": "^6.17.0",
@@ -112,6 +111,7 @@
   "dependencies": {
     "bluebird": "^3.4.6",
     "bootstrap": "^3.3.7",
+    "classnames": "^2.2.5",
     "css-modules-require-hook": "^4.0.5",
     "electron-debug": "^1.0.1",
     "eslint-plugin-import": "^2.2.0",
