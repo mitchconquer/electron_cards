@@ -1,7 +1,6 @@
 // @flow
 import React, { Component, PropTypes } from 'react'
 import MediaItem from './MediaItem'
-import BulkEditMenu from './BulkEditMenu'
 import EditMenu from './edit-menu'
 require('../styles/edit.scss')
 
@@ -51,7 +50,7 @@ class Edit extends Component {
     return (
       <div>
         <h1>Edit Page</h1>
-        <EditMenu />
+        <EditMenu media={media} bulkEditMedia={bulkEditMedia} />
         <div className="col-xs-6">
           {canUndo && <button onClick={onUndo} className="btn btn-default">Undo</button>}
           {canRedo && <button onClick={onRedo} className="btn btn-default">Redo</button>}
@@ -65,7 +64,6 @@ class Edit extends Component {
         <input type="text" value={filter} onChange={this.onFilterChange.bind(this)} className="filter-input" />
         <br />
         <br />
-        <BulkEditMenu media={media} bulkEditMedia={bulkEditMedia} />
         <a onClick={selectAll}>Select All</a> | <a onClick={selectNone}>Select None</a>
         <br />
         <br />
