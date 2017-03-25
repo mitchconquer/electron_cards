@@ -5,24 +5,17 @@ import EditMenu from './edit-menu'
 require('../styles/edit.scss')
 
 class Edit extends Component {
-  static propTypes = {
-    bulkEditMedia: PropTypes.func.isRequired,
-    canRedo: PropTypes.bool.isRequired,
-    canUndo: PropTypes.bool.isRequired,
-    combineSubtitles: PropTypes.func.isRequired,
-    createApkg: PropTypes.func.isRequired,
-    filter: PropTypes.string,
-    media: PropTypes.object.isRequired,
-    onRedo: PropTypes.func.isRequired,
-    onUndo: PropTypes.func.isRequired,
-    removeMedia: PropTypes.func.isRequired,
-    selectNone: PropTypes.func.isRequired,
-    selectAll: PropTypes.func.isRequired,
-    toggleCheckbox: PropTypes.func.isRequired,
-    updateFilter: PropTypes.func.isRequired,
-    updateMedia: PropTypes.func.isRequired,
-    updateText: PropTypes.func.isRequired
-  };
+  constructor() {
+    super()
+    this.onFilterChange = this.onFilterChange.bind(this)
+  }
+
+  onFilterChange(event) {
+    console.log(event.target.value)
+    event.preventDefault()
+    const value = event.target.value
+    this.props.updateFilter(value)
+  }
 
   filteredMediaItems() {
     const { combineSubtitles, filter, media, toggleCheckbox, updateText, removeMedia } = this.props
@@ -38,19 +31,13 @@ class Edit extends Component {
       />)
   }
 
-  onFilterChange(event) {
-    event.preventDefault()
-    const value = event.target.value
-    this.props.updateFilter(value)
-  }
-
   render() {
-    const { bulkEditMedia, canRedo, canUndo, filter, media, onRedo, onUndo, selectAll, selectNone } = this.props
+    const { bulkEditMedia, canRedo, canUndo, filter, media, onRedo, onUndo, selectMedia } = this.props
 
     return (
       <div>
         <h1>Edit Page</h1>
-        <EditMenu media={media} bulkEditMedia={bulkEditMedia} />
+        <EditMenu media={media} bulkEditMedia={bulkEditMedia} onFilterChange={this.onFilterChange} filter={filter} selectMedia={selectMedia} />
         <div className="col-xs-6">
           {canUndo && <button onClick={onUndo} className="btn btn-default">Undo</button>}
           {canRedo && <button onClick={onRedo} className="btn btn-default">Redo</button>}
@@ -61,10 +48,8 @@ class Edit extends Component {
         </a>
         <br />
         <br />
-        <input type="text" value={filter} onChange={this.onFilterChange.bind(this)} className="filter-input" />
         <br />
         <br />
-        <a onClick={selectAll}>Select All</a> | <a onClick={selectNone}>Select None</a>
         <br />
         <br />
         <div className="row">
@@ -73,6 +58,24 @@ class Edit extends Component {
       </div>
     )
   }
+}
+
+Edit.propTypes = {
+  bulkEditMedia: PropTypes.func.isRequired,
+  canRedo: PropTypes.bool.isRequired,
+  canUndo: PropTypes.bool.isRequired,
+  combineSubtitles: PropTypes.func.isRequired,
+  createApkg: PropTypes.func.isRequired,
+  filter: PropTypes.string,
+  media: PropTypes.object.isRequired,
+  onRedo: PropTypes.func.isRequired,
+  onUndo: PropTypes.func.isRequired,
+  removeMedia: PropTypes.func.isRequired,
+  selectMedia: PropTypes.func.isRequired,
+  toggleCheckbox: PropTypes.func.isRequired,
+  updateFilter: PropTypes.func.isRequired,
+  updateMedia: PropTypes.func.isRequired,
+  updateText: PropTypes.func.isRequired
 }
 
 export default Edit

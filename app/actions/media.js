@@ -187,8 +187,14 @@ function mediaToArray(mediaObject) {
   return Object.keys(mediaObject).map(key => mediaObject[key])
 }
 
-export function selectAll() {
+export function selectMedia(target = 'NONE') {
+  console.log({selectMedia: target})
   return (dispatch, getState) => {
-    dispatch(_selectAll(getState().filter))
+    if (target === 'ALL') {
+      dispatch(_selectAll(getState().filter))
+    }
+    if (target === 'NONE') {
+      dispatch(selectNone())
+    }
   }
 }
