@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react'
 import MediaItem from './MediaItem'
 import BulkEditMenu from './BulkEditMenu'
+import EditMenu from './edit-menu'
 require('../styles/edit.scss')
 
 class Edit extends Component {
@@ -50,6 +51,7 @@ class Edit extends Component {
     return (
       <div>
         <h1>Edit Page</h1>
+        <EditMenu />
         <div className="col-xs-6">
           {canUndo && <button onClick={onUndo} className="btn btn-default">Undo</button>}
           {canRedo && <button onClick={onRedo} className="btn btn-default">Redo</button>}
