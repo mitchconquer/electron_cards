@@ -3,6 +3,8 @@ import React, { Component, PropTypes } from 'react'
 import { updateMediaTimes } from '../utils/media_utils'
 import classnames from 'classnames'
 
+import '../styles/bulk-edit-menu.scss'
+
 class BulkEditMenu extends Component {
   constructor() {
     super()
@@ -59,7 +61,7 @@ class BulkEditMenu extends Component {
 
   render() {
     return (
-      <ul className={classnames('subtitle-tools', { 'dont-show': !this.multipleSelected() })}>
+      <ul className={classnames('subtitle-tools', { 'disabled': !this.multipleSelected() })}>
         <li>
           Start Time<br />
           <a onClick={this.bulkEdit.bind(this, 'add', 'start', 200)}>+</a>

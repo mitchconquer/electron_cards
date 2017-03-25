@@ -130,6 +130,7 @@ export function combineSubtitles(index1, index2) {
 }
 
 export function createApkg() {
+  console.log('createapkg')
   return (dispatch, getState) => {
     const { files, subtitles } = getState()
     const videoFile = files.videoFile.path
@@ -188,7 +189,6 @@ function mediaToArray(mediaObject) {
 }
 
 export function selectMedia(target = 'NONE') {
-  console.log({selectMedia: target})
   return (dispatch, getState) => {
     if (target === 'ALL') {
       dispatch(_selectAll(getState().filter))
