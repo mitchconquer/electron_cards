@@ -46,9 +46,9 @@ class EditMenu extends Component {
             <ul className='nav navbar-nav navbar-left'>
               <li><a onClick={this.selectAll}>Select All</a></li>
               <li><a onClick={this.selectNone}>Select None</a></li>
-              <li className='vertical-spacer'></li>
-              <li><BulkEditMenu media={this.props.media} bulkEditMedia={this.props.bulkEditMedia} /></li>
+              <li className='vertical-spacer navbar-text'></li>
             </ul>
+            <BulkEditMenu media={this.props.media} bulkEditMedia={this.props.bulkEditMedia} />
             <ul className='nav navbar-nav navbar-right'>
               <li><a onClick={createApkg}>Create Anki Deck!</a></li>
             </ul>

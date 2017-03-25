@@ -1,5 +1,7 @@
-.subtitle-tools.disabled li {
-  cursor: not-allowed;
-  pointer-events: none;
-  color: #ccc;
+.subtitle-tools.disabled {
+  li, li span {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: #ccc;
+  }
 }
