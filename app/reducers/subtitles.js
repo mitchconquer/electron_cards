@@ -102,7 +102,9 @@ function subtitles(state = initialState, action = {}) {
 }
 
 const undoableSubtitles = undoable(subtitles, {
-  filter: includeAction([BULK_UPDATE_MEDIA, COMBINE_MEDIA, UPDATE_MEDIA, REMOVE_MEDIA, UPDATE_TEXT])
+  filter: includeAction([BULK_UPDATE_MEDIA, COMBINE_MEDIA, UPDATE_MEDIA, REMOVE_MEDIA, UPDATE_TEXT]),
+  neverSkipReducer: true,
+  clearHistoryType: RESET_MEDIA
 })
 
 export default undoableSubtitles
