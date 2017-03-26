@@ -17,7 +17,7 @@
     "start-hot": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./main.development",
     "package": "cross-env NODE_ENV=production node -r babel-register -r babel-polyfill package.js",
     "package-all": "npm run package -- --all",
-    "postinstall": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
+    "postinstall": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json && node ./node_modules/.bin/electron-rebuild --pre-gyp-fix",
     "dev": "concurrently --kill-others \"npm run hot-server\" \"npm run start-hot\"",
     "cleanup": "mop -v",
     "rebuild-packages": "./node_modules/.bin/electron-rebuild --pre-gyp-fix"
@@ -128,7 +128,7 @@
     "react-router-redux": "^4.0.6",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
-    "redux-undo": "^1.0.0-beta9",
+    "redux-undo": "^1.0.0-beta9-8",
     "source-map-support": "^0.4.3",
     "sqlite3": "^3.1.8",
     "videocards": "1.15.0"

@@ -1,5 +1,8 @@
 li.vertical-spacer:after {
   content: "|";
-  padding: 0 10px;
   color: #e7e7e7;
+}
+
+li.disabled {
+  pointer-events: none;
 }
