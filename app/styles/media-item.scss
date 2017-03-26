@@ -79,7 +79,17 @@
 
 }
 
+.media-item-time span {
+  color: #ccc;
+  margin-right: 5px;
+}
+
+.media-item-end-time {
+  margin-left: 15px;
+}
+
 .media-item .subtitle-tools {
+  padding-left: 0;
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
