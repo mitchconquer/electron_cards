@@ -22,7 +22,7 @@ class EditMenu extends Component {
   render() {
     const { onUndo, onRedo, canUndo, canRedo, createApkg } = this.props
     return (
-      <nav className='navbar navbar-default'>
+      <nav className='navbar navbar-default navbar-toolbar'>
         <div className='container-fluid'>
           <div className='navbar-header'>
             <button type='button' className='navbar-toggle collapsed' data-toggle='collapse' data-target='#bs-example-navbar-collapse-1' aria-expanded='false'>
@@ -33,24 +33,61 @@ class EditMenu extends Component {
             </button>
           </div>
 
-          <div className='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
+          <div className='collapse navbar-collapse'>
             <ul className='nav navbar-nav'>
-              <li className={classnames('', {disabled: !canUndo})}><a onClick={onUndo} >Undo</a></li>
-              <li className={classnames('', {disabled: !canRedo})}><a onClick={onRedo}>Redo</a></li>
+              <li className={classnames('toolbar-button', {disabled: !canUndo})}>
+                <a onClick={onUndo} >
+                  <i className="fa fa-undo" /><br />
+                  <span className="toolbar-label">
+                    Undo
+                  </span>
+                </a>
+              </li>
+              <li className={classnames('toolbar-button', {disabled: !canRedo})}>
+                <a onClick={onRedo}>
+                  <i className="fa fa-repeat" /><br />
+                  <span className="toolbar-label">
+                    Redo
+                  </span>
+                </a>
+              </li>
             </ul>
-            <form className='navbar-form navbar-left'>
-              <div className='form-group'>
+            <form className='navbar-form nav navbar-nav form-filter'>
+              <div className='input-group'>
+                <span className='input-group-addon'><i className='fa fa-filter' /></span>
                 <input type='text' className='form-control filter-input' value={this.props.filter} onChange={this.props.onFilterChange} placeholder='Filter' />
               </div>
             </form>
-            <ul className='nav navbar-nav navbar-left'>
-              <li><a onClick={this.selectAll}>Select All</a></li>
-              <li><a onClick={this.selectNone}>Select None</a></li>
+            <ul className='nav navbar-nav'>
+              <li className='toolbar-button'>
+                <a onClick={this.selectAll}>
+                  <i className="fa fa-check-square-o" /><br />
+                  <span className="toolbar-label">
+                    Select All
+                  </span>
+                </a>
+              </li>
+              <li className='toolbar-button'>
+                <a onClick={this.selectNone}>
+                  <i className="fa fa-square-o" /><br />
+                  <span className="toolbar-label">
+                    Select None
+                  </span>
+                </a>
+              </li>
               <li className='vertical-spacer navbar-text'></li>
             </ul>
             <BulkEditMenu media={this.props.media} bulkEditMedia={this.props.bulkEditMedia} />
             <ul className='nav navbar-nav navbar-right'>
-              <li><a onClick={createApkg}>Create Anki Deck!</a></li>
+              <li className='vertical-spacer navbar-text'></li>
+              <li className='toolbar-button'>
+                <a onClick={createApkg}>
+                  <i className='fa fa-download' /><br />
+                  <span className="toolbar-label">
+                    Create Anki Deck!
+                  </span>
+                </a>
+              </li>
             </ul>
           </div>
         </div>

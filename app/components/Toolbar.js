@@ -1,10 +1,7 @@
-import { updateMediaTimes } from '../utils/media_utils'
 import React, { Component, PropTypes } from 'react'
-require('../styles/toolbar.scss')
+import { updateMediaTimes } from '../utils/media_utils'
 
 class Toolbar extends Component {
-
-
   static propTypes = {
     updateMedia: PropTypes.func.isRequired,
     mediaItem: PropTypes.object.isRequired

@@ -35,7 +35,8 @@ class Edit extends Component {
 
     return (
       <div>
-        <h1>Edit Page</h1>
+        <h1>App Name Placeholder</h1>
+        <p>Each item below will be a flashcard in Anki. Preview and edit them below. Click "Create Anki Deck" to export the deck.</p>
         <EditMenu media={media} bulkEditMedia={bulkEditMedia} onFilterChange={this.onFilterChange} filter={filter} selectMedia={selectMedia} canRedo={canRedo} canUndo={canUndo} onRedo={onRedo} onUndo={onUndo} createApkg={createApkg} />
         <div className="row">
           {this.filteredMediaItems()}
