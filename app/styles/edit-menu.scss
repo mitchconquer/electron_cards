@@ -5,4 +5,14 @@ li.vertical-spacer:after {
 
 li.disabled {
   pointer-events: none;
+  a, a .toolbar-label {
+    color: #ccc;
+  }
+}
+
+li.toolbar-button {
+  text-align: center;
+  .toolbar-label {
+    font-size: x-small;
+  }
 }

@@ -35,8 +35,22 @@ class EditMenu extends Component {
 
           <div className='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
             <ul className='nav navbar-nav'>
-              <li className={classnames('', {disabled: !canUndo})}><a onClick={onUndo} >Undo</a></li>
-              <li className={classnames('', {disabled: !canRedo})}><a onClick={onRedo}>Redo</a></li>
+              <li className={classnames('toolbar-button', {disabled: !canUndo})}>
+                <a onClick={onUndo} >
+                  <i className="fa fa-undo" /><br />
+                  <span className="toolbar-label">
+                    Undo
+                  </span>
+                </a>
+              </li>
+              <li className={classnames('toolbar-button', {disabled: !canRedo})}>
+                <a onClick={onRedo}>
+                  <i className="fa fa-repeat" /><br />
+                  <span className="toolbar-label">
+                    Redo
+                  </span>
+                </a>
+              </li>
             </ul>
             <form className='navbar-form navbar-left'>
               <div className='form-group'>
