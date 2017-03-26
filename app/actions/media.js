@@ -1,8 +1,9 @@
 import { remote } from 'electron'
+import { push } from 'react-router-redux'
+import { processing } from './files'
+
 const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards
 const desktopDir = remote.getGlobal('globalObj').desktopDir
-import { processing } from './files'
-import { push } from 'react-router-redux'
 
 export const BULK_UPDATE_MEDIA = 'BULK_UPDATE_MEDIA'
 export const COMBINE_MEDIA = 'COMBINE_MEDIA'

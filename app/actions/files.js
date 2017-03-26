@@ -1,12 +1,17 @@
-const Bromise = require('bluebird')
-import { resetMedia } from './media'
 import { push } from 'react-router-redux'
 import { remote } from 'electron'
+import { ActionTypes as UndoActionTypes } from 'redux-undo'
+import { resetMedia } from './media'
+
+const Bromise = require('bluebird')
+
 const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards
 
 export const SET_FILES = 'SET_FILES'
 export const SET_EMBEDDED_SUBS = 'SET_EMBEDDED_SUBS'
 export const PROCESSING = 'PROCESSING'
+export const INIT_UNDO_HISTORY = '@@redux-undo/INIT'
+export const CLEAR_UNDO_HISTORY = UndoActionTypes.CLEAR_HISTORY
 
 // ACTION CREATORS
 
@@ -39,12 +44,21 @@ export function setEmbeddedSubs(embeddedSubs) {
   }
 }
 
+export const initUndoHistory = () => ({
+  type: INIT_UNDO_HISTORY
+})
+
+export const clearUndoHistory = () => ({
+  type: CLEAR_UNDO_HISTORY
+})
+
 // ACTION CREATOR CREATORS
 
 export function processFiles(videoFile, subtitlesFile) {
   return dispatch => new Bromise((resolve, reject) => {
     dispatch(processing(true))
     dispatch(setFiles([videoFile, subtitlesFile]))
+    dispatch(initUndoHistory())
 
     let subtitles
     mediaFlashcards.initializeSubs(subtitlesFile.path, videoFile.path)
@@ -71,6 +85,9 @@ export function processFiles(videoFile, subtitlesFile) {
         )
         .then(
           () => dispatch(processing(false))
+        )
+        .then(
+          () => dispatch(clearUndoHistory())
         )
         .then(
           () => dispatch(push('/edit'))
