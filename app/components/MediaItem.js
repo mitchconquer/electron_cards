@@ -150,8 +150,8 @@ export default class MediaItem extends Component {
             >
               <div className="media-item-text">{this.renderText()}</div>
               <br />
-              <div className="media-item-time media-item-start-time">{mediaItem.startTime}</div>
-              <div className="media-item-time media-item-end-time">{mediaItem.endTime}</div>
+              <div className="media-item-time media-item-start-time"><span>Start:</span>{mediaItem.startTime}</div>
+              <div className="media-item-time media-item-end-time"><span>End:</span>{mediaItem.endTime}</div>
             </div>
           </div>
         </div>

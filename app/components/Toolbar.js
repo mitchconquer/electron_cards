@@ -30,25 +30,53 @@ class Toolbar extends Component {
   render() {
     return (
       <ul className="subtitle-tools">
-        <li>
-          Start Time<br />
-          <a onClick={this.adjustTime.bind(this, 'add', 'start')}><i className="fa fa-plus" aria-hidden="true" /></a>
-          &nbsp;
-          <a onClick={this.adjustTime.bind(this, 'subtract', 'start')}><i className="fa fa-minus" aria-hidden="true" /></a>
+        <li className='toolbar-button'>
+          <a onClick={this.adjustTime.bind(this, 'add', 'start')}>
+            <i className='fa fa-chevron-left' /><br />
+            <span className="toolbar-label">
+              Start Earlier
+            </span>
+          </a>
         </li>
-        <li>
-          Shift Backward<br />
-          <a onClick={this.shiftBackward.bind(this)}><i className="fa fa-backward fa-lg" aria-hidden="true" /></a>
+        <li className='toolbar-button'>
+          <a onClick={this.adjustTime.bind(this, 'subtract', 'start')}>
+            <i className='fa fa-chevron-right' /><br />
+            <span className="toolbar-label">
+              Start Later
+            </span>
+          </a>
         </li>
-        <li>
-          Shift Forward<br />
-          <a onClick={this.shiftForward.bind(this)}><i className="fa fa-forward fa-lg" aria-hidden="true" /></a>
+        <li className='toolbar-button'>
+          <a onClick={this.shiftBackward.bind(this)}>
+            <i className='fa fa-angle-double-left' /><br />
+            <span className="toolbar-label">
+              Shift Backward
+            </span>
+          </a>
         </li>
-        <li>
-          End Time<br />
-          <a onClick={this.adjustTime.bind(this, 'add', 'end')}><i className="fa fa-plus" aria-hidden="true" /></a>
-          &nbsp;
-          <a onClick={this.adjustTime.bind(this, 'subtract', 'end')}><i className="fa fa-minus" aria-hidden="true" /></a>
+        <li className='toolbar-button'>
+          <a onClick={this.shiftForward.bind(this)}>
+            <i className='fa fa-angle-double-right' /><br />
+            <span className="toolbar-label">
+              Shift Forward
+            </span>
+          </a>
+        </li>
+        <li className='toolbar-button'>
+          <a onClick={this.adjustTime.bind(this, 'subtract', 'end')}>
+            <i className='fa fa-chevron-left' /><br />
+            <span className="toolbar-label">
+              End Earlier
+            </span>
+          </a>
+        </li>
+        <li className='toolbar-button'>
+          <a onClick={this.adjustTime.bind(this, 'add', 'end')}>
+            <i className='fa fa-chevron-right' /><br />
+            <span className="toolbar-label">
+              End Later
+            </span>
+          </a>
         </li>
       </ul>
     )
