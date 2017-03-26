@@ -61,35 +61,55 @@ class BulkEditMenu extends Component {
 
   render() {
     return (
-      <ul className={classnames('subtitle-tools nav navbar-nav navbar-left', { 'disabled': !this.multipleSelected() })}>
+      <ul className={classnames('bulk-edit-tools nav navbar-nav navbar-left', { 'disabled': !this.multipleSelected() })}>
         <li className='navbar-text'>Bulk Editing Tools:</li>
-        <li>
-          <span className='navbar-text'>
-            Start Time:&nbsp;
-            <a onClick={this.bulkEdit.bind(this, 'add', 'start', 200)}>+</a>
-            &nbsp;
-            <a onClick={this.bulkEdit.bind(this, 'subtract', 'start', 200)}>-</a>
-          </span>
+        <li className='toolbar-button'>
+          <a onClick={this.bulkEdit.bind(this, 'add', 'start', 200)}>
+            <i className='fa fa-chevron-left' /><br />
+            <span className="toolbar-label">
+              Start Earlier
+            </span>
+          </a>
         </li>
-        <li>
-          <span className='navbar-text'>
-            Shift Backward:&nbsp;
-            <a onClick={this.shiftBackward}>⇐</a>
-          </span>
+        <li className='toolbar-button'>
+          <a onClick={this.bulkEdit.bind(this, 'subtract', 'start', 200)}>
+            <i className='fa fa-chevron-right' /><br />
+            <span className="toolbar-label">
+              Start Later
+            </span>
+          </a>
         </li>
-        <li>
-          <span className='navbar-text'>
-            Shift Forward:&nbsp;
-            <a onClick={this.shiftForward}>⇒</a>
-          </span>
+        <li className='toolbar-button'>
+          <a onClick={this.shiftBackward}>
+            <i className='fa fa-angle-double-left' /><br />
+            <span className="toolbar-label">
+              Shift Backward
+            </span>
+          </a>
         </li>
-        <li>
-          <span className='navbar-text'>
-            End Time:&nbsp;
-            <a onClick={this.bulkEdit.bind(this, 'add', 'end', 200)}>+</a>
-            &nbsp;
-            <a onClick={this.bulkEdit.bind(this, 'subtract', 'end', 200)}>-</a>
-          </span>
+        <li className='toolbar-button'>
+          <a onClick={this.shiftForward}>
+            <i className='fa fa-angle-double-right' /><br />
+            <span className="toolbar-label">
+              Shift Forward
+            </span>
+          </a>
+        </li>
+        <li className='toolbar-button'>
+          <a onClick={this.bulkEdit.bind(this, 'subtract', 'end', 200)}>
+            <i className='fa fa-chevron-left' /><br />
+            <span className="toolbar-label">
+              End Earlier
+            </span>
+          </a>
+        </li>
+        <li className='toolbar-button'>
+          <a onClick={this.bulkEdit.bind(this, 'add', 'end', 200)}>
+            <i className='fa fa-chevron-right' /><br />
+            <span className="toolbar-label">
+              End Later
+            </span>
+          </a>
         </li>
       </ul>
     )
