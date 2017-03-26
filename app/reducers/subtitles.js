@@ -74,9 +74,9 @@ function subtitles(state = initialState, action = {}) {
         }, {})
     case SELECT_NONE:
       const noneSelected = {}
-      Object.keys(state).forEach(key => {
-        noneSelected[key] = {
-          ...state[key],
+      Object.values(state).forEach(subtitle => {
+        noneSelected[subtitle.index] = {
+          ...subtitle,
           selected: false
         }
       })
