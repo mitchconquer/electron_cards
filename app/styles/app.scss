@@ -54,3 +54,12 @@ a:hover {
 .dont-show {
   visibility: hidden;
 }
+
+
+.form-control {
+  transition: border-color 0.2s;
+  &:focus {
+    border-color: #6710fd;
+    box-shadow: none;
+  }
+}
