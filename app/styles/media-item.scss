@@ -79,6 +79,15 @@
 
 }
 
+.media-item .subtitle-tools {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  li {
+    margin-right: 25px;
+  }
+}
+
 .media-item-text {
   font-size: larger;
   font-weight: 900;
