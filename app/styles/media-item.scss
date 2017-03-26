@@ -85,6 +85,12 @@
   justify-content: flex-start;
   li {
     margin-right: 25px;
+    a {
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: #6710fd;
+    }
   }
 }
 
