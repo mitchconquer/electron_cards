@@ -4,7 +4,6 @@ import { COMBINE_MEDIA, REMOVE_MEDIA, RESET_MEDIA,
          SELECT_ALL, SELECT_NONE, TOGGLE_CHECKBOX,
          UPDATE_MEDIA, BULK_UPDATE_MEDIA, UPDATE_TEXT
        } from '../actions/media'
-import { INIT_UNDO_HISTORY } from '../actions/files'
 
 export const initialState = {}
 
@@ -104,11 +103,7 @@ function subtitles(state = initialState, action = {}) {
 
 const undoableSubtitles = undoable(subtitles, {
   filter: includeAction([BULK_UPDATE_MEDIA, COMBINE_MEDIA, UPDATE_MEDIA, REMOVE_MEDIA, UPDATE_TEXT]),
-  neverSkipReducer: false,
-
-  debug: true,
-  limit: false,
-  initTypes: [INIT_UNDO_HISTORY]
+  limit: false
 })
 
 export default undoableSubtitles

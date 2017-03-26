@@ -84,10 +84,10 @@ export function processFiles(videoFile, subtitlesFile) {
           subs => dispatch(resetMedia(subs))
         )
         .then(
-          () => dispatch(processing(false))
+          () => dispatch(clearUndoHistory())
         )
         .then(
-          () => dispatch(clearUndoHistory())
+          () => dispatch(processing(false))
         )
         .then(
           () => dispatch(push('/edit'))
