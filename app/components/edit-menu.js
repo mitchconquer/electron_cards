@@ -77,7 +77,7 @@ class EditMenu extends Component {
               </li>
               <li className='vertical-spacer navbar-text'></li>
             </ul>
-            <BulkEditMenu media={this.props.media} bulkEditMedia={this.props.bulkEditMedia} />
+            <BulkEditMenu media={this.props.media} bulkEditMedia={this.props.bulkEditMedia} bulkDeleteMedia={this.props.bulkDeleteMedia} />
             <ul className='nav navbar-nav navbar-right'>
               <li className='vertical-spacer navbar-text'></li>
               <li className='toolbar-button'>
@@ -98,6 +98,7 @@ class EditMenu extends Component {
 
 EditMenu.propTypes = {
   bulkEditMedia: PropTypes.func.isRequired,
+  bulkDeleteMedia: PropTypes.func.isRequired,
   createApkg: PropTypes.func.isRequired,
   filter: PropTypes.string,
   onFilterChange: PropTypes.func.isRequired,

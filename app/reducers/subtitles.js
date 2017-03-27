@@ -2,7 +2,8 @@
 import undoable, { includeAction } from 'redux-undo'
 import { COMBINE_MEDIA, REMOVE_MEDIA, RESET_MEDIA,
          SELECT_ALL, SELECT_NONE, TOGGLE_CHECKBOX,
-         UPDATE_MEDIA, BULK_UPDATE_MEDIA, UPDATE_TEXT
+         UPDATE_MEDIA, BULK_UPDATE_MEDIA, UPDATE_TEXT,
+         BULK_DELETE_MEDIA
        } from '../actions/media'
 
 export const initialState = {}
@@ -10,7 +11,7 @@ export const initialState = {}
 function subtitles(state = initialState, action = {}) {
   const newState = {}
   switch (action.type) {
-    case BULK_UPDATE_MEDIA:
+    case BULK_UPDATE_MEDIA: {
       const bulkUpdated = {
         ...state
       }
@@ -18,17 +19,29 @@ function subtitles(state = initialState, action = {}) {
         bulkUpdated[key] = { ...action.updatedMedia[key] }
       })
       return bulkUpdated
-    case COMBINE_MEDIA:
-      Object.keys(state).forEach(key => {
-        const notNew = state[key].index !== action.updatedMedia.index
-        const notToRemove = state[key].index !== action.toRemove
-        if (notNew && notToRemove) {
-          newState[key] = { ...state[key] }
+    }
+    case BULK_DELETE_MEDIA: {
+      console.log('bulkDeleting')
+      const remainingSubs = Object.values(state).filter(item => !item.selected)
+      return remainingSubs.reduce((stateObj, subtitle) => ({
+        ...stateObj,
+        [subtitle.index]: {
+          ...subtitle
         }
-      })
-      newState[action.updatedMedia.index] = action.updatedMedia
-      return newState
-    case REMOVE_MEDIA:
+      }), {})
+    }
+    case COMBINE_MEDIA: {
+        Object.keys(state).forEach(key => {
+          const notNew = state[key].index !== action.updatedMedia.index
+          const notToRemove = state[key].index !== action.toRemove
+          if (notNew && notToRemove) {
+            newState[key] = { ...state[key] }
+          }
+        })
+        newState[action.updatedMedia.index] = action.updatedMedia
+        return newState
+    }
+    case REMOVE_MEDIA: {
       return Object.keys(state)
         .reduce((remainingMedia, index) => {
           if (parseInt(index) !== action.index) {
@@ -41,11 +54,13 @@ function subtitles(state = initialState, action = {}) {
           }
           return remainingMedia
         }, {})
-    case RESET_MEDIA:
+    }
+    case RESET_MEDIA: {
       return {
         ...action.media
       }
-    case TOGGLE_CHECKBOX:
+    }
+    case TOGGLE_CHECKBOX: {
       return {
         ...state,
         [action.index]: {
@@ -53,7 +68,8 @@ function subtitles(state = initialState, action = {}) {
           selected: !state[action.index].selected
         }
       }
-    case SELECT_ALL:
+    }
+    case SELECT_ALL: {
       // Only select subtitle items that match the fitler
       return Object.values(state)
         .reduce((newState, subtitle) => {
@@ -76,7 +92,8 @@ function subtitles(state = initialState, action = {}) {
             }
           }
         }, {})
-    case SELECT_NONE:
+    }
+    case SELECT_NONE: {
       const noneSelected = {}
       Object.values(state).forEach(subtitle => {
         noneSelected[subtitle.index] = {
@@ -85,14 +102,16 @@ function subtitles(state = initialState, action = {}) {
         }
       })
       return noneSelected
-    case UPDATE_MEDIA:
+    }
+    case UPDATE_MEDIA: {
       return {
         ...state,
         [action.updatedMedia.index]: {
           ...action.updatedMedia
         }
       }
-    case UPDATE_TEXT:
+    }
+    case UPDATE_TEXT: {
       return {
         ...state,
         [action.index]: {
@@ -100,8 +119,10 @@ function subtitles(state = initialState, action = {}) {
           text: `${action.text}`
         }
       }
-    default:
+    }
+    default: {
       return state
+    }
   }
 }
 

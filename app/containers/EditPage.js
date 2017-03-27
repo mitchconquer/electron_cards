@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import Edit from '../components/Edit'
 import { combineSubtitles, createApkg, toggleCheckbox,
          updateMediaTimes, selectMedia,
-         bulkEditMedia, updateText, removeMedia
+         bulkEditMedia, updateText, removeMedia,
+         bulkDeleteMedia
        } from '../actions/media'
 import { updateFilter } from '../actions/filter'
 import { ActionCreators as UndoActionCreators } from 'redux-undo'
@@ -21,6 +22,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     bulkEditMedia: updatedMedia => dispatch(bulkEditMedia(updatedMedia)),
+    bulkDeleteMedia: () => dispatch(bulkDeleteMedia()),
     combineSubtitles: (subtitle1, subtitle2) => dispatch(combineSubtitles(subtitle1, subtitle2)),
     createApkg: () => dispatch(createApkg()),
     onRedo: () => dispatch(UndoActionCreators.redo()),
