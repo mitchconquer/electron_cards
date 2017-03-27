@@ -31,13 +31,13 @@ class Edit extends Component {
   }
 
   render() {
-    const { bulkEditMedia, canRedo, canUndo, createApkg, filter, media, onRedo, onUndo, selectMedia } = this.props
+    const { bulkEditMedia, bulkDeleteMedia, canRedo, canUndo, createApkg, filter, media, onRedo, onUndo, selectMedia } = this.props
 
     return (
       <div>
         <h1>App Name Placeholder</h1>
         <p>Each item below will be a flashcard in Anki. Preview and edit them below. Click "Create Anki Deck" to export the deck.</p>
-        <EditMenu media={media} bulkEditMedia={bulkEditMedia} onFilterChange={this.onFilterChange} filter={filter} selectMedia={selectMedia} canRedo={canRedo} canUndo={canUndo} onRedo={onRedo} onUndo={onUndo} createApkg={createApkg} />
+        <EditMenu media={media} bulkEditMedia={bulkEditMedia} onFilterChange={this.onFilterChange} filter={filter} selectMedia={selectMedia} canRedo={canRedo} canUndo={canUndo} onRedo={onRedo} onUndo={onUndo} createApkg={createApkg} bulkDeleteMedia={bulkDeleteMedia} />
         <div className="row">
           {this.filteredMediaItems()}
         </div>
@@ -48,6 +48,7 @@ class Edit extends Component {
 
 Edit.propTypes = {
   bulkEditMedia: PropTypes.func.isRequired,
+  bulkDeleteMedia: PropTypes.func.isRequired,
   canRedo: PropTypes.bool.isRequired,
   canUndo: PropTypes.bool.isRequired,
   combineSubtitles: PropTypes.func.isRequired,

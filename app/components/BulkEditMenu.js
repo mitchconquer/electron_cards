@@ -14,6 +14,7 @@ class BulkEditMenu extends Component {
 
   static propTypes = {
     bulkEditMedia: PropTypes.func.isRequired,
+    bulkDeleteMedia: PropTypes.func.isRequired,
     media: PropTypes.object.isRequired
   }
 
@@ -108,6 +109,14 @@ class BulkEditMenu extends Component {
             <i className='fa fa-chevron-right' /><br />
             <span className="toolbar-label">
               End Later
+            </span>
+          </a>
+        </li>
+        <li className='toolbar-button'>
+          <a onClick={this.props.bulkDeleteMedia}>
+            <i className='fa fa-trash-o' /><br />
+            <span className="toolbar-label">
+              Delete
             </span>
           </a>
         </li>

@@ -5,6 +5,7 @@ import { processing } from './files'
 const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards
 const desktopDir = remote.getGlobal('globalObj').desktopDir
 
+export const BULK_DELETE_MEDIA = 'BULK_DELETE_MEDIA'
 export const BULK_UPDATE_MEDIA = 'BULK_UPDATE_MEDIA'
 export const COMBINE_MEDIA = 'COMBINE_MEDIA'
 export const REMOVE_MEDIA = 'REMOVE_MEDIA'
@@ -59,6 +60,9 @@ export function updateMedia(updatedMedia) {
   }
 }
 
+export const bulkDeleteMedia = () => ({
+  type: BULK_DELETE_MEDIA
+})
 
 export function bulkUpdateMedia(updatedMedia) {
   return {
