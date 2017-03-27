@@ -62,14 +62,18 @@ function subtitles(state = initialState, action = {}) {
           if (matches) {
             return {
               ...newState,
-              [subtitle.id]: {
+              [subtitle.index]: {
                 ...subtitle,
                 selected: true
               }
             }
           }
           return {
-            ...newState
+            ...newState,
+            [subtitle.index]: {
+              ...subtitle,
+              selected: false
+            }
           }
         }, {})
     case SELECT_NONE:
