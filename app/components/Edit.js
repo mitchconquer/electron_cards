@@ -33,14 +33,28 @@ class Edit extends Component {
   render() {
     const { bulkEditMedia, bulkDeleteMedia, canRedo, canUndo, createApkg, filter, media, onRedo, onUndo, selectMedia } = this.props
 
+    const totalCards = Object.keys(media).length
+    const filteredMediaItems = this.filteredMediaItems()
+    const totalDisplaying = filteredMediaItems.length
+    const totalSelected = Object.values(media).filter(item => item.selected).length
+
     return (
       <div>
-        <h1>App Name Placeholder</h1>
-        <p>Each item below will be a flashcard in Anki. Preview and edit them below. Click "Create Anki Deck" to export the deck.</p>
+        <div className='container'>
+          <div className='row'>
+            <div className='col-xs-12'>
+              <h1>Movie Dialog to Flashcards</h1>
+              <p>
+                Each item below will be a flashcard in Anki. Preview and edit them below. Click "Create Anki Deck" to export the deck.<br />
+                Will export: {totalCards} cards{ totalCards !== totalDisplaying ? `, Displaying: ${totalDisplaying} cards` : '' }{ totalSelected ? `, Selected: ${totalSelected} cards` : '' }
+              </p>
+            </div>
+          </div>
+        </div>
         <EditMenu media={media} bulkEditMedia={bulkEditMedia} onFilterChange={this.onFilterChange} filter={filter} selectMedia={selectMedia} canRedo={canRedo} canUndo={canUndo} onRedo={onRedo} onUndo={onUndo} createApkg={createApkg} bulkDeleteMedia={bulkDeleteMedia} />
         <div className='container'>
           <div className='row'>
-            {this.filteredMediaItems()}
+            {filteredMediaItems}
           </div>
         </div>
       </div>

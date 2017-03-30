@@ -79,7 +79,7 @@ export default class Home extends Component {
 
         <div className="row" >
           <div className="col-xs-12">
-            <h1>App Name Placeholder</h1>
+            <h1>Movie Dialog to Flashcards</h1>
           </div>
           <div className="col-xs-12" />
           <div className="col-sm-5">
