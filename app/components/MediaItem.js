@@ -112,9 +112,9 @@ export default class MediaItem extends Component {
     if (isDragging) {
       backgroundColor = '#b2b2b2'
     } else if (isOver) {
-      backgroundColor = '#6710fd'
+      backgroundColor = '#a8ffd7'
     } else {
-      backgroundColor = 'transparent'
+      backgroundColor = '#fff'
     }
 
     return connectDropTarget(connectDragSource(
