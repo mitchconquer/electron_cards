@@ -1,8 +1,8 @@
 {
-  "name": "electron_cards",
-  "productName": "electron_cards",
+  "name": "Movie Dialog to Flashcards",
+  "productName": "Movie Dialog to Flashcards",
   "version": "0.11.0",
-  "description": "An Electron app to create flashcards from video files and subtitles",
+  "description": "Create Anki flashcards from videos and subtitles",
   "main": "main.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 mocha --compilers js:babel-register --recursive --require ./test/setup.js test/**/*.spec.js",
