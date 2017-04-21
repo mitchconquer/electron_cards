@@ -1,9 +1,9 @@
 {
-  "name": "Movie Dialog to Flashcards",
-  "productName": "Movie Dialog to Flashcards",
+  "name": "video_to_flashcards",
+  "productName": "Video to Flashcards",
   "version": "0.11.0",
   "description": "Create Anki flashcards from videos and subtitles",
-  "main": "main.js",
+  "main": "./main.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 mocha --compilers js:babel-register --recursive --require ./test/setup.js test/**/*.spec.js",
     "test-watch": "npm test -- --watch",
@@ -17,10 +17,14 @@
     "start-hot": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./main.development",
     "package": "cross-env NODE_ENV=production node -r babel-register -r babel-polyfill package.js",
     "package-all": "npm run package -- --all",
-    "postinstall": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json && node ./node_modules/.bin/electron-rebuild --pre-gyp-fix",
+    "postinstall2": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json && node ./node_modules/.bin/electron-rebuild --pre-gyp-fix",
+    "postinstall": "install-app-deps",
     "dev": "concurrently --kill-others \"npm run hot-server\" \"npm run start-hot\"",
     "cleanup": "mop -v",
     "rebuild-packages": "./node_modules/.bin/electron-rebuild --pre-gyp-fix"
+  },
+  "build": {
+    "nodeGypRebuild": true
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -36,7 +40,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chentsulin/electron_cards/issues"
+    "url": "https://github.com/mitchconquer/electron_cards/issues"
   },
   "keywords": [
     "electron",
@@ -46,7 +50,7 @@
     "language",
     "learning"
   ],
-  "homepage": "https://github.com/chentsulin/electron_cards#readme",
+  "homepage": "https://github.com/mitchconquer/electron_cards#readme",
   "devDependencies": {
     "asar": "^0.12.3",
     "babel-core": "^6.17.0",
