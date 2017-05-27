@@ -42,7 +42,10 @@ app.on('ready', async () => {
     show: false,
     width: 1324,
     height: 728,
-    minWidth: 1000
+    minWidth: 1000,
+    webPreferences: {
+      devTools: true
+    }
   });
 
   mainWindow.loadURL(`file://${__dirname}/app/app.html`);
@@ -56,8 +59,8 @@ app.on('ready', async () => {
     mainWindow = null;
   });
 
-  if (process.env.NODE_ENV === 'development') {
     mainWindow.openDevTools();
+  if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.on('context-menu', (e, props) => {
       const { x, y } = props;
 
