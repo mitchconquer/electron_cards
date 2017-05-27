@@ -1,6 +1,6 @@
 import Bromise from 'bluebird'
 import { remote } from 'electron'
-const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards
+const mediaFlashcards = require('videocards')
 
 export function updateMediaTimes(media, action, position, msecs, useVersionHash) {
   const updatedMedia = {

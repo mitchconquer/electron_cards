@@ -1,11 +1,9 @@
 import { push } from 'react-router-redux'
-import { remote } from 'electron'
 import { ActionTypes as UndoActionTypes } from 'redux-undo'
 import { resetMedia } from './media'
 
 const Bromise = require('bluebird')
-
-const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards
+const mediaFlashcards = require('videocards')
 
 export const SET_FILES = 'SET_FILES'
 export const SET_EMBEDDED_SUBS = 'SET_EMBEDDED_SUBS'

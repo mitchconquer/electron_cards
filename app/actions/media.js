@@ -2,7 +2,8 @@ import { remote } from 'electron'
 import { push } from 'react-router-redux'
 import { processing } from './files'
 
-const mediaFlashcards = remote.getGlobal('globalObj').mediaFlashcards
+const mediaFlashcards = require('videocards')
+
 const desktopDir = remote.getGlobal('globalObj').desktopDir
 
 export const BULK_DELETE_MEDIA = 'BULK_DELETE_MEDIA'

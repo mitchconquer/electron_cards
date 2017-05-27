@@ -1,12 +1,10 @@
 import { app, BrowserWindow, Menu, shell } from 'electron';
-const mediaFlashcards = require('videocards');
 
 let menu;
 let template;
 let mainWindow = null;
 
 global.globalObj = {
-  mediaFlashcards,
   desktopDir: app.getPath('desktop')
 };
 

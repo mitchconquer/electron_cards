@@ -1,12 +1,10 @@
 // @flow
 import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
 import FileDrop from './FileDrop'
 import Loader from './Loader'
 import GoMenu from './go-menu'
 import EmbeddedSubs from './embedded-subs'
 import { extractSubsFile } from '../utils/media_utils'
-import classnames from 'classnames'
 
 require('../styles/home.scss')
 

@@ -2,8 +2,18 @@
  * Base webpack config used across other specific configs
  */
 
-import path from 'path';
-import validate from 'webpack-validator';
+import path from 'path'
+import validate from 'webpack-validator'
+import fs from 'fs'
+
+const nodeModules = {}
+fs.readdirSync('node_modules')
+  .filter(x => (
+    ['.bin'].indexOf(x) === -1
+  ))
+  .forEach(mod => {
+    nodeModules[mod] = `commonjs ${mod}`
+  })
 
 export default validate({
   module: {
@@ -35,18 +45,16 @@ export default validate({
   // https://webpack.github.io/docs/configuration.html#resolve
   resolve: {
     extensions: ['', '.js', '.jsx', '.json'],
-    packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
+    packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main'],
+    alias: {
+      'fluent-ffmpeg': 'fluent-ffmpeg/lib/fluent-ffmpeg.js'
+    }
   },
 
   plugins: [],
 
-  externals: [
-    'bootstrap'
-  ],
-
-  resolve: {
-    alias: {
-      'fluent-ffmpeg': 'fluent-ffmpeg/lib/fluent-ffmpeg.js'
-    }
+  externals: {
+    ...nodeModules,
+    bootstrap: 'bootstrap'
   }
-});
+})
